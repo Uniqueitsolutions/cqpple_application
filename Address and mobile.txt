@@ -1,0 +1,30 @@
+// Container(
+                                    //     margin: EdgeInsets.only(top: 8,left: 25,right: 20),
+                                    //     child: Expanded(
+                                    //       child: Row(
+                                    //         children: [
+                                    //           Expanded(
+                                    //             child: Text(
+                                    //               "Address : ",
+                                    //               style: GoogleFonts.poppins(
+                                    //                   fontStyle: FontStyle.normal,
+                                    //                   fontSize: 12,
+                                    //                   fontWeight: FontWeight.w600,
+                                    //                   color: Color.fromRGBO(
+                                    //                       29, 29, 29, 1)),
+                                    //             ),
+                                    //           ),
+                                    //           Expanded(
+                                    //             child: Text(
+                                    //               "Rajkot, Gujarat",
+                                    //               style: GoogleFonts.poppins(
+                                    //                   fontStyle: FontStyle.normal,
+                                    //                   fontSize: 12,
+                                    //                   fontWeight: FontWeight.w500,
+                                    //                   color: Color.fromRGBO(
+                                    //                       131, 131, 131, 1)),
+                                    //             ),
+                                    //           )
+                                    //         ],
+                                    //       ),
+                                    //     )),
