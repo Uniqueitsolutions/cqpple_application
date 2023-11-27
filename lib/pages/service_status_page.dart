@@ -25,7 +25,7 @@ class ServiceStatusPage extends StatefulWidget {
   String? ServiceID = "0";
   bool isSnakebar = true;
   bool isLoading = false;
-  ServiceStatusPage({String? ServiceID}) {
+  ServiceStatusPage({super.key, String? ServiceID}) {
     this.ServiceID = ServiceID;
   }
 
@@ -39,14 +39,14 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
   bool isLogoutAvailable = false;
   bool colorFlag = false;
   int starRating = 0;
-  dynamic starIcon1 = Icon(
+  dynamic starIcon1 = const Icon(
     Icons.star_border_outlined,
     size: 28,
   );
-  dynamic starIcon2 = Icon(Icons.star_border_outlined, size: 28);
-  dynamic starIcon3 = Icon(Icons.star_border_outlined, size: 28);
-  dynamic starIcon4 = Icon(Icons.star_border_outlined, size: 28);
-  dynamic starIcon5 = Icon(Icons.star_border_outlined, size: 28);
+  dynamic starIcon2 = const Icon(Icons.star_border_outlined, size: 28);
+  dynamic starIcon3 = const Icon(Icons.star_border_outlined, size: 28);
+  dynamic starIcon4 = const Icon(Icons.star_border_outlined, size: 28);
+  dynamic starIcon5 = const Icon(Icons.star_border_outlined, size: 28);
 
   @override
   Widget build(BuildContext context) {
@@ -58,14 +58,14 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
           child: Scaffold(
             body: Stack(
               children: [
-                InternetChecking(),
+                const InternetChecking(),
                 CustomAppBar(
                   title1: "",
                   title2: "Service Status",
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 160),
-                  decoration: BoxDecoration(
+                  margin: const EdgeInsets.only(top: 160),
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                       topRight: Radius.circular(20),
                       topLeft: Radius.circular(20),
@@ -79,16 +79,16 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
                         isServiceGet = false;
                         return SingleChildScrollView(
                           child: Container(
-                            margin: EdgeInsets.only(left: 30, right: 30),
+                            margin: const EdgeInsets.only(left: 30, right: 30),
                             child: Column(
                               children: [
                                 Center(
                                   child: Container(
                                     height: 130,
-                                    margin: EdgeInsets.only(top: 20),
+                                    margin: const EdgeInsets.only(top: 20),
                                     width:
                                         MediaQuery.of(context).size.width - 50,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(20)),
                                         color: Color.fromRGBO(
@@ -98,7 +98,7 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Container(
-                                          margin: EdgeInsets.only(
+                                          margin: const EdgeInsets.only(
                                               top: 20, left: 30),
                                           child: Text(
                                             snapshot.data!["Name"].toString(),
@@ -107,19 +107,20 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
                                                 fontSize: 24,
                                                 fontWeight: FontWeight.w600,
                                                 fontStyle: FontStyle.normal,
-                                                color: Color.fromRGBO(
+                                                color: const Color.fromRGBO(
                                                     29, 29, 29, 1)),
                                           ),
                                         ),
                                         Container(
-                                          margin:
-                                              EdgeInsets.only(top: 8, left: 30),
+                                          margin: const EdgeInsets.only(
+                                              top: 8, left: 30),
                                           child: Row(
                                             children: [
                                               Flexible(
+                                                flex: 2,
                                                 child: Container(
-                                                  margin:
-                                                      EdgeInsets.only(right: 5),
+                                                  margin: const EdgeInsets.only(
+                                                      right: 5),
                                                   child: Text(
                                                     "Address :",
                                                     textAlign: TextAlign.end,
@@ -129,16 +130,17 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
                                                         fontSize: 12,
                                                         fontWeight:
                                                             FontWeight.w600,
-                                                        color: Color.fromRGBO(
+                                                        color: const Color
+                                                            .fromRGBO(
                                                             29, 29, 29, 1)),
                                                   ),
                                                 ),
-                                                flex: 2,
                                               ),
                                               Flexible(
+                                                flex: 3,
                                                 child: Container(
-                                                  margin:
-                                                      EdgeInsets.only(left: 5),
+                                                  margin: const EdgeInsets.only(
+                                                      left: 5),
                                                   child: Text(
                                                     snapshot.data!["Address"],
                                                     textAlign: TextAlign.start,
@@ -148,24 +150,25 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
                                                         fontSize: 12,
                                                         fontWeight:
                                                             FontWeight.w500,
-                                                        color: Color.fromRGBO(
+                                                        color: const Color
+                                                            .fromRGBO(
                                                             181, 181, 181, 1)),
                                                   ),
                                                 ),
-                                                flex: 3,
                                               ),
                                             ],
                                           ),
                                         ),
                                         Container(
-                                          margin:
-                                              EdgeInsets.only(top: 8, left: 30),
+                                          margin: const EdgeInsets.only(
+                                              top: 8, left: 30),
                                           child: Row(
                                             children: [
                                               Flexible(
+                                                flex: 2,
                                                 child: Container(
-                                                  margin:
-                                                      EdgeInsets.only(right: 5),
+                                                  margin: const EdgeInsets.only(
+                                                      right: 5),
                                                   child: Text(
                                                     "Mobile No. :",
                                                     textAlign: TextAlign.end,
@@ -175,16 +178,17 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
                                                         fontSize: 12,
                                                         fontWeight:
                                                             FontWeight.w600,
-                                                        color: Color.fromRGBO(
+                                                        color: const Color
+                                                            .fromRGBO(
                                                             29, 29, 29, 1)),
                                                   ),
                                                 ),
-                                                flex: 2,
                                               ),
                                               Flexible(
+                                                flex: 3,
                                                 child: Container(
-                                                  margin:
-                                                      EdgeInsets.only(left: 5),
+                                                  margin: const EdgeInsets.only(
+                                                      left: 5),
                                                   child: Text(
                                                     snapshot.data![
                                                         "WhatsappNumber"],
@@ -195,11 +199,11 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
                                                         fontSize: 12,
                                                         fontWeight:
                                                             FontWeight.w500,
-                                                        color: Color.fromRGBO(
+                                                        color: const Color
+                                                            .fromRGBO(
                                                             181, 181, 181, 1)),
                                                   ),
                                                 ),
-                                                flex: 3,
                                               )
                                             ],
                                           ),
@@ -209,13 +213,14 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
                                   ),
                                 ),
                                 Container(
-                                  margin: EdgeInsets.only(top: 20),
+                                  margin: const EdgeInsets.only(top: 20),
                                   child: Row(
                                     children: [
                                       Flexible(
                                         flex: 2,
                                         child: Container(
-                                          margin: EdgeInsets.only(left: 25),
+                                          margin:
+                                              const EdgeInsets.only(left: 25),
                                           child: Image.network(
                                               "https://cqpplefitting.com/ad_cqpple/Images/Problem/" +
                                                   snapshot
@@ -238,12 +243,16 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
                                                       fontSize: 14,
                                                       fontWeight:
                                                           FontWeight.w600,
-                                                      color: Color.fromRGBO(
-                                                          131, 131, 131, 1)),
+                                                      color:
+                                                          const Color.fromRGBO(
+                                                              131,
+                                                              131,
+                                                              131,
+                                                              1)),
                                                 ),
                                                 Container(
-                                                  margin:
-                                                      EdgeInsets.only(left: 40),
+                                                  margin: const EdgeInsets.only(
+                                                      left: 40),
                                                   child: Text(
                                                     snapshot.data!["Problem"],
                                                     style: GoogleFonts.poppins(
@@ -252,7 +261,8 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
                                                         fontSize: 24,
                                                         fontWeight:
                                                             FontWeight.w600,
-                                                        color: Color.fromRGBO(
+                                                        color: const Color
+                                                            .fromRGBO(
                                                             29, 29, 29, 1)),
                                                   ),
                                                 ),
@@ -265,14 +275,14 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
                                   ),
                                 ),
                                 Container(
-                                  margin: EdgeInsets.only(top: 20),
-                                  decoration: BoxDecoration(
+                                  margin: const EdgeInsets.only(top: 20),
+                                  decoration: const BoxDecoration(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(20)),
                                   ),
                                   child: Center(
                                     child: Container(
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(20)),
                                           color: Color.fromRGBO(
@@ -298,8 +308,8 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
                                               widget.listOfStatus[3]["date"],
                                               false),
                                           Container(
-                                              margin:
-                                                  EdgeInsets.only(bottom: 13),
+                                              margin: const EdgeInsets.only(
+                                                  bottom: 13),
                                               child: CustomSteps(
                                                   widget.listOfStatus[4]
                                                       ["name"],
@@ -314,159 +324,187 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
                                 widget.listOfStatus[3]["date"] != "" ||
                                         widget.listOfStatus[4]["date"] != ""
                                     ? Center(
-                                  child: Container(
-                                    margin: EdgeInsets.only(top: 15),
-                                    child: Text("Rate Our Service",
-                                        style: GoogleFonts.poppins(
-                                            fontStyle: FontStyle.normal,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500,
-                                            color: Color.fromRGBO(
-                                                29, 29, 29, 1))),
-                                  ),
-                                )
+                                        child: Container(
+                                          margin:
+                                              const EdgeInsets.only(top: 15),
+                                          child: Text("Rate Our Service",
+                                              style: GoogleFonts.poppins(
+                                                  fontStyle: FontStyle.normal,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: const Color.fromRGBO(
+                                                      29, 29, 29, 1))),
+                                        ),
+                                      )
                                     : Container(),
                                 widget.listOfStatus[3]["date"] != "" ||
-                                    widget.listOfStatus[4]["date"] != ""
+                                        widget.listOfStatus[4]["date"] != ""
                                     ? Center(
-                                  child: Container(
-                                    width: 140,
-                                    child: Row(
-                                      children: [
-                                        InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                starRating = 1;
-                                                starIcon1 = Icon(Icons.star,
-                                                    color: Colors.yellow,
-                                                    size: 28);
-                                                starIcon2 = Icon(
-                                                    Icons.star_border_outlined,
-                                                    size: 28);
-                                                starIcon3 = Icon(
-                                                    Icons.star_border_outlined,
-                                                    size: 28);
-                                                starIcon4 = Icon(
-                                                    Icons.star_border_outlined,
-                                                    size: 28);
-                                                starIcon5 = Icon(
-                                                    Icons.star_border_outlined,
-                                                    size: 28);
-                                              });
-                                            },
-                                            child: starIcon1),
-                                        InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                starRating = 2;
-                                                starIcon1 = Icon(Icons.star,
-                                                    color: Colors.yellow,
-                                                    size: 28);
-                                                starIcon2 = Icon(Icons.star,
-                                                    color: Colors.yellow,
-                                                    size: 28);
-                                                starIcon3 = Icon(
-                                                    Icons.star_border_outlined,
-                                                    size: 28);
-                                                starIcon4 = Icon(
-                                                    Icons.star_border_outlined,
-                                                    size: 28);
-                                                starIcon5 = Icon(
-                                                    Icons.star_border_outlined,
-                                                    size: 28);
-                                              });
-                                            },
-                                            child: starIcon2),
-                                        InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                starRating = 3;
-                                                starIcon1 = Icon(Icons.star,
-                                                    color: Colors.yellow,
-                                                    size: 28);
-                                                starIcon2 = Icon(Icons.star,
-                                                    color: Colors.yellow,
-                                                    size: 28);
-                                                starIcon3 = Icon(Icons.star,
-                                                    color: Colors.yellow,
-                                                    size: 28);
-                                                starIcon4 = Icon(
-                                                    Icons.star_border_outlined,
-                                                    size: 28);
-                                                starIcon5 = Icon(
-                                                    Icons.star_border_outlined,
-                                                    size: 28);
-                                              });
-                                            },
-                                            child: starIcon3),
-                                        InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                starRating = 4;
-                                                starIcon1 = Icon(Icons.star,
-                                                    color: Colors.yellow,
-                                                    size: 28);
-                                                starIcon2 = Icon(Icons.star,
-                                                    color: Colors.yellow,
-                                                    size: 28);
-                                                starIcon3 = Icon(Icons.star,
-                                                    color: Colors.yellow,
-                                                    size: 28);
-                                                starIcon4 = Icon(Icons.star,
-                                                    color: Colors.yellow,
-                                                    size: 28);
-                                                starIcon5 = Icon(
-                                                    Icons.star_border_outlined,
-                                                    size: 28);
-                                              });
-                                            },
-                                            child: starIcon4),
-                                        InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                starRating = 5;
-                                                starIcon1 = Icon(Icons.star,
-                                                    color: Colors.yellow,
-                                                    size: 28);
-                                                starIcon2 = Icon(Icons.star,
-                                                    color: Colors.yellow,
-                                                    size: 28);
-                                                starIcon3 = Icon(Icons.star,
-                                                    color: Colors.yellow,
-                                                    size: 28);
-                                                starIcon4 = Icon(Icons.star,
-                                                    color: Colors.yellow,
-                                                    size: 28);
-                                                starIcon5 = Icon(Icons.star,
-                                                    color: Colors.yellow,
-                                                    size: 28);
-                                              });
-                                            },
-                                            child: starIcon5),
-                                      ],
-                                    ),
-                                  ),
-                                )
+                                        child: SizedBox(
+                                          width: 140,
+                                          child: Row(
+                                            children: [
+                                              InkWell(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      starRating = 1;
+                                                      starIcon1 = const Icon(
+                                                          Icons.star,
+                                                          color: Colors.yellow,
+                                                          size: 28);
+                                                      starIcon2 = const Icon(
+                                                          Icons
+                                                              .star_border_outlined,
+                                                          size: 28);
+                                                      starIcon3 = const Icon(
+                                                          Icons
+                                                              .star_border_outlined,
+                                                          size: 28);
+                                                      starIcon4 = const Icon(
+                                                          Icons
+                                                              .star_border_outlined,
+                                                          size: 28);
+                                                      starIcon5 = const Icon(
+                                                          Icons
+                                                              .star_border_outlined,
+                                                          size: 28);
+                                                    });
+                                                  },
+                                                  child: starIcon1),
+                                              InkWell(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      starRating = 2;
+                                                      starIcon1 = const Icon(
+                                                          Icons.star,
+                                                          color: Colors.yellow,
+                                                          size: 28);
+                                                      starIcon2 = const Icon(
+                                                          Icons.star,
+                                                          color: Colors.yellow,
+                                                          size: 28);
+                                                      starIcon3 = const Icon(
+                                                          Icons
+                                                              .star_border_outlined,
+                                                          size: 28);
+                                                      starIcon4 = const Icon(
+                                                          Icons
+                                                              .star_border_outlined,
+                                                          size: 28);
+                                                      starIcon5 = const Icon(
+                                                          Icons
+                                                              .star_border_outlined,
+                                                          size: 28);
+                                                    });
+                                                  },
+                                                  child: starIcon2),
+                                              InkWell(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      starRating = 3;
+                                                      starIcon1 = const Icon(
+                                                          Icons.star,
+                                                          color: Colors.yellow,
+                                                          size: 28);
+                                                      starIcon2 = const Icon(
+                                                          Icons.star,
+                                                          color: Colors.yellow,
+                                                          size: 28);
+                                                      starIcon3 = const Icon(
+                                                          Icons.star,
+                                                          color: Colors.yellow,
+                                                          size: 28);
+                                                      starIcon4 = const Icon(
+                                                          Icons
+                                                              .star_border_outlined,
+                                                          size: 28);
+                                                      starIcon5 = const Icon(
+                                                          Icons
+                                                              .star_border_outlined,
+                                                          size: 28);
+                                                    });
+                                                  },
+                                                  child: starIcon3),
+                                              InkWell(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      starRating = 4;
+                                                      starIcon1 = const Icon(
+                                                          Icons.star,
+                                                          color: Colors.yellow,
+                                                          size: 28);
+                                                      starIcon2 = const Icon(
+                                                          Icons.star,
+                                                          color: Colors.yellow,
+                                                          size: 28);
+                                                      starIcon3 = const Icon(
+                                                          Icons.star,
+                                                          color: Colors.yellow,
+                                                          size: 28);
+                                                      starIcon4 = const Icon(
+                                                          Icons.star,
+                                                          color: Colors.yellow,
+                                                          size: 28);
+                                                      starIcon5 = const Icon(
+                                                          Icons
+                                                              .star_border_outlined,
+                                                          size: 28);
+                                                    });
+                                                  },
+                                                  child: starIcon4),
+                                              InkWell(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      starRating = 5;
+                                                      starIcon1 = const Icon(
+                                                          Icons.star,
+                                                          color: Colors.yellow,
+                                                          size: 28);
+                                                      starIcon2 = const Icon(
+                                                          Icons.star,
+                                                          color: Colors.yellow,
+                                                          size: 28);
+                                                      starIcon3 = const Icon(
+                                                          Icons.star,
+                                                          color: Colors.yellow,
+                                                          size: 28);
+                                                      starIcon4 = const Icon(
+                                                          Icons.star,
+                                                          color: Colors.yellow,
+                                                          size: 28);
+                                                      starIcon5 = const Icon(
+                                                          Icons.star,
+                                                          color: Colors.yellow,
+                                                          size: 28);
+                                                    });
+                                                  },
+                                                  child: starIcon5),
+                                            ],
+                                          ),
+                                        ),
+                                      )
                                     : Container(),
                                 widget.listOfStatus[3]["date"] != "" ||
-                                    widget.listOfStatus[4]["date"] != ""
+                                        widget.listOfStatus[4]["date"] != ""
                                     ? CustomSubmitBotton(
-                                  title: "Submit",
-                                  margin_top: 20,
-                                  onTap: () async {
-                                      await postStarRating();
-                                      SharedPreferences pref = await SharedPreferences.getInstance();
-                                      await pref.setString("ServiceID", "null");
-                                      widget.isLoading=false;
-                                      Navigator.of(context)
-                                          .push(MaterialPageRoute(
-                                        builder: (context) {
-                                          return HomeScreenPage();
+                                        title: "Submit",
+                                        margin_top: 20,
+                                        onTap: () async {
+                                          await postStarRating();
+                                          SharedPreferences pref =
+                                              await SharedPreferences
+                                                  .getInstance();
+                                          await pref.setString(
+                                              "ServiceID", "null");
+                                          widget.isLoading = false;
+                                          Navigator.of(context)
+                                              .push(MaterialPageRoute(
+                                            builder: (context) {
+                                              return const HomeScreenPage();
+                                            },
+                                          ));
                                         },
-                                      ));
-                                    }
-                                  ,
-                                )
+                                      )
                                     : Container(),
                               ],
                             ),
@@ -479,42 +517,45 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
                     future: isServiceGet ? getServiceStatus() : null,
                   ),
                 ),
-                widget.isLoading?CustomLoader():Container(),
+                widget.isLoading ? CustomLoader() : Container(),
                 Builder(builder: (context) {
                   return TextButton(
                       onPressed: () => Scaffold.of(context).openDrawer(),
-                      child: CustomIcon());
+                      child: const CustomIcon());
                 }),
-
               ],
-
             ),
-            drawer: CustomDrawer(),
+            drawer: const CustomDrawer(),
             floatingActionButton: widget.listOfStatus[3]["date"] != "" ||
-                widget.listOfStatus[4]["date"] != ""?Container(
-              height: 40,
-              width: 40,
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(24, 83, 201, 1),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(50),
-                ),
-              ),
-              child: TextButton(
-                child: Icon(
-                  Icons.arrow_back,
-                  color: Colors.white,
-                ),
-                onPressed: () async {
-                  SharedPreferences pref = await SharedPreferences.getInstance();
-                  await pref.setString("ServiceID", "null");
-                  widget.isLoading=false;
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                    return HomeScreenPage();
-                  },));
-                },
-              ),
-            ):Container(),
+                    widget.listOfStatus[4]["date"] != ""
+                ? Container(
+                    height: 40,
+                    width: 40,
+                    decoration: const BoxDecoration(
+                      color: Color.fromRGBO(24, 83, 201, 1),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(50),
+                      ),
+                    ),
+                    child: TextButton(
+                      child: const Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                      ),
+                      onPressed: () async {
+                        SharedPreferences pref =
+                            await SharedPreferences.getInstance();
+                        await pref.setString("ServiceID", "null");
+                        widget.isLoading = false;
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) {
+                            return const HomeScreenPage();
+                          },
+                        ));
+                      },
+                    ),
+                  )
+                : Container(),
           ),
         ));
   }
@@ -524,7 +565,7 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
       flag = true;
     }
     return Container(
-      margin: EdgeInsets.only(top: 10, left: 30),
+      margin: const EdgeInsets.only(top: 10, left: 30),
       child: Row(
         children: [
           Flexible(
@@ -538,7 +579,7 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
           Flexible(
             flex: 5,
             child: Container(
-              margin: EdgeInsets.only(left: 20, right: 15),
+              margin: const EdgeInsets.only(left: 20, right: 15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -551,7 +592,7 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
                         fontWeight: FontWeight.w600,
                         color: flag
                             ? Colors.green
-                            : Color.fromRGBO(212, 212, 212, 1)),
+                            : const Color.fromRGBO(212, 212, 212, 1)),
                   ),
                   datetime == ""
                       ? Container()
@@ -562,7 +603,7 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
                               fontStyle: FontStyle.normal,
                               fontSize: 10,
                               fontWeight: FontWeight.w600,
-                              color: Color.fromRGBO(163, 163, 163, 1)),
+                              color: const Color.fromRGBO(163, 163, 163, 1)),
                         ),
                 ],
               ),
@@ -575,27 +616,26 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
 
   Future<Map> getServiceStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    widget.apikey = await prefs.getString("apikey")!;
+    widget.apikey = prefs.getString("apikey")!;
     var apiURL =
         "https://cqpplefitting.com/ad_cqpple/Api/ServiceStatusByServiceID";
     Map map = {};
     map["apikey"] = widget.apikey;
     map["ServiceID"] = widget.ServiceID;
     var response = await http.post(Uri.parse(apiURL), body: jsonEncode(map));
-    print("ServiceID =" + widget.ServiceID.toString());
+    print("ServiceID =${widget.ServiceID}");
     var responseData = await jsonDecode(response.body)["data"][0];
     List listStatusResponse = responseData["status_history"];
     for (int i = 0; i < listStatusResponse.length; i++) {
       widget.listOfStatus[listStatusResponse[i]["StatusID"] - 1]["name"] =
           listStatusResponse[i]["Status"] + "  ";
       widget.listOfStatus[listStatusResponse[i]["StatusID"] - 1]["date"] =
-          "On " + listStatusResponse[i]["Date"].split(".")[0].toString();
+          "On ${listStatusResponse[i]["Date"].split(".")[0]}";
     }
     if (widget.listOfStatus[3]["date"] != "" ||
         widget.listOfStatus[4]["date"] != "") {
       setState(() {
         isLogoutAvailable = false;
-
       });
     } else {
       setState(() {
@@ -610,9 +650,9 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
   }
 
   Future<void> postStarRating() async {
-    widget.isLoading=true;
+    widget.isLoading = true;
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    widget.apikey = await prefs.getString("apikey")!;
+    widget.apikey = prefs.getString("apikey")!;
     var apiURL = "https://cqpplefitting.com/ad_cqpple/Api/AddRating";
     Map map = {};
     map["apikey"] = widget.apikey;

@@ -24,14 +24,14 @@ class _DealerLoginPageState extends State<DealerLoginPage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async{
+      onWillPop: () async {
         return false;
       },
       child: SafeArea(
         child: Scaffold(
           body: Stack(
             children: [
-              InternetChecking(),
+              const InternetChecking(),
               CustomAppBar(
                 title1: "",
                 title2: "Dealer Login",
@@ -40,8 +40,8 @@ class _DealerLoginPageState extends State<DealerLoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: 160),
-                    decoration: BoxDecoration(
+                    margin: const EdgeInsets.only(top: 160),
+                    decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(20),
                           topLeft: Radius.circular(20),
@@ -49,7 +49,8 @@ class _DealerLoginPageState extends State<DealerLoginPage> {
                         color: Colors.white),
                     height: MediaQuery.of(context).size.height - 188,
                     child: Container(
-                      margin: const EdgeInsets.only(left: 33, right: 33, top: 40),
+                      margin:
+                          const EdgeInsets.only(left: 33, right: 33, top: 40),
                       child: Form(
                         key: _formKey,
                         child: SingleChildScrollView(
@@ -60,7 +61,7 @@ class _DealerLoginPageState extends State<DealerLoginPage> {
                                 title: "Complain Number",
                               ),
                               Container(
-                                margin: EdgeInsets.only(top: 10),
+                                margin: const EdgeInsets.only(top: 10),
                                 child: TextFormField(
                                   controller: serviceIDController,
                                   validator: (value) {
@@ -72,26 +73,29 @@ class _DealerLoginPageState extends State<DealerLoginPage> {
                                   decoration: InputDecoration(
                                     hintText: "Please Enter Complain Number",
                                     hintStyle: GoogleFonts.poppins(
-                                        color: Color.fromRGBO(181, 181, 181, 1),
+                                        color: const Color.fromRGBO(
+                                            181, 181, 181, 1),
                                         fontSize: 16,
                                         fontWeight: FontWeight.w500),
                                     border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(8)),
-                                    fillColor: Color.fromRGBO(246, 246, 246, 1),
+                                    fillColor:
+                                        const Color.fromRGBO(246, 246, 246, 1),
                                     filled: true,
                                   ),
                                   style: GoogleFonts.poppins(
-                                      color: Color.fromRGBO(0, 0, 0, 1),
+                                      color: const Color.fromRGBO(0, 0, 0, 1),
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500),
                                 ),
                               ),
                               Container(
-                                margin: EdgeInsets.only(top: 10),
+                                margin: const EdgeInsets.only(top: 10),
                                 child: Text(
                                   "Enter the service number for details.",
                                   style: GoogleFonts.poppins(
-                                    color: Color.fromRGBO(114, 114, 114, 1),
+                                    color:
+                                        const Color.fromRGBO(114, 114, 114, 1),
                                     fontSize: 14,
                                     fontWeight: FontWeight.w500,
                                   ),
@@ -102,11 +106,12 @@ class _DealerLoginPageState extends State<DealerLoginPage> {
                                 margin_top: 50,
                                 onTap: () {
                                   if (_formKey.currentState!.validate()) {
-                                    Navigator.of(context).push(MaterialPageRoute(
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
                                       builder: (context) {
                                         return DealerServiceStatusPage(
-                                          ServiceID:
-                                              serviceIDController.text.toString(),
+                                          ServiceID: serviceIDController.text
+                                              .toString(),
                                         );
                                       },
                                     ));
@@ -121,12 +126,14 @@ class _DealerLoginPageState extends State<DealerLoginPage> {
                   ),
                 ],
               ),
-              Builder(builder: (context){
-                return TextButton( onPressed: () => Scaffold.of(context).openDrawer(), child: CustomIcon());
+              Builder(builder: (context) {
+                return TextButton(
+                    onPressed: () => Scaffold.of(context).openDrawer(),
+                    child: const CustomIcon());
               }),
             ],
           ),
-          drawer: CustomDrawer(),
+          drawer: const CustomDrawer(),
           resizeToAvoidBottomInset: false,
         ),
       ),

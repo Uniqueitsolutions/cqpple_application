@@ -17,39 +17,49 @@ class _LogoutPageState extends State<LogoutPage> {
   bool? isLogoutAvailable;
   @override
   Widget build(BuildContext context) {
-    return
-          CupertinoAlertDialog(
-          title: Column(
-            children: <Widget>[
-              Text("Do you want to exit?",style: GoogleFonts.openSans(fontWeight: FontWeight.w900),),
-            ],
+    return CupertinoAlertDialog(
+      title: Column(
+        children: <Widget>[
+          Text(
+            "Do you want to exit?",
+            style: GoogleFonts.openSans(fontWeight: FontWeight.w900),
           ),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              child: Text("Yes",style: GoogleFonts.openSans(fontWeight: FontWeight.bold,color: Colors.red),),
-              onPressed: () async {
+        ],
+      ),
+      actions: <Widget>[
+        CupertinoDialogAction(
+            child: Text(
+              "Yes",
+              style: GoogleFonts.openSans(
+                  fontWeight: FontWeight.bold, color: Colors.red),
+            ),
+            onPressed: () async {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              isLogoutAvailable = prefs.getBool("isLogoutAvailable") ?? true;
+              if (isLogoutAvailable ?? true) {
                 SharedPreferences prefs = await SharedPreferences.getInstance();
-                isLogoutAvailable = prefs.getBool("isLogoutAvailable")??true;
-                if(isLogoutAvailable!){
-                  SharedPreferences prefs = await SharedPreferences.getInstance();
-                  prefs.remove("ServiceID");
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                prefs.remove("ServiceID");
+                prefs.remove("Role");
+                prefs.remove("apikey");
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) {
                     return LoginPage();
-                  },));
-                }
-                else{
-                  Navigator.of(context,rootNavigator: true).pop();
-                }
+                  },
+                ));
+              } else {
+                Navigator.of(context, rootNavigator: true).pop();
               }
-            ),
-            CupertinoDialogAction(
-              child: Text("No",style: GoogleFonts.openSans(fontWeight: FontWeight.bold),),
-              onPressed: () {
-                Navigator.of(context,rootNavigator: true).pop();
-              },
-            ),
-          ],
-      );
-
+            }),
+        CupertinoDialogAction(
+          child: Text(
+            "No",
+            style: GoogleFonts.openSans(fontWeight: FontWeight.bold),
+          ),
+          onPressed: () {
+            Navigator.of(context, rootNavigator: true).pop();
+          },
+        ),
+      ],
+    );
   }
 }
