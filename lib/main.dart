@@ -11,12 +11,13 @@ import 'package:bath_service_project/pages/service_request_page.dart';
 import 'package:bath_service_project/pages/service_status_page.dart';
 import 'package:bath_service_project/pages/login_verification_page.dart';
 
+
 import 'package:bath_service_project/pages/splashscreen_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+void main()  {
   runApp(const MyApp());
 }
 

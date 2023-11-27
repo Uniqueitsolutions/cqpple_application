@@ -1,102 +1,53 @@
-import 'package:bath_service_project/pages/homescreen_page.dart';
 import 'package:bath_service_project/pages/login_page.dart';
-import 'package:bath_service_project/pages/plumber_notregistered_page.dart';
-import 'package:bath_service_project/pages/plumber_service_token_page.dart';
 import 'package:bath_service_project/pages/service_status_page.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
-import 'dart:async';
-import 'package:http/http.dart' as http;
-
-import 'dealer_login_page.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({super.key});
 
-  String? serviceID, role, mobileNumberResponse;
-  bool isPlumberApproved = false;
+  String? ServiceID;
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  bool flag = true;
   @override
+  bool flag=true;
   Widget build(BuildContext context) {
     return SafeArea(
       child: FutureBuilder(
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
+          if(snapshot.hasData){
             return AnimatedSplashScreen(
-              splash: 'assets/icons/AppLogo.png',
-              splashIconSize: 300,
-              nextScreen: getNextScreen(),
+              splash: 'assets/icons/AppLogo.png',splashIconSize: 300,
+              nextScreen: widget.ServiceID.toString()=="null" ? LoginPage():ServiceStatusPage(ServiceID: widget.ServiceID,),
               splashTransition: SplashTransition.sizeTransition,
               pageTransitionType: PageTransitionType.bottomToTop,
             );
-          } else {
+          }
+          else{
             return Center(child: Container());
           }
         },
-        future: flag ? setServiceID() : null,
+        future: flag? setServiceID():null,
       ),
     );
   }
 
-  Widget getNextScreen() {
-    if (widget.serviceID == null || widget.serviceID == "null") {
-      if (widget.role == "Plumber") {
-        if (widget.isPlumberApproved) {
-          return PlumberServiceTokenPage();
-        } else {
-          return const PlumberNotRegisteredPage();
-        }
-      } else if (widget.role == "Dealer") {
-        return const DealerLoginPage();
-      } else if (widget.role == "End-User") {
-        return const HomeScreenPage();
-      } else {
-        return LoginPage();
-      }
-    } else {
-      return ServiceStatusPage(
-        ServiceID: widget.serviceID,
-      );
-    }
-  }
-
   Future<int> setServiceID() async {
+    print("Hello");
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    final serviceID = prefs.getString("ServiceID");
-    final role = prefs.getString("Role");
-    if (role == "Plumber") {
-      await plumberApproveStatus();
-    }
+    var ServiceID = await prefs.getString("ServiceID")??null;
+    print("Hello World");
     setState(() {
-      widget.serviceID = serviceID;
-      widget.role = role;
-      print("ServiceID splash :${serviceID ?? ""}");
-      flag = false;
+      widget.ServiceID = ServiceID;
+      print("ServiceID splash :"+widget.ServiceID.toString());
+      flag=false;
     });
     return 0;
-  }
-
-  Future<void> plumberApproveStatus() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final apiKey = prefs.getString("apikey");
-    final applicationUserID = prefs.getString("ApplicationUserID");
-    var apiURL = "https://cqpplefitting.com/ad_cqpple/Api/IsServiceManApprove";
-    Map map = {};
-    map["apikey"] = apiKey ?? "";
-    map["ApplicationUserID"] = applicationUserID ?? "";
-    print(map);
-    var response = await http.post(Uri.parse(apiURL), body: jsonEncode(map));
-    print(response.statusCode);
-    final json = jsonDecode(response.body);
-    widget.isPlumberApproved = json["IsPlumberApproved"].toString() == "true";
   }
 }

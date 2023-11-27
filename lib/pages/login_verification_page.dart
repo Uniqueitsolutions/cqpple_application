@@ -28,10 +28,13 @@ class LoginVerificationPage extends StatefulWidget {
   String apiKey2 = "";
 
   String? ServiceID;
-  var isEnteredOTPValid = false;
+  var isEnteredOTPValid=false;
 
-  LoginVerificationPage(this.mobileNumberResponse, this.mobile_number,
-      {super.key});
+  LoginVerificationPage(dynamic mobileNumberResponse, String mobile_number) {
+    this.mobileNumberResponse = mobileNumberResponse;
+    this.mobile_number = mobile_number;
+
+  }
 
   @override
   State<LoginVerificationPage> createState() => _LoginVerificationPageState();
@@ -49,14 +52,16 @@ class _LoginVerificationPageState extends State<LoginVerificationPage> {
   final focusOn4thField = FocusNode();
   final _formkey = GlobalKey<FormState>();
 
-  int secondsRemaining = 60;
+  int secondsRemaining = 30;
   bool enableResend = false;
   Timer? timer;
+
+
 
   @override
   initState() {
     super.initState();
-    timer = Timer.periodic(const Duration(seconds: 1), (_) {
+    timer = Timer.periodic(Duration(seconds: 1), (_) {
       if (secondsRemaining != 0) {
         setState(() {
           secondsRemaining--;
@@ -79,8 +84,8 @@ class _LoginVerificationPageState extends State<LoginVerificationPage> {
         children: [
           CustomAppBar(title2: "Login"),
           Container(
-            margin: const EdgeInsets.only(top: 160),
-            decoration: const BoxDecoration(
+            margin: EdgeInsets.only(top: 160),
+            decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                 topRight: Radius.circular(20),
                 topLeft: Radius.circular(20),
@@ -94,25 +99,25 @@ class _LoginVerificationPageState extends State<LoginVerificationPage> {
                 children: [
                   Center(
                     child: Container(
-                      margin: const EdgeInsets.only(top: 27),
+                      margin: EdgeInsets.only(top: 27),
                       child: Text(
                         "Verification",
                         style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w500,
                             fontSize: 28,
                             fontStyle: FontStyle.normal,
-                            color: const Color.fromRGBO(29, 29, 29, 1)),
+                            color: Color.fromRGBO(29, 29, 29, 1)),
                       ),
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.only(top: 35, left: 28),
+                    margin: EdgeInsets.only(top: 35, left: 28),
                     child: CustomTextStyle(
                       title: "Enter Your OTP Code Number",
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.only(top: 20, left: 18, right: 28),
+                    margin: EdgeInsets.only(top: 20, left: 18, right: 28),
                     child: Form(
                       key: _formkey,
                       child: Row(
@@ -120,17 +125,17 @@ class _LoginVerificationPageState extends State<LoginVerificationPage> {
                         children: [
                           Expanded(
                             child: Container(
-                              margin: const EdgeInsets.only(left: 10),
+                              margin: EdgeInsets.only(left: 10),
                               width: 60,
                               height: 60,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                   color: Color.fromRGBO(240, 240, 240, 1),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10))),
                               child: TextFormField(
                                 controller: otpFieldController1,
                                 validator: (value) {
-                                  if (value == null || value == "") {
+                                  if (value == null || value=="") {
                                     widget.isEnteredOTPValid = true;
                                     return null;
                                   }
@@ -141,7 +146,7 @@ class _LoginVerificationPageState extends State<LoginVerificationPage> {
                                     fontSize: 24,
                                     fontWeight: FontWeight.w500,
                                     fontStyle: FontStyle.normal,
-                                    color: const Color.fromRGBO(29, 29, 29, 1)),
+                                    color: Color.fromRGBO(29, 29, 29, 1)),
                                 onChanged: (value) {
                                   setState(() {
                                     if (value.length == 1) {
@@ -155,7 +160,7 @@ class _LoginVerificationPageState extends State<LoginVerificationPage> {
                                   LengthLimitingTextInputFormatter(1),
                                 ],
                                 keyboardType: TextInputType.number,
-                                decoration: const InputDecoration(
+                                decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10))),
@@ -165,17 +170,17 @@ class _LoginVerificationPageState extends State<LoginVerificationPage> {
                           ),
                           Expanded(
                             child: Container(
-                              margin: const EdgeInsets.only(left: 10),
+                              margin: EdgeInsets.only(left: 10),
                               width: 60,
                               height: 60,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                   color: Color.fromRGBO(240, 240, 240, 1),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10))),
                               child: TextFormField(
                                 controller: otpFieldController2,
                                 validator: (value) {
-                                  if (value == null || value == "") {
+                                  if (value == null || value=="") {
                                     widget.isEnteredOTPValid = true;
                                     return null;
                                   }
@@ -186,7 +191,7 @@ class _LoginVerificationPageState extends State<LoginVerificationPage> {
                                     fontSize: 24,
                                     fontWeight: FontWeight.w500,
                                     fontStyle: FontStyle.normal,
-                                    color: const Color.fromRGBO(29, 29, 29, 1)),
+                                    color: Color.fromRGBO(29, 29, 29, 1)),
                                 focusNode: focusOn2ndField,
                                 inputFormatters: [
                                   LengthLimitingTextInputFormatter(1),
@@ -201,7 +206,7 @@ class _LoginVerificationPageState extends State<LoginVerificationPage> {
                                   });
                                 },
                                 keyboardType: TextInputType.number,
-                                decoration: const InputDecoration(
+                                decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10))),
@@ -211,20 +216,20 @@ class _LoginVerificationPageState extends State<LoginVerificationPage> {
                           ),
                           Expanded(
                             child: Container(
-                              margin: const EdgeInsets.only(left: 10),
+                              margin: EdgeInsets.only(left: 10),
                               width: 60,
                               height: 60,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                   color: Color.fromRGBO(240, 240, 240, 1),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10))),
                               child: TextFormField(
                                 controller: otpFieldController3,
                                 validator: (value) {
-                                  if (value == null || value == "") {
-                                    setState(() {
-                                      widget.isEnteredOTPValid = true;
-                                    });
+                                  if (value == null || value=="") {
+                                   setState(() {
+                                     widget.isEnteredOTPValid = true;
+                                   });
                                     return null;
                                   }
                                   widget.isEnteredOTPValid = false;
@@ -234,7 +239,7 @@ class _LoginVerificationPageState extends State<LoginVerificationPage> {
                                     fontSize: 24,
                                     fontWeight: FontWeight.w500,
                                     fontStyle: FontStyle.normal,
-                                    color: const Color.fromRGBO(29, 29, 29, 1)),
+                                    color: Color.fromRGBO(29, 29, 29, 1)),
                                 focusNode: focusOn3rdField,
                                 inputFormatters: [
                                   LengthLimitingTextInputFormatter(1),
@@ -249,7 +254,7 @@ class _LoginVerificationPageState extends State<LoginVerificationPage> {
                                   });
                                 },
                                 keyboardType: TextInputType.number,
-                                decoration: const InputDecoration(
+                                decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10))),
@@ -259,18 +264,18 @@ class _LoginVerificationPageState extends State<LoginVerificationPage> {
                           ),
                           Expanded(
                             child: Container(
-                              margin: const EdgeInsets.only(left: 10),
+                              margin: EdgeInsets.only(left: 10),
                               // color: Colors.transparent,
                               width: 60,
                               height: 60,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                   color: Color.fromRGBO(240, 240, 240, 1),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10))),
                               child: TextFormField(
                                 controller: otpFieldController4,
                                 validator: (value) {
-                                  if (value == null || value == "") {
+                                  if (value == null || value=="") {
                                     widget.isEnteredOTPValid = true;
                                     return null;
                                   }
@@ -281,14 +286,14 @@ class _LoginVerificationPageState extends State<LoginVerificationPage> {
                                     fontSize: 24,
                                     fontWeight: FontWeight.w500,
                                     fontStyle: FontStyle.normal,
-                                    color: const Color.fromRGBO(29, 29, 29, 1)),
+                                    color: Color.fromRGBO(29, 29, 29, 1)),
                                 focusNode: focusOn4thField,
                                 inputFormatters: [
                                   LengthLimitingTextInputFormatter(1),
                                 ],
                                 textAlign: TextAlign.center,
                                 keyboardType: TextInputType.number,
-                                decoration: const InputDecoration(
+                                decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10))),
@@ -302,7 +307,7 @@ class _LoginVerificationPageState extends State<LoginVerificationPage> {
                   ),
                   invalidOTP
                       ? Container(
-                          margin: const EdgeInsets.only(top: 10, left: 33),
+                          margin: EdgeInsets.only(top: 10, left: 33),
                           child: Text(
                             "Incorrect OTP",
                             style: GoogleFonts.poppins(
@@ -314,43 +319,42 @@ class _LoginVerificationPageState extends State<LoginVerificationPage> {
                       : Container(),
                   widget.isEnteredOTPValid
                       ? Container(
-                          margin: const EdgeInsets.only(top: 10, left: 33),
-                          child: Text(
-                            "Please Enter Valid OTP",
-                            style: GoogleFonts.poppins(
-                                color: Colors.red,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 15),
-                          ),
-                        )
+                    margin: EdgeInsets.only(top: 10, left: 33),
+                    child: Text(
+                      "Please Enter Valid OTP",
+                      style: GoogleFonts.poppins(
+                          color: Colors.red,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 15),
+                    ),
+                  )
                       : Container(),
                   Container(
-                    margin: const EdgeInsets.only(left: 33, right: 33, top: 30),
+                    margin: EdgeInsets.only(left: 33, right: 33, top: 30),
                     child: CustomSubmitBotton(
                       margin_top: 40,
                       title: "Verify",
                       onTap: () async {
-                        if (_formkey.currentState!.validate() &&
-                            !widget.isEnteredOTPValid) {
+                        if(_formkey.currentState!.validate() && !widget.isEnteredOTPValid) {
                           await requestForOTPVerification().then(
-                            (response) async {
+                                (response) async {
                               widget.isLoading = false;
                               if (response["status"]) {
                                 invalidOTP = false;
                                 String role =
-                                    widget.mobileNumberResponse["data"]["Role"];
+                                widget.mobileNumberResponse["data"]["Role"];
                                 if (role == "Dealer") {
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
                                       builder: (context) {
-                                        return const DealerLoginPage();
+                                        return DealerLoginPage();
                                       },
                                     ),
                                   );
                                 } else if (role == "Plumber") {
                                   await plumberApproveStatus().then((response) {
                                     if (response["IsPlumberApproved"]
-                                            .toString() ==
+                                        .toString() ==
                                         "true") {
                                       Navigator.of(context).push(
                                         MaterialPageRoute(
@@ -363,7 +367,7 @@ class _LoginVerificationPageState extends State<LoginVerificationPage> {
                                       Navigator.of(context).push(
                                         MaterialPageRoute(
                                           builder: (context) {
-                                            return const PlumberNotRegisteredPage();
+                                            return PlumberNotRegisteredPage();
                                           },
                                         ),
                                       );
@@ -372,26 +376,24 @@ class _LoginVerificationPageState extends State<LoginVerificationPage> {
                                 } else {
                                   if (widget.ServiceID == null) {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(
+                                        SnackBar(
                                             backgroundColor: Colors.green,
-                                            content:
-                                                Text("Login Successfully")));
+                                            content: Text(
+                                                "Login Successfully")));
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
                                         builder: (context) {
-                                          return const HomeScreenPage();
+                                          return HomeScreenPage();
                                         },
                                       ),
                                     );
-                                  } else {
-                                    Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                      builder: (context) {
-                                        return ServiceStatusPage(
-                                          ServiceID: widget.ServiceID,
-                                        );
-                                      },
-                                    ));
+                                  }
+                                  else {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(builder: (context) {
+                                          return ServiceStatusPage(
+                                            ServiceID: widget.ServiceID,);
+                                        },));
                                   }
                                 }
                               } else {
@@ -412,20 +414,20 @@ class _LoginVerificationPageState extends State<LoginVerificationPage> {
                   ),
                   Center(
                     child: Container(
-                      margin: const EdgeInsets.only(top: 40),
+                      margin: EdgeInsets.only(top: 40),
                       child: Text(
                         "Didn't You Receive Any Code ?",
                         style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w500,
                             fontSize: 16,
                             fontStyle: FontStyle.normal,
-                            color: const Color.fromRGBO(181, 181, 181, 1)),
+                            color: Color.fromRGBO(181, 181, 181, 1)),
                       ),
                     ),
                   ),
                   Center(
                     child: Container(
-                      margin: const EdgeInsets.only(top: 20),
+                      margin: EdgeInsets.only(top: 20),
                       child: InkWell(
                         onTap: enableResend ? _resendCode : null,
                         child: Text(
@@ -434,7 +436,7 @@ class _LoginVerificationPageState extends State<LoginVerificationPage> {
                               fontWeight: FontWeight.w500,
                               fontSize: 16,
                               fontStyle: FontStyle.normal,
-                              color: const Color.fromRGBO(0, 65, 194, 1)),
+                              color: Color.fromRGBO(0, 65, 194, 1)),
                         ),
                       ),
                     ),
@@ -444,7 +446,7 @@ class _LoginVerificationPageState extends State<LoginVerificationPage> {
                       secondsRemaining == 0
                           ? ""
                           : "after $secondsRemaining seconds",
-                      style: const TextStyle(color: Colors.red, fontSize: 12),
+                      style: TextStyle(color: Colors.red, fontSize: 12),
                     ),
                   ),
                 ],
@@ -456,18 +458,18 @@ class _LoginVerificationPageState extends State<LoginVerificationPage> {
                   opacity: 0.60,
                 )
               : Container(),
-          Builder(builder: (context) {
-            return TextButton(
-                onPressed: () => Scaffold.of(context).openDrawer(),
-                child: const CustomIcon());
+          Builder(builder: (context){
+            return TextButton( onPressed: () => Scaffold.of(context).openDrawer(), child: CustomIcon());
           }),
         ],
+
       ),
-      drawer: const CustomDrawer(),
+          drawer: CustomDrawer(),
     ));
   }
 
   Future<dynamic> requestForOTPVerification() async {
+
     widget.isLoading = true;
     var apiURL = "https://cqpplefitting.com/ad_cqpple/Api/login";
     String userOTP = otpFieldController1.text.toString() +
@@ -480,38 +482,32 @@ class _LoginVerificationPageState extends State<LoginVerificationPage> {
     map["UserOtp"] = userOTP;
     map["ApplicationUserID"] =
         widget.mobileNumberResponse["data"]["ApplicationUserID"];
-    map["FcmToken"] = "2546";
     print(userOTP);
+
     var response = await http.post(Uri.parse(apiURL), body: jsonEncode(map));
     print(response.statusCode);
-    print("=======requestForOTPVerification=======");
-    print(response.body);
-    print("==========================================");
-
-    var json = jsonDecode(response.body);
+    print(jsonDecode(response.body));
     if (jsonDecode(response.body)["status"]) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString("apikey", json["data"]["apikey"]);
-      await prefs.setString("ServiceID", json["data"]["ServiceID"] ?? "null");
-      await prefs.setString("Role", json["data"]["Role"]);
-      widget.ServiceID = prefs.getString("ServiceID") == "null"
-          ? null
-          : prefs.getString("ServiceID");
+      await prefs.setString(
+          "apikey", jsonDecode(response.body)["data"]["apikey"]);
+      await prefs.setString("ServiceID",jsonDecode(response.body)["data"]["ServiceID"]==null?"null":jsonDecode(response.body)["data"]["ServiceID"]);
+      widget.ServiceID = await prefs.getString("ServiceID")=="null"?null:await prefs.getString("ServiceID");
+      print("ServiceID" + widget.ServiceID.toString());
     }
 
-    return json;
+    return jsonDecode(response.body);
   }
 
   Future<dynamic> plumberApproveStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    widget.apiKey2 = prefs.getString("apikey")!;
+    widget.apiKey2 = await prefs.getString("apikey")!;
     var apiURL = "https://cqpplefitting.com/ad_cqpple/Api/IsServiceManApprove";
     Map map = {};
 
     map["apikey"] = widget.apiKey2;
     map["ApplicationUserID"] =
         widget.mobileNumberResponse["data"]["ApplicationUserID"];
-    prefs.setString("ApplicationUserID", map["ApplicationUserID"]);
     print(map);
     var response = await http.post(Uri.parse(apiURL), body: jsonEncode(map));
     print(response.statusCode);
@@ -530,7 +526,6 @@ class _LoginVerificationPageState extends State<LoginVerificationPage> {
     print(jsonDecode(response.body));
     return jsonDecode(response.body);
   }
-
   Future<void> _resendCode() async {
     await requestForOTP();
     //other code here
@@ -539,7 +534,6 @@ class _LoginVerificationPageState extends State<LoginVerificationPage> {
       enableResend = false;
     });
   }
-
   @override
   dispose() {
     timer!.cancel();
