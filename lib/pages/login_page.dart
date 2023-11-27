@@ -30,24 +30,23 @@ class _LoginPageState extends State<LoginPage> {
 
   final _formKey = GlobalKey<FormState>();
 
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async{
+      onWillPop: () async {
         return false;
       },
       child: SafeArea(
         child: Scaffold(
           body: Stack(
             children: [
-              InternetChecking(),
+              const InternetChecking(),
               CustomAppBar(
                 title2: "Login",
               ),
               Container(
-                margin: EdgeInsets.only(top: 160),
-                decoration: BoxDecoration(
+                margin: const EdgeInsets.only(top: 160),
+                decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(20),
                     topLeft: Radius.circular(20),
@@ -57,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
                 height: MediaQuery.of(context).size.height - 188,
                 child: SingleChildScrollView(
                   child: Container(
-                    margin: EdgeInsets.only(left: 33, right: 33, top: 30),
+                    margin: const EdgeInsets.only(left: 33, right: 33, top: 30),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
@@ -65,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                           "Welcome",
                           style: GoogleFonts.poppins(
                               fontSize: 32,
-                              color: Color.fromRGBO(29, 29, 29, 1),
+                              color: const Color.fromRGBO(29, 29, 29, 1),
                               fontStyle: FontStyle.normal,
                               fontWeight: FontWeight.w600),
                         ),
@@ -73,16 +72,16 @@ class _LoginPageState extends State<LoginPage> {
                           "Hello There, Please Login",
                           style: GoogleFonts.poppins(
                               fontSize: 16,
-                              color: Color.fromRGBO(29, 29, 29, 1),
+                              color: const Color.fromRGBO(29, 29, 29, 1),
                               fontStyle: FontStyle.normal,
                               fontWeight: FontWeight.w500),
                         ),
                         Container(
-                          margin: EdgeInsets.only(top: 32),
+                          margin: const EdgeInsets.only(top: 32),
                           child: CustomTextStyle(title: "Mobile Number"),
                         ),
                         Container(
-                          margin: EdgeInsets.only(top: 10),
+                          margin: const EdgeInsets.only(top: 10),
                           child: Form(
                             key: _formKey,
                             child: TextFormField(
@@ -101,20 +100,22 @@ class _LoginPageState extends State<LoginPage> {
                               },
                               keyboardType: TextInputType.number,
                               decoration: InputDecoration(
-                                contentPadding: EdgeInsets.only(top: 5),
-                                prefixIcon: Icon(Icons.call),
+                                contentPadding: const EdgeInsets.only(top: 5),
+                                prefixIcon: const Icon(Icons.call),
                                 hintText: "Please Enter Your Mobile Number",
                                 hintStyle: GoogleFonts.poppins(
-                                    color: Color.fromRGBO(181, 181, 181, 1),
+                                    color:
+                                        const Color.fromRGBO(181, 181, 181, 1),
                                     fontSize: 13,
                                     fontWeight: FontWeight.w500),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8)),
-                                fillColor: Color.fromRGBO(246, 246, 246, 1),
+                                fillColor:
+                                    const Color.fromRGBO(246, 246, 246, 1),
                                 filled: true,
                               ),
                               style: GoogleFonts.poppins(
-                                  color: Color.fromRGBO(0, 0, 0, 1),
+                                  color: const Color.fromRGBO(0, 0, 0, 1),
                                   fontSize: 13,
                                   fontWeight: FontWeight.w500),
                             ),
@@ -127,8 +128,8 @@ class _LoginPageState extends State<LoginPage> {
                             if (_formKey.currentState!.validate()) {
                               final SharedPreferences prefs =
                                   await SharedPreferences.getInstance();
-                              await prefs.setString(
-                                  'Mobile_Number', mobile_number.text.toString());
+                              await prefs.setString('Mobile_Number',
+                                  mobile_number.text.toString());
                               await requestForOTP().then(
                                 (response) {
                                   Navigator.of(context).push(MaterialPageRoute(
@@ -146,13 +147,13 @@ class _LoginPageState extends State<LoginPage> {
                           },
                         ),
                         Container(
-                          margin: EdgeInsets.only(top: 30),
+                          margin: const EdgeInsets.only(top: 30),
                           child: Text(
                             "-- OR --",
                             textAlign: TextAlign.center,
                             style: GoogleFonts.poppins(
                                 fontSize: 16,
-                                color: Color.fromRGBO(181, 181, 181, 1),
+                                color: const Color.fromRGBO(181, 181, 181, 1),
                                 fontStyle: FontStyle.normal,
                                 fontWeight: FontWeight.w500),
                           ),
@@ -173,13 +174,19 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              widget.isLoading ? CustomLoader(opacity: 0.60,) : Container(),
-              Builder(builder: (context){
-                return TextButton( onPressed: () => Scaffold.of(context).openDrawer(), child: CustomIcon());
+              widget.isLoading
+                  ? CustomLoader(
+                      opacity: 0.60,
+                    )
+                  : Container(),
+              Builder(builder: (context) {
+                return TextButton(
+                    onPressed: () => Scaffold.of(context).openDrawer(),
+                    child: const CustomIcon());
               }),
             ],
           ),
-          drawer: CustomDrawer(),
+          drawer: const CustomDrawer(hasLogout: false),
           resizeToAvoidBottomInset: false,
         ),
       ),

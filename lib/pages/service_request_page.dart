@@ -22,9 +22,9 @@ class ServiceRequestFormPage extends StatefulWidget {
   var apikey = "";
   String ServiceID = "0";
 
-  bool isLoading=false;
+  bool isLoading = false;
 
-  ServiceRequestFormPage({data}) {
+  ServiceRequestFormPage({super.key, data}) {
     this.data = data;
   }
 
@@ -43,7 +43,7 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
   int imageSize = 0;
   int videoSize = 0;
 
-  ImagePicker imagePicker = new ImagePicker();
+  ImagePicker imagePicker = ImagePicker();
 
   @override
   void initState() {
@@ -56,7 +56,7 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
       child: Scaffold(
         body: Stack(
           children: [
-            InternetChecking(),
+            const InternetChecking(),
             CustomAppBar(
               title1: "",
               title2: "Service Request",
@@ -65,8 +65,8 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(
-                  margin: EdgeInsets.only(top: 160),
-                  decoration: BoxDecoration(
+                  margin: const EdgeInsets.only(top: 160),
+                  decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(20),
                         topLeft: Radius.circular(20),
@@ -83,16 +83,16 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
                           Text(
                             "Problem",
                             style: GoogleFonts.poppins(
-                                color: Color.fromRGBO(29, 29, 29, 1),
+                                color: const Color.fromRGBO(29, 29, 29, 1),
                                 fontSize: 20,
                                 fontWeight: FontWeight.w500),
                           ),
                           Container(
-                            margin: EdgeInsets.only(top: 10),
+                            margin: const EdgeInsets.only(top: 10),
                             color: Colors.transparent,
                             height: 57,
                             child: Card(
-                              color: Color.fromRGBO(246, 246, 246, 1),
+                              color: const Color.fromRGBO(246, 246, 246, 1),
                               shape: RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.circular(8.0), //<-- SEE HERE
@@ -117,8 +117,9 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
                                             color: Colors.black,
                                             fontSize: 13,
                                             fontWeight: FontWeight.w500),
-                                        textFieldDecoration: InputDecoration(
-                                            hintText: "Select Problem"),
+                                        textFieldDecoration:
+                                            const InputDecoration(
+                                                hintText: "Select Problem"),
                                         enableSearch: true,
                                         listPadding: ListPadding(top: 5),
                                         dropDownList:
@@ -139,10 +140,12 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
                                   } else {
                                     return Center(
                                       child: Container(
-                                          margin: EdgeInsets.only(left: 20),
+                                          margin:
+                                              const EdgeInsets.only(left: 20),
                                           height: 20,
                                           width: 20,
-                                          child: CircularProgressIndicator()),
+                                          child:
+                                              const CircularProgressIndicator()),
                                     );
                                   }
                                 },
@@ -153,30 +156,31 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
                             ),
                           ),
                           Container(
-                            margin: EdgeInsets.only(top: 14),
+                            margin: const EdgeInsets.only(top: 14),
                             child: Text(
                               "Add Image",
                               style: GoogleFonts.poppins(
-                                  color: Color.fromRGBO(29, 29, 29, 1),
+                                  color: const Color.fromRGBO(29, 29, 29, 1),
                                   fontSize: 20,
                                   fontWeight: FontWeight.w500),
                             ),
                           ),
                           Container(
-                            margin: EdgeInsets.only(top: 10),
+                            margin: const EdgeInsets.only(top: 10),
                             child: InkWell(
                               child: CustomSubmitBotton(
                                 title: "Add",
                                 onTap: () async {
-                                  final deviceInfo = await DeviceInfoPlugin().androidInfo;
+                                  final deviceInfo =
+                                      await DeviceInfoPlugin().androidInfo;
                                   if (deviceInfo.version.sdkInt > 32) {
                                     PermissionStatus photoPermission =
-                                    await Permission.photos.request();
+                                        await Permission.photos.request();
                                     if (photoPermission.isGranted) {
                                       getImageFromGallery();
                                     } else if (photoPermission.isDenied) {
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
                                               backgroundColor: Colors.red,
                                               content: Text(
                                                   "Storage Permission Denied.")));
@@ -186,12 +190,12 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
                                     }
                                   } else {
                                     PermissionStatus storagePermission =
-                                    await Permission.storage.request();
+                                        await Permission.storage.request();
                                     if (storagePermission.isGranted) {
                                       getImageFromGallery();
                                     } else if (storagePermission.isDenied) {
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
                                               backgroundColor: Colors.red,
                                               content: Text(
                                                   "Storage Permission Denied.")));
@@ -208,8 +212,8 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
                               ? Container()
                               : imageSize >= 10000000
                                   ? Container(
-                                      margin:
-                                          EdgeInsets.only(top: 10, left: 20),
+                                      margin: const EdgeInsets.only(
+                                          top: 10, left: 20),
                                       child: Text(
                                         "Upload image upto 10 MB",
                                         style: GoogleFonts.poppins(
@@ -219,7 +223,7 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
                                     )
                                   : Center(
                                       child: Container(
-                                        margin: EdgeInsets.only(top: 10),
+                                        margin: const EdgeInsets.only(top: 10),
                                         child: Image.file(
                                           imageFile!,
                                           height: 240,
@@ -229,30 +233,31 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
                                       ),
                                     ),
                           Container(
-                            margin: EdgeInsets.only(top: 14),
+                            margin: const EdgeInsets.only(top: 14),
                             child: Text(
                               "Add Video",
                               style: GoogleFonts.poppins(
-                                  color: Color.fromRGBO(29, 29, 29, 1),
+                                  color: const Color.fromRGBO(29, 29, 29, 1),
                                   fontSize: 20,
                                   fontWeight: FontWeight.w500),
                             ),
                           ),
                           Container(
-                            margin: EdgeInsets.only(top: 10),
+                            margin: const EdgeInsets.only(top: 10),
                             child: InkWell(
                               child: CustomSubmitBotton(
                                 title: "Add",
                                 onTap: () async {
-                                  final deviceInfo = await DeviceInfoPlugin().androidInfo;
+                                  final deviceInfo =
+                                      await DeviceInfoPlugin().androidInfo;
                                   if (deviceInfo.version.sdkInt > 32) {
                                     PermissionStatus videoPermission =
-                                    await Permission.videos.request();
+                                        await Permission.videos.request();
                                     if (videoPermission.isGranted) {
                                       getVideoFromGallery();
                                     } else if (videoPermission.isDenied) {
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
                                               backgroundColor: Colors.red,
                                               content: Text(
                                                   "Storage Permission Denied.")));
@@ -262,13 +267,12 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
                                     }
                                   } else {
                                     PermissionStatus storagePermission =
-                                    await Permission.storage.request();
+                                        await Permission.storage.request();
                                     if (storagePermission.isGranted) {
                                       getVideoFromGallery();
                                     } else if (storagePermission.isDenied) {
                                       ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                          SnackBar(
+                                          .showSnackBar(const SnackBar(
                                               backgroundColor: Colors.red,
                                               content: Text(
                                                   "Storage Permission Denied.")));
@@ -285,8 +289,8 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
                               ? Container()
                               : videoSize >= 15000000
                                   ? Container(
-                                      margin:
-                                          EdgeInsets.only(top: 10, left: 20),
+                                      margin: const EdgeInsets.only(
+                                          top: 10, left: 20),
                                       child: Text(
                                         "Upload video upto 15 MB",
                                         style: GoogleFonts.poppins(
@@ -296,11 +300,12 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
                                     )
                                   : Center(
                                       child: Container(
-                                        margin: EdgeInsets.only(top: 10),
+                                        margin: const EdgeInsets.only(top: 10),
                                         child: Column(
                                           children: [
                                             Container(
-                                              margin: EdgeInsets.only(top: 20),
+                                              margin: const EdgeInsets.only(
+                                                  top: 20),
                                               height: 240,
                                               width: 240,
                                               child: widget.videoController
@@ -333,14 +338,17 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
                             margin_top: 70,
                             title: "Submit",
                             onTap: () async {
-
-                              if(problemID!="" && videoFile!=null && imageFile!=null && imageSize<10000000 && videoSize<15000000) {
+                              if (problemID != "" &&
+                                  videoFile != null &&
+                                  imageFile != null &&
+                                  imageSize < 10000000 &&
+                                  videoSize < 15000000) {
                                 await addRequest();
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      backgroundColor: Colors.green,
-                                        content: Text(
-                                            "Service Added Succesfully")));
+                                    const SnackBar(
+                                        backgroundColor: Colors.green,
+                                        content:
+                                            Text("Service Added Succesfully")));
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
                                     builder: (context) {
@@ -349,10 +357,9 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
                                     },
                                   ),
                                 );
-                              }
-                              else{
+                              } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
+                                    const SnackBar(
                                         content: Text(
                                             "Invalid Problem Or Image Or Video.")));
                               }
@@ -365,13 +372,19 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
                 ),
               ],
             ),
-            widget.isLoading?CustomLoader(opacity: 0.60,):Container(),
-            Builder(builder: (context){
-              return TextButton( onPressed: () => Scaffold.of(context).openDrawer(), child: CustomIcon());
+            widget.isLoading
+                ? CustomLoader(
+                    opacity: 0.60,
+                  )
+                : Container(),
+            Builder(builder: (context) {
+              return TextButton(
+                  onPressed: () => Scaffold.of(context).openDrawer(),
+                  child: const CustomIcon());
             }),
           ],
         ),
-        drawer: CustomDrawer(),
+        drawer: const CustomDrawer(),
         resizeToAvoidBottomInset: false,
       ),
     );
@@ -407,14 +420,14 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
 
   Future<List<Map<String, String>>> getProblems() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    widget.apikey = await prefs.getString("apikey")!;
+    widget.apikey = prefs.getString("apikey")!;
     String apiURL =
-        "https://cqpplefitting.com/ad_cqpple/Api/Problem/"+widget.apikey;
+        "https://cqpplefitting.com/ad_cqpple/Api/Problem/${widget.apikey}";
     var res = await http.get(Uri.parse(apiURL));
     List problemObjects = jsonDecode(res.body)["data"];
     List<Map<String, String>> problemList = [];
     for (int i = 0; i < problemObjects.length; i++) {
-      Map<String, String> map = new Map<String, String>();
+      Map<String, String> map = <String, String>{};
       map["ProblemID"] = problemObjects[i]["ProblemID"].toString();
       map["Problem"] = problemObjects[i]["Problem"].toString();
       problemList.add(map);
@@ -424,14 +437,13 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
 
   Future<void> addRequest() async {
     setState(() {
-      widget.isLoading=true;
+      widget.isLoading = true;
     });
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    widget.apikey = await prefs.getString("apikey")!;
-
+    widget.apikey = prefs.getString("apikey")!;
 
     var apiURL = "https://cqpplefitting.com/ad_cqpple/Api/RequestForService";
-    var request = new http.MultipartRequest('POST', Uri.parse(apiURL));
+    var request = http.MultipartRequest('POST', Uri.parse(apiURL));
     print(widget.data["Address"]);
     request.fields["apikey"] = widget.apikey;
     request.fields["ProblemID"] = problemID;
@@ -456,7 +468,7 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
     var response = await http.Response.fromStream(await request.send());
     var responseData = await jsonDecode(response.body);
     print(responseData);
-    widget.isLoading=false;
+    widget.isLoading = false;
     widget.ServiceID = responseData["data"][0]["ServiceID"];
     print(widget.ServiceID);
   }
