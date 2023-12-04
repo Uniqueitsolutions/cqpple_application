@@ -1,4 +1,4 @@
-package com.bath_service_project.bath_service_project
+package com.cqpplefitting
 
 import io.flutter.embedding.android.FlutterActivity
 
