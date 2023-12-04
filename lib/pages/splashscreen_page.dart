@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bath_service_project/Utils/web_service.dart';
 import 'package:bath_service_project/pages/homescreen_page.dart';
 import 'package:bath_service_project/pages/login_page.dart';
@@ -8,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'dart:convert';
 import 'dart:async';
 import 'package:http/http.dart' as http;
@@ -73,11 +76,17 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    WebServices.getDeleteAccountFlag().then((response) {
-      SharedPreferences.getInstance().then((pref) {
-        pref.setBool("allowDeleteAccount", response.status);
+    if (Platform.isIOS) {
+      WebServices.getDeleteAccountFlag().then((response) {
+        SharedPreferences.getInstance().then((pref) {
+          pref.setBool("allowDeleteAccount", response.status);
+        });
       });
-    });
+    } else {
+      SharedPreferences.getInstance().then((pref) {
+        pref.setBool("allowDeleteAccount", false);
+      });
+    }
   }
 
   Future<int> setServiceID() async {
