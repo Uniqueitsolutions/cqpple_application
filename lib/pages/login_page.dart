@@ -186,7 +186,7 @@ class _LoginPageState extends State<LoginPage> {
               }),
             ],
           ),
-          drawer: const CustomDrawer(hasLogout: false),
+          drawer: CustomDrawer(hasLogout: false),
           resizeToAvoidBottomInset: false,
         ),
       ),

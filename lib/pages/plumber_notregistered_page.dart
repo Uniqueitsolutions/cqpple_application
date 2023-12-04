@@ -14,7 +14,8 @@ class PlumberNotRegisteredPage extends StatefulWidget {
   const PlumberNotRegisteredPage({super.key});
 
   @override
-  State<PlumberNotRegisteredPage> createState() => _PlumberNotRegisteredPageState();
+  State<PlumberNotRegisteredPage> createState() =>
+      _PlumberNotRegisteredPageState();
 }
 
 class _PlumberNotRegisteredPageState extends State<PlumberNotRegisteredPage> {
@@ -24,51 +25,61 @@ class _PlumberNotRegisteredPageState extends State<PlumberNotRegisteredPage> {
       child: Scaffold(
         body: Stack(
           children: [
-            CustomAppBar(title1: "", title2: "Plumber Service",),
+            CustomAppBar(
+              title1: "",
+              title2: "Plumber Service",
+            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(
-                  margin: EdgeInsets.only(top: 160),
-                  decoration: BoxDecoration(
+                  margin: const EdgeInsets.only(top: 160),
+                  decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(20),
                         topLeft: Radius.circular(20),
                       ),
-                      color: Colors.white
-                  ),
-                  height: MediaQuery.of(context).size.height-188,
+                      color: Colors.white),
+                  height: MediaQuery.of(context).size.height - 188,
                   child: Container(
-                    margin: const EdgeInsets.only(left: 33,right: 33,top: 40),
+                    margin: const EdgeInsets.only(left: 33, right: 33, top: 40),
                     child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             children: [
-                              Expanded(child: Icon(Icons.dangerous_outlined,size: 30,color: Color.fromRGBO(227, 59, 36, 1))),
+                              const Expanded(
+                                  child: Icon(Icons.dangerous_outlined,
+                                      size: 30,
+                                      color: Color.fromRGBO(227, 59, 36, 1))),
                               Expanded(
                                 flex: 5,
-                                child: Text("Waiting For Approval",
+                                child: Text(
+                                  "Waiting For Approval",
                                   style: GoogleFonts.poppins(
-                                    color: Color.fromRGBO(227, 59, 36, 1),
-                                    fontSize: 26,
-                                    fontWeight: FontWeight.w600
-                                  ),
+                                      color:
+                                          const Color.fromRGBO(227, 59, 36, 1),
+                                      fontSize: 26,
+                                      fontWeight: FontWeight.w600),
                                 ),
                               )
                             ],
                           ),
                           Container(
-                              margin: EdgeInsets.only(top: 10,left: 10),
-                              child: CustomTextStyle(title: "Your Request is not accepted.",)
-                          ),
+                              margin: const EdgeInsets.only(top: 10, left: 10),
+                              child: CustomTextStyle(
+                                title: "Your Request is not accepted.",
+                              )),
                           CustomSubmitBotton(
-                            title: "Exit",margin_top: 50,
-                            onTap: (){
-                              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                                return LoginPage();
-                              },));
+                            title: "Exit",
+                            margin_top: 50,
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) {
+                                  return LoginPage();
+                                },
+                              ));
                             },
                           ),
                         ],
@@ -78,8 +89,10 @@ class _PlumberNotRegisteredPageState extends State<PlumberNotRegisteredPage> {
                 ),
               ],
             ),
-            Builder(builder: (context){
-              return TextButton( onPressed: () => Scaffold.of(context).openDrawer(), child: CustomIcon());
+            Builder(builder: (context) {
+              return TextButton(
+                  onPressed: () => Scaffold.of(context).openDrawer(),
+                  child: const CustomIcon());
             }),
           ],
         ),

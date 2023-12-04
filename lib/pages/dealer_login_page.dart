@@ -133,7 +133,7 @@ class _DealerLoginPageState extends State<DealerLoginPage> {
               }),
             ],
           ),
-          drawer: const CustomDrawer(),
+          drawer: CustomDrawer(),
           resizeToAvoidBottomInset: false,
         ),
       ),

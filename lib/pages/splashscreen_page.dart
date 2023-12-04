@@ -1,3 +1,4 @@
+import 'package:bath_service_project/Utils/web_service.dart';
 import 'package:bath_service_project/pages/homescreen_page.dart';
 import 'package:bath_service_project/pages/login_page.dart';
 import 'package:bath_service_project/pages/plumber_notregistered_page.dart';
@@ -67,6 +68,16 @@ class _SplashScreenState extends State<SplashScreen> {
         ServiceID: widget.serviceID,
       );
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WebServices.getDeleteAccountFlag().then((response) {
+      SharedPreferences.getInstance().then((pref) {
+        pref.setBool("allowDeleteAccount", response.status);
+      });
+    });
   }
 
   Future<int> setServiceID() async {

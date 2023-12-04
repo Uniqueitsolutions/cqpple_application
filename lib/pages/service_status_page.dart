@@ -489,6 +489,7 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
                                     ? CustomSubmitBotton(
                                         title: "Submit",
                                         margin_top: 20,
+                                        margin_bottom: 20,
                                         onTap: () async {
                                           await postStarRating();
                                           SharedPreferences pref =
@@ -525,7 +526,7 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
                 }),
               ],
             ),
-            drawer: const CustomDrawer(),
+            drawer: CustomDrawer(),
             floatingActionButton: widget.listOfStatus[3]["date"] != "" ||
                     widget.listOfStatus[4]["date"] != ""
                 ? Container(
@@ -658,7 +659,7 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
     map["apikey"] = widget.apikey;
     map["ServiceID"] = widget.ServiceID;
     map["RatingID"] = starRating.toString();
-    var response = await http.post(Uri.parse(apiURL), body: map);
-    print(response.statusCode);
+    var response = await http.post(Uri.parse(apiURL), body: jsonEncode(map));
+    print(response);
   }
 }

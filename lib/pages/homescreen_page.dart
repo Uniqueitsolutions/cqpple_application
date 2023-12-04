@@ -118,7 +118,7 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
                 }),
               ],
             ),
-            drawer: const CustomDrawer(),
+            drawer: CustomDrawer(),
             resizeToAvoidBottomInset: false,
           ),
         ));

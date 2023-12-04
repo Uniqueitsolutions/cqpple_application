@@ -6,6 +6,7 @@ import 'package:bath_service_project/pages/login_page.dart';
 import 'package:bath_service_project/pages/plumber_notregistered_page.dart';
 import 'package:bath_service_project/pages/plumber_registration_page.dart';
 import 'package:bath_service_project/pages/plumber_service_token_page.dart';
+import 'package:bath_service_project/pages/plumber_servicedetails_page.dart';
 import 'package:bath_service_project/pages/service_contactdetails_page.dart';
 import 'package:bath_service_project/pages/service_request_page.dart';
 import 'package:bath_service_project/pages/service_status_page.dart';
@@ -41,6 +42,6 @@ class MyApp extends StatelessWidget {
           // is not restarted.
           primarySwatch: Colors.blue,
         ),
-        home: SplashScreen());
+        home:  SplashScreen());
   }
 }

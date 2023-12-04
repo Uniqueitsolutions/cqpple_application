@@ -1,9 +1,11 @@
 import 'dart:ffi';
 
+import 'package:bath_service_project/Utils/web_service.dart';
 import 'package:bath_service_project/custom/custom_textstyle.dart';
 import 'package:bath_service_project/drawer_pages/help_page.dart';
 import 'package:bath_service_project/drawer_pages/logout_page.dart';
 import 'package:bath_service_project/pages/homescreen_page.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,8 +14,9 @@ import 'package:url_launcher/url_launcher.dart';
 import '../pages/login_page.dart';
 
 class CustomDrawer extends StatefulWidget {
-  final bool hasLogout;
-  const CustomDrawer({super.key, this.hasLogout = true});
+  bool hasLogout;
+  var showDeleteButton = false;
+  CustomDrawer({super.key, this.hasLogout = true});
 
   @override
   State<CustomDrawer> createState() => _CustomDrawerState();
@@ -35,25 +38,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
           style: GoogleFonts.poppins(
               color: Colors.white, fontSize: 16, fontWeight: FontWeight.w400),
         ),
-        onTap: () async {
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          await clearPreferences().then((value) {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) {
-                return LoginPage();
-              },
-            ));
-          });
+        onTap: () {
+          _showLogoutConfirmation(context);
         },
       ),
     );
-    return Drawer(
-      backgroundColor: const Color.fromRGBO(0, 65, 194, 1),
-      width: MediaQuery.of(context).size.width > 260 ? 250 : 100,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-            topRight: Radius.circular(30), bottomRight: Radius.circular(30)),
-      ),
+
+    var expanded = Expanded(
       child: ListView(
         children: [
           Container(
@@ -183,6 +174,90 @@ class _CustomDrawerState extends State<CustomDrawer> {
         ],
       ),
     );
+    return Drawer(
+      backgroundColor: const Color.fromRGBO(0, 65, 194, 1),
+      width: MediaQuery.of(context).size.width > 260 ? 250 : 100,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            topRight: Radius.circular(30), bottomRight: Radius.circular(30)),
+      ),
+      child: Column(
+        children: [
+          expanded,
+          if (widget.showDeleteButton)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: TextButton(
+                  onPressed: () {
+                    showConfirmationDialog(context);
+                  },
+                  child: const Text(
+                    "Delete my Account",
+                    style: TextStyle(color: Colors.red),
+                  )),
+            )
+        ],
+      ),
+    );
+  }
+
+  void _showLogoutConfirmation(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Logout Confirmation"),
+          content: const Text("Are you sure you want to log out?"),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                _logout(); // Call your logout function
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text(
+                'Logout',
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void showConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Confirmation"),
+          content: const Text("Are you sure you want to delete your account?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () {
+                _deleteAccountRequest();
+              },
+              child: const Text(
+                "Delete",
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Future<void> clearPreferences() async {
@@ -190,5 +265,39 @@ class _CustomDrawerState extends State<CustomDrawer> {
     await prefs.remove("ServiceID");
     await prefs.remove("Role");
     await prefs.remove("apikey");
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.hasLogout) {
+      SharedPreferences.getInstance().then((pref) {
+        var status = pref.getBool("allowDeleteAccount");
+        if (kDebugMode) {
+          print("status: $status");
+        }
+        setState(() {
+          widget.showDeleteButton = status ?? true;
+        });
+      });
+    }
+  }
+
+  _logout() {
+    clearPreferences().then((value) {
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) {
+          return LoginPage();
+        },
+      ));
+    });
+  }
+
+  _deleteAccountRequest() {
+    WebServices.deleteAccount().then((response) {
+      if (response.status) {
+        _logout();
+      }
+    });
   }
 }

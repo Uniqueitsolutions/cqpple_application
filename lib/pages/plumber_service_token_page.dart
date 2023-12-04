@@ -140,7 +140,7 @@ class _PlumberServiceTokenPageState extends State<PlumberServiceTokenPage> {
     return WillPopScope(
         child: SafeArea(
           child: Scaffold(
-            drawer: const CustomDrawer(),
+            drawer: CustomDrawer(),
             resizeToAvoidBottomInset: false,
             body: Stack(
               children: [

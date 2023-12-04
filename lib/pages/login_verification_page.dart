@@ -463,7 +463,7 @@ class _LoginVerificationPageState extends State<LoginVerificationPage> {
           }),
         ],
       ),
-      drawer: const CustomDrawer(),
+      drawer: CustomDrawer(),
     ));
   }
 

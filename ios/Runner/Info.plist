@@ -29,7 +29,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Please allow us to use photo library to set Profile image or other purpose</string>
+	<string>Please allow us to use photo library to add services</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Please allow us to use camera to add services</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Please allow us to use Microphone access to add services</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

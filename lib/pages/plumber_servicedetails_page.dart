@@ -52,420 +52,384 @@ class _PlumberServiceDetailsPageState extends State<PlumberServiceDetailsPage> {
               title1: "",
               title2: "Plumber Service",
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(top: 160),
-                  decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(20),
-                        topLeft: Radius.circular(20),
-                      ),
-                      color: Colors.white),
-                  height: MediaQuery.of(context).size.height - 188,
-                  child: FutureBuilder(
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData &&
-                          snapshot.data.toString() != "Completed") {
-                        return SingleChildScrollView(
-                          child: Container(
-                            margin: const EdgeInsets.only(
-                                left: 33, right: 33, top: 30),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                CustomTextStyle(
-                                  title: "Service Details",
-                                ),
-                                Center(
-                                  child: Container(
-                                    height: 120,
-                                    margin: const EdgeInsets.only(top: 23),
-                                    width:
-                                        MediaQuery.of(context).size.width - 50,
-                                    decoration: const BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(20)),
-                                        color: Color.fromRGBO(
-                                            230, 230, 230, 0.25)),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          margin: const EdgeInsets.only(
-                                              top: 10, left: 30),
-                                          child: Text(
-                                            snapshot.data!["Name"].toString(),
-                                            style: GoogleFonts.poppins(
-                                                fontSize: 26,
-                                                fontWeight: FontWeight.w600,
-                                                fontStyle: FontStyle.normal,
-                                                color: const Color.fromRGBO(
-                                                    29, 29, 29, 1)),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: const EdgeInsets.only(
-                                              top: 8, left: 30),
-                                          child: Row(
-                                            children: [
-                                              Flexible(
-                                                child: Container(
-                                                  margin: const EdgeInsets.only(
-                                                      right: 5),
-                                                  child: Text(
-                                                    "Address :",
-                                                    textAlign: TextAlign.end,
-                                                    style: GoogleFonts.poppins(
-                                                        fontStyle:
-                                                            FontStyle.normal,
-                                                        fontSize: 12,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: const Color
-                                                            .fromRGBO(
-                                                            29, 29, 29, 1)),
-                                                  ),
-                                                ),
-                                              ),
-                                              Flexible(
-                                                child: Container(
-                                                  margin: const EdgeInsets.only(
-                                                      left: 5),
-                                                  child: Text(
-                                                    snapshot.data!["Address"],
-                                                    textAlign: TextAlign.start,
-                                                    style: GoogleFonts.poppins(
-                                                        fontStyle:
-                                                            FontStyle.normal,
-                                                        fontSize: 12,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color: const Color
-                                                            .fromRGBO(
-                                                            131, 131, 131, 1)),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: const EdgeInsets.only(
-                                              top: 8, left: 30),
-                                          child: Row(
-                                            children: [
-                                              Flexible(
-                                                child: Container(
-                                                  margin: const EdgeInsets.only(
-                                                      right: 5),
-                                                  child: Text(
-                                                    "Mobile Number :",
-                                                    textAlign: TextAlign.end,
-                                                    style: GoogleFonts.poppins(
-                                                        fontStyle:
-                                                            FontStyle.normal,
-                                                        fontSize: 12,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: const Color
-                                                            .fromRGBO(
-                                                            29, 29, 29, 1)),
-                                                  ),
-                                                ),
-                                              ),
-                                              Flexible(
-                                                child: Container(
-                                                  margin: const EdgeInsets.only(
-                                                      left: 5),
-                                                  child: Text(
-                                                    snapshot
-                                                        .data!["ContactNumber"],
-                                                    textAlign: TextAlign.start,
-                                                    style: GoogleFonts.poppins(
-                                                        fontStyle:
-                                                            FontStyle.normal,
-                                                        fontSize: 12,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color: const Color
-                                                            .fromRGBO(
-                                                            131, 131, 131, 1)),
-                                                  ),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+            SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(top: 160),
+                    decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(20),
+                          topLeft: Radius.circular(20),
+                        ),
+                        color: Colors.white),
+                    height: MediaQuery.of(context).size.height - 188,
+                    child: FutureBuilder(
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData &&
+                            snapshot.data.toString() != "Completed") {
+                          return SingleChildScrollView(
+                            child: Container(
+                              margin: const EdgeInsets.only(
+                                  left: 33, right: 33, top: 30),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  CustomTextStyle(
+                                    title: "Service Details",
                                   ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 14),
-                                  child: Text(
-                                    "Add Image",
-                                    style: GoogleFonts.poppins(
-                                        color:
-                                            const Color.fromRGBO(29, 29, 29, 1),
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 10),
-                                  child: InkWell(
-                                    child: CustomSubmitBotton(
-                                      title: "Add",
-                                      onTap: () async {
-                                        final deviceInfo =
-                                            await DeviceInfoPlugin()
-                                                .androidInfo;
-                                        if (deviceInfo.version.sdkInt > 32) {
-                                          PermissionStatus photoPermission =
-                                              await Permission.photos.request();
-                                          if (photoPermission.isGranted) {
-                                            getImageFromGallery();
-                                          } else if (photoPermission.isDenied) {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(const SnackBar(
-                                                    backgroundColor: Colors.red,
-                                                    content: Text(
-                                                        "Storage Permission Denied.")));
-                                          } else if (photoPermission
-                                              .isPermanentlyDenied) {
-                                            openAppSettings();
-                                          }
-                                        } else {
-                                          PermissionStatus storagePermission =
-                                              await Permission.storage
-                                                  .request();
-                                          if (storagePermission.isGranted) {
-                                            getImageFromGallery();
-                                          } else if (storagePermission
-                                              .isDenied) {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(const SnackBar(
-                                                    backgroundColor: Colors.red,
-                                                    content: Text(
-                                                        "Storage Permission Denied.")));
-                                          } else if (storagePermission
-                                              .isPermanentlyDenied) {
-                                            openAppSettings();
-                                          }
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                ),
-                                imageFile == null
-                                    ? Container()
-                                    : imageSize >= 10000000
-                                        ? Container(
+                                  Center(
+                                    child: Container(
+                                      height: 120,
+                                      margin: const EdgeInsets.only(top: 23),
+                                      width: MediaQuery.of(context).size.width -
+                                          50,
+                                      decoration: const BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(20)),
+                                          color: Color.fromRGBO(
+                                              230, 230, 230, 0.25)),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
                                             margin: const EdgeInsets.only(
-                                                top: 10, left: 20),
+                                                top: 10, left: 30),
                                             child: Text(
-                                              "Upload image upto 10 MB",
+                                              snapshot.data?["Name"]?.toString() ?? "",
                                               style: GoogleFonts.poppins(
-                                                  color: Colors.red,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          )
-                                        : Center(
-                                            child: Container(
-                                              margin: const EdgeInsets.only(
-                                                  top: 10),
-                                              child: Image.file(
-                                                imageFile!,
-                                                height: 240,
-                                                width: 240,
-                                                fit: BoxFit.contain,
-                                              ),
+                                                  fontSize: 26,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontStyle: FontStyle.normal,
+                                                  color: const Color.fromRGBO(
+                                                      29, 29, 29, 1)),
                                             ),
                                           ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 14),
-                                  child: Text(
-                                    "Add Video",
-                                    style: GoogleFonts.poppins(
-                                        color:
-                                            const Color.fromRGBO(29, 29, 29, 1),
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 10),
-                                  child: InkWell(
-                                    child: CustomSubmitBotton(
-                                      title: "Add",
-                                      onTap: () async {
-                                        final deviceInfo =
-                                            await DeviceInfoPlugin()
-                                                .androidInfo;
-                                        if (deviceInfo.version.sdkInt > 32) {
-                                          PermissionStatus videoPermission =
-                                              await Permission.videos.request();
-                                          if (videoPermission.isGranted) {
-                                            getVideoFromGallery();
-                                          } else if (videoPermission.isDenied) {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(const SnackBar(
-                                                    backgroundColor: Colors.red,
-                                                    content: Text(
-                                                        "Storage Permission Denied.")));
-                                          } else if (videoPermission
-                                              .isPermanentlyDenied) {
-                                            openAppSettings();
-                                          }
-                                        } else {
-                                          PermissionStatus storagePermission =
-                                              await Permission.storage
-                                                  .request();
-                                          if (storagePermission.isGranted) {
-                                            getVideoFromGallery();
-                                          } else if (storagePermission
-                                              .isDenied) {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(const SnackBar(
-                                                    backgroundColor: Colors.red,
-                                                    content: Text(
-                                                        "Storage Permission Denied.")));
-                                          } else if (storagePermission
-                                              .isPermanentlyDenied) {
-                                            openAppSettings();
-                                          }
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                ),
-                                videoFile == null
-                                    ? Container()
-                                    : videoSize >= 15000000
-                                        ? Container(
+                                          Container(
                                             margin: const EdgeInsets.only(
-                                                top: 10, left: 20),
-                                            child: Text(
-                                              "Upload video upto 15 MB",
-                                              style: GoogleFonts.poppins(
-                                                  color: Colors.red,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          )
-                                        : Center(
-                                            child: Container(
-                                              margin: const EdgeInsets.only(
-                                                  top: 10),
-                                              child: Column(
-                                                children: [
-                                                  Container(
+                                                top: 8, left: 30),
+                                            child: Row(
+                                              children: [
+                                                Flexible(
+                                                  child: Container(
                                                     margin:
                                                         const EdgeInsets.only(
-                                                            top: 20),
-                                                    height: 240,
-                                                    width: 240,
-                                                    child: widget
-                                                            .videoController
-                                                            .value
-                                                            .isInitialized
-                                                        ? VideoPlayer(widget
-                                                            .videoController)
-                                                        : Container(),
-                                                  ),
-                                                  InkWell(
-                                                    child: CustomSubmitBotton(
-                                                      margin_top: 20,
-                                                      title: "Play",
-                                                      onTap: () {
-                                                        setState(() {
-                                                          widget.videoController
-                                                                  .value.isPlaying
-                                                              ? widget
-                                                                  .videoController
-                                                                  .pause()
-                                                              : widget
-                                                                  .videoController
-                                                                  .play();
-                                                        });
-                                                      },
+                                                            right: 5),
+                                                    child: Text(
+                                                      "Address :",
+                                                      textAlign: TextAlign.end,
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                              fontStyle:
+                                                                  FontStyle
+                                                                      .normal,
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color: const Color
+                                                                  .fromRGBO(29,
+                                                                  29, 29, 1)),
                                                     ),
-                                                  )
-                                                ],
-                                              ),
+                                                  ),
+                                                ),
+                                                Flexible(
+                                                  child: Container(
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            left: 5),
+                                                    child: Text(
+                                                      snapshot.data?[
+                                                              "Address"] ??
+                                                          "",
+                                                      textAlign:
+                                                          TextAlign.start,
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                              fontStyle:
+                                                                  FontStyle
+                                                                      .normal,
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              color: const Color
+                                                                  .fromRGBO(131,
+                                                                  131, 131, 1)),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                CustomSubmitBotton(
-                                  margin_top: 70,
-                                  title: "Submit",
-                                  onTap: () async {
-                                    if (videoFile != null &&
-                                        imageFile != null &&
-                                        imageSize < 10000000 &&
-                                        videoSize < 15000000) {
-                                      await completeRequestByPlumber();
-
-                                      Navigator.of(context)
-                                          .push(MaterialPageRoute(
-                                        builder: (context) {
-                                          widget.isLoading = false;
-                                          return PlumberServiceTokenPage();
+                                          Container(
+                                            margin: const EdgeInsets.only(
+                                                top: 8, left: 30),
+                                            child: Row(
+                                              children: [
+                                                Flexible(
+                                                  child: Container(
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            right: 5),
+                                                    child: Text(
+                                                      "Mobile Number :",
+                                                      textAlign: TextAlign.end,
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                              fontStyle:
+                                                                  FontStyle
+                                                                      .normal,
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color: const Color
+                                                                  .fromRGBO(29,
+                                                                  29, 29, 1)),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Flexible(
+                                                  child: Container(
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            left: 5),
+                                                    child: Text(
+                                                      snapshot.data?[
+                                                              "ContactNumber"] ??
+                                                          "",
+                                                      textAlign:
+                                                          TextAlign.start,
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                              fontStyle:
+                                                                  FontStyle
+                                                                      .normal,
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              color: const Color
+                                                                  .fromRGBO(131,
+                                                                  131, 131, 1)),
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: Text(
+                                      "Add Image",
+                                      style: GoogleFonts.poppins(
+                                          color: const Color.fromRGBO(
+                                              29, 29, 29, 1),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(top: 10),
+                                    child: InkWell(
+                                      child: CustomSubmitBotton(
+                                        title: "Add",
+                                        onTap: () {
+                                          showPickerOption(
+                                            forImage: true,
+                                            context: context,
+                                          );
                                         },
-                                      ));
-                                    } else {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(const SnackBar(
-                                              content: Text(
-                                                  "Invalid Image Or Video.")));
-                                    }
-                                  },
-                                )
-                              ],
-                            ),
-                          ),
-                        );
-                      } else if (snapshot.hasError ||
-                          snapshot.data.toString() == "Completed") {
-                        return Container(
-                          margin: const EdgeInsets.only(top: 40, left: 20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  const Icon(Icons.dangerous_outlined,
-                                      size: 30,
-                                      color: Color.fromRGBO(227, 59, 36, 1)),
-                                  Text(
-                                    "Service Not Found",
-                                    style: GoogleFonts.poppins(
-                                        color: const Color.fromRGBO(
-                                            227, 59, 36, 1),
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.w600),
+                                      ),
+                                    ),
+                                  ),
+                                  imageFile == null
+                                      ? Container()
+                                      : imageSize >= 10000000
+                                          ? Container(
+                                              margin: const EdgeInsets.only(
+                                                  top: 10, left: 20),
+                                              child: Text(
+                                                "Upload image upto 10 MB",
+                                                style: GoogleFonts.poppins(
+                                                    color: Colors.red,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            )
+                                          : Center(
+                                              child: Container(
+                                                margin: const EdgeInsets.only(
+                                                    top: 10),
+                                                child: Image.file(
+                                                  imageFile!,
+                                                  height: 240,
+                                                  width: 240,
+                                                  fit: BoxFit.contain,
+                                                ),
+                                              ),
+                                            ),
+                                  Container(
+                                    margin: const EdgeInsets.only(top: 14),
+                                    child: Text(
+                                      "Add Video",
+                                      style: GoogleFonts.poppins(
+                                          color: const Color.fromRGBO(
+                                              29, 29, 29, 1),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(top: 10),
+                                    child: InkWell(
+                                      child: CustomSubmitBotton(
+                                        title: "Add",
+                                        onTap: () {
+                                          showPickerOption(
+                                            forImage: false,
+                                            context: context,
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  videoFile == null
+                                      ? Container()
+                                      : videoSize >= 15000000
+                                          ? Container(
+                                              margin: const EdgeInsets.only(
+                                                  top: 10, left: 20),
+                                              child: Text(
+                                                "Upload video upto 15 MB",
+                                                style: GoogleFonts.poppins(
+                                                    color: Colors.red,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            )
+                                          : Center(
+                                              child: Container(
+                                                margin: const EdgeInsets.only(
+                                                    top: 10),
+                                                child: Column(
+                                                  children: [
+                                                    Container(
+                                                      margin:
+                                                          const EdgeInsets.only(
+                                                              top: 20),
+                                                      height: 240,
+                                                      width: 240,
+                                                      child: widget
+                                                              .videoController
+                                                              .value
+                                                              .isInitialized
+                                                          ? VideoPlayer(widget
+                                                              .videoController)
+                                                          : Container(),
+                                                    ),
+                                                    InkWell(
+                                                      child: CustomSubmitBotton(
+                                                        margin_top: 20,
+                                                        title: "Play",
+                                                        onTap: () {
+                                                          setState(() {
+                                                            widget
+                                                                    .videoController
+                                                                    .value
+                                                                    .isPlaying
+                                                                ? widget
+                                                                    .videoController
+                                                                    .pause()
+                                                                : widget
+                                                                    .videoController
+                                                                    .play();
+                                                          });
+                                                        },
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                  CustomSubmitBotton(
+                                    margin_top: 70,
+                                    margin_bottom: 50,
+                                    title: "Submit",
+                                    onTap: () async {
+                                      if (videoFile != null &&
+                                          imageFile != null &&
+                                          imageSize < 10000000 &&
+                                          videoSize < 15000000) {
+                                        await completeRequestByPlumber();
+
+                                        Navigator.of(context)
+                                            .push(MaterialPageRoute(
+                                          builder: (context) {
+                                            widget.isLoading = false;
+                                            return PlumberServiceTokenPage();
+                                          },
+                                        ));
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                                content: Text(
+                                                    "Invalid Image Or Video.")));
+                                      }
+                                    },
                                   )
                                 ],
                               ),
-                              CustomSubmitBotton(
-                                title: "Exit",
-                                margin_top: 50,
-                                onTap: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                          ),
-                        );
-                      } else {
-                        return CustomLoader();
-                      }
-                    },
-                    future: getStatusByComplainNumber(),
+                            ),
+                          );
+                        } else if (snapshot.hasError ||
+                            snapshot.data.toString() == "Completed") {
+                          return Container(
+                            margin: const EdgeInsets.only(top: 40, left: 20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    const Icon(Icons.dangerous_outlined,
+                                        size: 30,
+                                        color: Color.fromRGBO(227, 59, 36, 1)),
+                                    Text(
+                                      "Service Not Found",
+                                      style: GoogleFonts.poppins(
+                                          color: const Color.fromRGBO(
+                                              227, 59, 36, 1),
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.w600),
+                                    )
+                                  ],
+                                ),
+                                CustomSubmitBotton(
+                                  title: "Exit",
+                                  margin_top: 50,
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            ),
+                          );
+                        } else {
+                          return CustomLoader();
+                        }
+                      },
+                      future: getStatusByComplainNumber(),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             widget.isLoading
                 ? CustomLoader(
@@ -479,53 +443,100 @@ class _PlumberServiceDetailsPageState extends State<PlumberServiceDetailsPage> {
             }),
           ],
         ),
-        drawer: const CustomDrawer(),
+        drawer: CustomDrawer(),
         resizeToAvoidBottomInset: false,
       ),
     );
   }
 
-  void getImageFromGallery() async {
-    var img = await imagePicker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      imageFile = File(img!.path);
-    });
-    img!.length().then((value) {
-      setState(() {
-        imageSize = value;
-      });
+  void showPickerOption(
+      {required bool forImage, required BuildContext context}) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListTile(
+            title: const Text('Gallery'),
+            onTap: () {
+              Navigator.pop(context);
+              if (forImage) {
+                getImage(ImageSource.gallery);
+              } else {
+                getVideo(ImageSource.gallery);
+              }
+            },
+          ),
+          /* ListTile(
+            title: const Text('File'),
+            onTap: () async {},
+          ),*/
+          ListTile(
+            title: const Text('Camera'),
+            onTap: () {
+              Navigator.pop(context);
+              if (forImage) {
+                getImage(ImageSource.camera);
+              } else {
+                getVideo(ImageSource.camera);
+              }
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  void getImage(ImageSource source) {
+    imagePicker.pickImage(source: source).then((image) {
+      if (image != null) {
+        setState(() {
+          imageFile = File(image.path);
+        });
+        image.length().then((length) {
+          imageSize = length;
+        });
+      }
     });
   }
 
-  void getVideoFromGallery() async {
-    var video = await imagePicker.pickVideo(source: ImageSource.gallery);
-    setState(() {
-      videoFile = File(video!.path);
-      widget.videoController = VideoPlayerController.file(videoFile!)
-        ..initialize().then(
-          (value) {
-            setState(() {});
-          },
-        );
-      video.length().then((value) {
-        videoSize = value;
-      });
-    });
+  void getVideo(ImageSource source) {
+    imagePicker.pickVideo(source: source).then(
+      (video) {
+        if (video != null) {
+          videoFile = File(video.path);
+          widget.videoController = VideoPlayerController.file(videoFile!)
+            ..initialize().then(
+              (value) {
+                setState(() {});
+              },
+            );
+          video.length().then((value) {
+            videoSize = value;
+          });
+        }
+      },
+    );
   }
 
   Future<Map> getStatusByComplainNumber() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    widget.apikey = prefs.getString("apikey")!;
+    widget.apikey = prefs.getString("apikey") ??
+        "3c639795efc1af35c329eb60dd55fd60b0c7995a1f1fcab2";
     var apiURL =
         "https://cqpplefitting.com/ad_cqpple/Api/ServiceByComplainNumber";
     Map map = {};
     map["apikey"] = widget.apikey;
     map["ComplainNumber"] = widget.complainNumber;
     var response = await http.post(Uri.parse(apiURL), body: jsonEncode(map));
-    print(response.statusCode);
-    print(jsonDecode(response.body.toString()));
-
-    return jsonDecode(response.body.toString())["data"][0];
+    final json = jsonDecode(response.body);
+    print(json);
+    final data = json["data"];
+    if (data == null) {
+      return {};
+    } else {
+      return data;
+    }
   }
 
   Future<void> completeRequestByPlumber() async {
@@ -553,3 +564,74 @@ class _PlumberServiceDetailsPageState extends State<PlumberServiceDetailsPage> {
     print(responseData);
   }
 }
+
+/*void pickImage() async {
+    if (Platform.isAndroid) {
+      final deviceInfo = await DeviceInfoPlugin().androidInfo;
+      if (deviceInfo.version.sdkInt > 32) {
+        PermissionStatus photoPermission = await Permission.photos.request();
+        if (photoPermission.isGranted) {
+          getImageFromGallery();
+        } else if (photoPermission.isDenied) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              backgroundColor: Colors.red,
+              content: Text("Storage Permission Denied.")));
+        } else if (photoPermission.isPermanentlyDenied) {
+          openAppSettings();
+        }
+      } else {
+        PermissionStatus storagePermission = await Permission.storage.request();
+        if (storagePermission.isGranted) {
+          getImageFromGallery();
+        } else if (storagePermission.isDenied) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              backgroundColor: Colors.red,
+              content: Text("Storage Permission Denied.")));
+        } else if (storagePermission.isPermanentlyDenied) {
+          openAppSettings();
+        }
+      }
+    } else {}
+
+
+    final deviceInfo =
+                                              await DeviceInfoPlugin()
+                                                  .androidInfo;
+                                          if (deviceInfo.version.sdkInt > 32) {
+                                            PermissionStatus videoPermission =
+                                                await Permission.videos
+                                                    .request();
+                                            if (videoPermission.isGranted) {
+                                              getVideoFromGallery();
+                                            } else if (videoPermission
+                                                .isDenied) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(const SnackBar(
+                                                      backgroundColor:
+                                                          Colors.red,
+                                                      content: Text(
+                                                          "Storage Permission Denied.")));
+                                            } else if (videoPermission
+                                                .isPermanentlyDenied) {
+                                              openAppSettings();
+                                            }
+                                          } else {
+                                            PermissionStatus storagePermission =
+                                                await Permission.storage
+                                                    .request();
+                                            if (storagePermission.isGranted) {
+                                              getVideoFromGallery();
+                                            } else if (storagePermission
+                                                .isDenied) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(const SnackBar(
+                                                      backgroundColor:
+                                                          Colors.red,
+                                                      content: Text(
+                                                          "Storage Permission Denied.")));
+                                            } else if (storagePermission
+                                                .isPermanentlyDenied) {
+                                              openAppSettings();
+                                            }
+                                          }
+  }*/

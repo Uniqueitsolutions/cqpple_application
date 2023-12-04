@@ -562,6 +562,11 @@ class _ServiceContactDetailsState extends State<ServiceContactDetails1> {
                                   ],
                                 ),
                               ),
+                              const Text(
+                                "This information will help up to reach at your address",
+                                style:
+                                    TextStyle(color: Colors.grey, fontSize: 12),
+                              ),
                               Row(
                                 children: [
                                   Expanded(
@@ -669,7 +674,7 @@ class _ServiceContactDetailsState extends State<ServiceContactDetails1> {
                                       map["Pincode"] =
                                           pincodeController.text.toString();
                                       map["ContactNumber"] =
-                                          pincodeController.text.toString();
+                                          phoneNumberController.text.toString();
                                       map["WhatsappNumber"] =
                                           whatsappNumberController.text
                                               .toString();
@@ -703,7 +708,7 @@ class _ServiceContactDetailsState extends State<ServiceContactDetails1> {
             }),
           ],
         ),
-        drawer: const CustomDrawer(),
+        drawer: CustomDrawer(),
         // resizeToAvoidBottomInset: false,
       ),
     );
