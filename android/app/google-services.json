@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "221883624998",
+    "project_id": "cqpple-f28f2",
+    "storage_bucket": "cqpple-f28f2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:221883624998:android:eb04a95552eb45751ac0e7",
+        "android_client_info": {
+          "package_name": "com.cqpplefitting"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDR15TpZ203jsXkIG61p4n157jwqCEzG5E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
