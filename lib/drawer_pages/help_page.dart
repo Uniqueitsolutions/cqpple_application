@@ -14,14 +14,17 @@ class _HelpPageState extends State<HelpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(24, 83, 201, 0.70),
+      backgroundColor: const Color.fromRGBO(24, 83, 201, 0.70),
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(24, 83, 201, 0.70),
-        title: Text("Contact us",style: GoogleFonts.poppins(fontWeight: FontWeight.w400),),
+        backgroundColor: const Color.fromRGBO(24, 83, 201, 0.70),
+        title: Text(
+          "Contact us",
+          style: GoogleFonts.poppins(fontWeight: FontWeight.w400),
+        ),
         leading: BackButton(
-        onPressed: () {
+          onPressed: () {
             Navigator.of(context).pop();
-            },
+          },
         ),
       ),
       body: Column(
@@ -30,44 +33,49 @@ class _HelpPageState extends State<HelpPage> {
         children: [
           Container(
               margin: const EdgeInsets.only(top: 30),
-              child: Image.asset("assets/icons/AppLogo.png",height: 100,width: 100)),
+              child: Image.asset("assets/icons/AppLogo.png",
+                  height: 100, width: 100)),
           Container(
-            margin: const EdgeInsets.only(top: 50,left: 20),
-            child: Text("Do you have any issue or suggestion?",
-              style: GoogleFonts.poppins(
-                color: Color.fromRGBO(240, 240, 240, 1),
-                fontSize: 16,
-                fontWeight: FontWeight.w500
-              ),
-            )
-          ),
+              margin: const EdgeInsets.only(top: 50, left: 20),
+              child: Text(
+                "Do you have any issue or suggestion?",
+                style: GoogleFonts.poppins(
+                    color: const Color.fromRGBO(240, 240, 240, 1),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500),
+              )),
           Container(
-            margin: const EdgeInsets.only(top: 50,left: 20),
-            child: Text("Contact  :  Apple Fitting",
-              style: GoogleFonts.poppins(
-                  color: Color.fromRGBO(240, 240, 240, 1),
-                  fontSize: 15,
-                  fontWeight: FontWeight.w400
-              ),
-            )
-          ),
+              margin: const EdgeInsets.only(top: 50, left: 20),
+              child: Text(
+                "Contact  :  Cqpple Fitting",
+                style: GoogleFonts.poppins(
+                    color: const Color.fromRGBO(240, 240, 240, 1),
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400),
+              )),
           GestureDetector(
-            onTap: (){
+            onTap: () {
               launch('tel:9913845600');
             },
             child: Container(
-              margin: const EdgeInsets.only(left: 20,top: 10),
+              margin: const EdgeInsets.only(left: 20, top: 10),
               child: Row(
                 children: [
-                  Flexible(child: Image.asset("assets/icons/Call.png",height: 20,width: 20,)),
+                  Flexible(
+                      child: Image.asset(
+                    "assets/icons/Call.png",
+                    height: 20,
+                    width: 20,
+                  )),
                   const SizedBox(width: 8),
                   Flexible(
                     flex: 3,
-                    child: Text("+91 9913845600",
+                    child: Text(
+                      "+91 9913845600",
                       style: GoogleFonts.poppins(
-                          color: Colors.lightBlueAccent,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
+                        color: Colors.lightBlueAccent,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ),
@@ -76,35 +84,41 @@ class _HelpPageState extends State<HelpPage> {
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(top: 30,left: 20),
-            child: Text("Mail : ",
+            margin: const EdgeInsets.only(top: 30, left: 20),
+            child: Text(
+              "Mail : ",
               style: GoogleFonts.poppins(
-                  color: Color.fromRGBO(240, 240, 240, 1),
+                  color: const Color.fromRGBO(240, 240, 240, 1),
                   fontSize: 16,
-                  fontWeight: FontWeight.w400
-              ),
+                  fontWeight: FontWeight.w400),
             ),
           ),
           GestureDetector(
-            onTap: (){
-              launch('mailto:info@cqpplefitting.com?subject=issue or suggestion regarding aptitude &body=your issue or suggestion here');
+            onTap: () {
+              launch(
+                  'mailto:info@cqpplefitting.com?subject=issue or suggestion regarding aptitude &body=your issue or suggestion here');
             },
             child: Container(
-              margin: const EdgeInsets.only(left: 20,top: 10),
+              margin: const EdgeInsets.only(left: 20, top: 10),
               child: Row(
                 children: [
                   Flexible(
-                      child: Image.asset("assets/icons/Mail.png",height: 20,width: 20,)
+                      child: Image.asset(
+                    "assets/icons/Mail.png",
+                    height: 20,
+                    width: 20,
+                  )),
+                  const SizedBox(
+                    width: 10,
                   ),
-                  SizedBox(width: 10,),
                   Flexible(
                     flex: 3,
-                    child: Text("info@cqpplefitting.com",
+                    child: Text(
+                      "info@cqpplefitting.com",
                       style: GoogleFonts.poppins(
                           color: Colors.lightBlueAccent,
                           fontSize: 13,
-                          fontWeight: FontWeight.w400
-                      ),
+                          fontWeight: FontWeight.w400),
                     ),
                   ),
                 ],

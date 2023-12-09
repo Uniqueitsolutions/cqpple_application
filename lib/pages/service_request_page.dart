@@ -61,321 +61,250 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
               title1: "",
               title2: "Service Request",
             ),
-            SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(top: 160),
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(20),
-                          topLeft: Radius.circular(20),
-                        ),
-                        color: Colors.white),
-                    height: MediaQuery.of(context).size.height - 188,
-                    child: SingleChildScrollView(
-                      child: Container(
-                        margin:
-                            const EdgeInsets.only(left: 33, right: 33, top: 40),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Problem",
-                              style: GoogleFonts.poppins(
-                                  color: const Color.fromRGBO(29, 29, 29, 1),
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(top: 10),
-                              color: Colors.transparent,
-                              height: 57,
-                              child: Card(
-                                color: const Color.fromRGBO(246, 246, 246, 1),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.circular(8.0), //<-- SEE HERE
-                                ),
-                                child: FutureBuilder(
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasData) {
-                                      if (flagForProblemDropDown) {
-                                        flagForProblemDropDown = false;
-                                      }
-                                      return Container(
-                                        margin: const EdgeInsets.only(
-                                            left: 10, right: 10),
-                                        child: DropDownTextField(
-                                          searchAutofocus: true,
-                                          dropdownRadius: 5,
-                                          listTextStyle: GoogleFonts.poppins(
-                                              color: Colors.black,
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w500),
-                                          textStyle: GoogleFonts.poppins(
-                                              color: Colors.black,
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w500),
-                                          textFieldDecoration:
-                                              const InputDecoration(
-                                                  hintText: "Select Problem"),
-                                          enableSearch: true,
-                                          listPadding: ListPadding(top: 5),
-                                          dropDownList:
-                                              snapshot.data!.map((Map item) {
-                                            return DropDownValueModel(
-                                                name: item["Problem"],
-                                                value: item["ProblemID"]);
-                                          }).toList(),
-                                          onChanged: (newValue) {
-                                            setState(() {
-                                              print(newValue.value);
-                                              problemID =
-                                                  newValue!.value.toString();
-                                            });
-                                          },
-                                        ),
-                                      );
-                                    } else {
-                                      return Center(
-                                        child: Container(
-                                            margin:
-                                                const EdgeInsets.only(left: 20),
-                                            height: 20,
-                                            width: 20,
-                                            child:
-                                                const CircularProgressIndicator()),
-                                      );
-                                    }
-                                  },
-                                  future: flagForProblemDropDown
-                                      ? getProblems()
-                                      : null,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(top: 14),
-                              child: Text(
-                                "Add Image",
-                                style: GoogleFonts.poppins(
-                                    color: const Color.fromRGBO(29, 29, 29, 1),
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(top: 10),
-                              child: InkWell(
-                                child: CustomSubmitBotton(
-                                  title: "Add",
-                                  onTap: () async {
-                                    final deviceInfo =
-                                        await DeviceInfoPlugin().androidInfo;
-                                    if (deviceInfo.version.sdkInt > 32) {
-                                      PermissionStatus photoPermission =
-                                          await Permission.photos.request();
-                                      if (photoPermission.isGranted) {
-                                        getImageFromGallery();
-                                      } else if (photoPermission.isDenied) {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(const SnackBar(
-                                                backgroundColor: Colors.red,
-                                                content: Text(
-                                                    "Storage Permission Denied.")));
-                                      } else if (photoPermission
-                                          .isPermanentlyDenied) {
-                                        openAppSettings();
-                                      }
-                                    } else {
-                                      PermissionStatus storagePermission =
-                                          await Permission.storage.request();
-                                      if (storagePermission.isGranted) {
-                                        getImageFromGallery();
-                                      } else if (storagePermission.isDenied) {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(const SnackBar(
-                                                backgroundColor: Colors.red,
-                                                content: Text(
-                                                    "Storage Permission Denied.")));
-                                      } else if (storagePermission
-                                          .isPermanentlyDenied) {
-                                        openAppSettings();
-                                      }
-                                    }
-                                  },
-                                ),
-                              ),
-                            ),
-                            imageFile == null
-                                ? Container()
-                                : imageSize >= 10000000
-                                    ? Container(
-                                        margin: const EdgeInsets.only(
-                                            top: 10, left: 20),
-                                        child: Text(
-                                          "Upload image upto 10 MB",
-                                          style: GoogleFonts.poppins(
-                                              color: Colors.red,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      )
-                                    : Center(
-                                        child: Container(
-                                          margin:
-                                              const EdgeInsets.only(top: 10),
-                                          child: Image.file(
-                                            imageFile!,
-                                            height: 240,
-                                            width: 240,
-                                            fit: BoxFit.contain,
-                                          ),
-                                        ),
-                                      ),
-                            Container(
-                              margin: const EdgeInsets.only(top: 14),
-                              child: Text(
-                                "Add Video",
-                                style: GoogleFonts.poppins(
-                                    color: const Color.fromRGBO(29, 29, 29, 1),
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(top: 10),
-                              child: InkWell(
-                                child: CustomSubmitBotton(
-                                  title: "Add",
-                                  onTap: () async {
-                                    final deviceInfo =
-                                        await DeviceInfoPlugin().androidInfo;
-                                    if (deviceInfo.version.sdkInt > 32) {
-                                      PermissionStatus videoPermission =
-                                          await Permission.videos.request();
-                                      if (videoPermission.isGranted) {
-                                        getVideoFromGallery();
-                                      } else if (videoPermission.isDenied) {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(const SnackBar(
-                                                backgroundColor: Colors.red,
-                                                content: Text(
-                                                    "Storage Permission Denied.")));
-                                      } else if (videoPermission
-                                          .isPermanentlyDenied) {
-                                        openAppSettings();
-                                      }
-                                    } else {
-                                      PermissionStatus storagePermission =
-                                          await Permission.storage.request();
-                                      if (storagePermission.isGranted) {
-                                        getVideoFromGallery();
-                                      } else if (storagePermission.isDenied) {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(const SnackBar(
-                                                backgroundColor: Colors.red,
-                                                content: Text(
-                                                    "Storage Permission Denied.")));
-                                      } else if (storagePermission
-                                          .isPermanentlyDenied) {
-                                        openAppSettings();
-                                      }
-                                    }
-                                  },
-                                ),
-                              ),
-                            ),
-                            videoFile == null
-                                ? Container()
-                                : videoSize >= 15000000
-                                    ? Container(
-                                        margin: const EdgeInsets.only(
-                                            top: 10, left: 20),
-                                        child: Text(
-                                          "Upload video upto 15 MB",
-                                          style: GoogleFonts.poppins(
-                                              color: Colors.red,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      )
-                                    : Center(
-                                        child: Container(
-                                          margin:
-                                              const EdgeInsets.only(top: 10),
-                                          child: Column(
-                                            children: [
-                                              Container(
-                                                margin: const EdgeInsets.only(
-                                                    top: 20),
-                                                height: 240,
-                                                width: 240,
-                                                child: widget.videoController
-                                                        .value.isInitialized
-                                                    ? VideoPlayer(
-                                                        widget.videoController)
-                                                    : Container(),
-                                              ),
-                                              InkWell(
-                                                child: CustomSubmitBotton(
-                                                  margin_top: 20,
-                                                  title: "Play",
-                                                  onTap: () {
-                                                    setState(() {
-                                                      widget.videoController
-                                                              .value.isPlaying
-                                                          ? widget
-                                                              .videoController
-                                                              .pause()
-                                                          : widget
-                                                              .videoController
-                                                              .play();
-                                                    });
-                                                  },
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                            CustomSubmitBotton(
-                              margin_top: 70,
-                              title: "Submit",
-                              onTap: () async {
-                                if (problemID != "" &&
-                                    videoFile != null &&
-                                    imageFile != null &&
-                                    imageSize < 10000000 &&
-                                    videoSize < 15000000) {
-                                  await addRequest();
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                          backgroundColor: Colors.green,
-                                          content: Text(
-                                              "Service Added Succesfully")));
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) {
-                                        return ServiceStatusPage(
-                                            ServiceID: widget.ServiceID);
-                                      },
-                                    ),
-                                  );
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                          content: Text(
-                                              "Invalid Problem Or Image Or Video.")));
+            Container(
+              margin: const EdgeInsets.only(top: 160),
+              decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(20),
+                    topLeft: Radius.circular(20),
+                  ),
+                  color: Colors.white),
+              height: MediaQuery.of(context).size.height - 188,
+              child: SingleChildScrollView(
+                child: Container(
+                  margin: const EdgeInsets.only(
+                      left: 33, right: 33, top: 40, bottom: 40),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Problem",
+                        style: GoogleFonts.poppins(
+                            color: const Color.fromRGBO(29, 29, 29, 1),
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 10),
+                        color: Colors.transparent,
+                        height: 57,
+                        child: Card(
+                          color: const Color.fromRGBO(246, 246, 246, 1),
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(8.0), //<-- SEE HERE
+                          ),
+                          child: FutureBuilder(
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                if (flagForProblemDropDown) {
+                                  flagForProblemDropDown = false;
                                 }
-                              },
-                            )
-                          ],
+                                return Container(
+                                  margin: const EdgeInsets.only(
+                                      left: 10, right: 10),
+                                  child: DropDownTextField(
+                                    searchAutofocus: true,
+                                    dropdownRadius: 5,
+                                    listTextStyle: GoogleFonts.poppins(
+                                        color: Colors.black,
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w500),
+                                    textStyle: GoogleFonts.poppins(
+                                        color: Colors.black,
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w500),
+                                    textFieldDecoration: const InputDecoration(
+                                        hintText: "Select Problem"),
+                                    enableSearch: true,
+                                    listPadding: ListPadding(top: 5),
+                                    dropDownList:
+                                        snapshot.data!.map((Map item) {
+                                      return DropDownValueModel(
+                                          name: item["Problem"],
+                                          value: item["ProblemID"]);
+                                    }).toList(),
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        print(newValue.value);
+                                        problemID = newValue!.value.toString();
+                                      });
+                                    },
+                                  ),
+                                );
+                              } else {
+                                return Center(
+                                  child: Container(
+                                      margin: const EdgeInsets.only(left: 20),
+                                      height: 20,
+                                      width: 20,
+                                      child: const CircularProgressIndicator()),
+                                );
+                              }
+                            },
+                            future:
+                                flagForProblemDropDown ? getProblems() : null,
+                          ),
                         ),
                       ),
-                    ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 14),
+                        child: Text(
+                          "Add Image",
+                          style: GoogleFonts.poppins(
+                              color: const Color.fromRGBO(29, 29, 29, 1),
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                      if (imageFile == null)
+                        getNetworkImage(
+                            "https://cqpplefitting.com/ad_cqpple/Images/demo.jpg"),
+                      Container(
+                        margin: const EdgeInsets.only(top: 10),
+                        child: InkWell(
+                          child: CustomSubmitBotton(
+                            title: "Add",
+                            onTap: () {
+                              showPickerOption(
+                                forImage: true,
+                                context: context,
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      imageFile == null
+                          ? Container()
+                          : imageSize >= 10000000
+                              ? Container(
+                                  margin:
+                                      const EdgeInsets.only(top: 10, left: 20),
+                                  child: Text(
+                                    "Upload image upto 10 MB",
+                                    style: GoogleFonts.poppins(
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                )
+                              : Center(
+                                  child: Container(
+                                    margin: const EdgeInsets.only(top: 10),
+                                    child: Image.file(
+                                      imageFile!,
+                                      height: 240,
+                                      width: 240,
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 14),
+                        child: Text(
+                          "Add Video",
+                          style: GoogleFonts.poppins(
+                              color: const Color.fromRGBO(29, 29, 29, 1),
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 10),
+                        child: InkWell(
+                          child: CustomSubmitBotton(
+                            title: "Add",
+                            onTap: () {
+                              showPickerOption(
+                                forImage: false,
+                                context: context,
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      videoFile == null
+                          ? Container()
+                          : videoSize >= 15000000
+                              ? Container(
+                                  margin:
+                                      const EdgeInsets.only(top: 10, left: 20),
+                                  child: Text(
+                                    "Upload video upto 15 MB",
+                                    style: GoogleFonts.poppins(
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                )
+                              : Center(
+                                  child: Container(
+                                    margin: const EdgeInsets.only(top: 10),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          margin:
+                                              const EdgeInsets.only(top: 20),
+                                          height: 240,
+                                          width: 240,
+                                          child: widget.videoController.value
+                                                  .isInitialized
+                                              ? VideoPlayer(
+                                                  widget.videoController)
+                                              : Container(),
+                                        ),
+                                        InkWell(
+                                          child: CustomSubmitBotton(
+                                            margin_top: 20,
+                                            title: "Play",
+                                            onTap: () {
+                                              setState(() {
+                                                widget.videoController.value
+                                                        .isPlaying
+                                                    ? widget.videoController
+                                                        .pause()
+                                                    : widget.videoController
+                                                        .play();
+                                              });
+                                            },
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                      CustomSubmitBotton(
+                        margin_top: 70,
+                        title: "Submit",
+                        onTap: () async {
+                          if (problemID != "" &&
+                              videoFile != null &&
+                              imageFile != null &&
+                              imageSize < 10000000 &&
+                              videoSize < 15000000) {
+                            await addRequest();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    backgroundColor: Colors.green,
+                                    content:
+                                        Text("Service Added Succesfully")));
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return ServiceStatusPage(
+                                      ServiceID: widget.ServiceID);
+                                },
+                              ),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text(
+                                        "Invalid Problem Or Image Or Video.")));
+                          }
+                        },
+                      )
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
             widget.isLoading
@@ -396,7 +325,96 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
     );
   }
 
-  void getImageFromGallery() async {
+  Widget getNetworkImage(String urlString) {
+    return Image.network(
+      urlString,
+      fit: BoxFit.fill,
+      loadingBuilder: (BuildContext context, Widget child,
+          ImageChunkEvent? loadingProgress) {
+        if (loadingProgress == null) return child;
+        return Center(
+          child: CircularProgressIndicator(
+            value: loadingProgress.expectedTotalBytes != null
+                ? loadingProgress.cumulativeBytesLoaded /
+                    loadingProgress.expectedTotalBytes!
+                : null,
+          ),
+        );
+      },
+    );
+  }
+
+  void showPickerOption(
+      {required bool forImage, required BuildContext context}) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListTile(
+            title: const Text('Gallery'),
+            onTap: () {
+              Navigator.pop(context);
+              if (forImage) {
+                getImage(ImageSource.gallery);
+              } else {
+                getVideo(ImageSource.gallery);
+              }
+            },
+          ),
+          /* ListTile(
+            title: const Text('File'),
+            onTap: () async {},
+          ),*/
+          ListTile(
+            title: const Text('Camera'),
+            onTap: () {
+              Navigator.pop(context);
+              if (forImage) {
+                getImage(ImageSource.camera);
+              } else {
+                getVideo(ImageSource.camera);
+              }
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  void getImage(ImageSource source) {
+    imagePicker.pickImage(source: source).then((image) {
+      if (image != null) {
+        setState(() {
+          imageFile = File(image.path);
+        });
+        image.length().then((length) {
+          imageSize = length;
+        });
+      }
+    });
+  }
+
+  void getVideo(ImageSource source) {
+    imagePicker.pickVideo(source: source).then(
+      (video) {
+        if (video != null) {
+          videoFile = File(video.path);
+          widget.videoController = VideoPlayerController.file(videoFile!)
+            ..initialize().then(
+              (value) {
+                setState(() {});
+              },
+            );
+          video.length().then((value) {
+            videoSize = value;
+          });
+        }
+      },
+    );
+  }
+
+  /* void getImageFromGallery() async {
     var img = await imagePicker.pickImage(source: ImageSource.gallery);
     setState(() {
       imageFile = File(img!.path);
@@ -422,7 +440,7 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
         videoSize = value;
       });
     });
-  }
+  }*/
 
   Future<List<Map<String, String>>> getProblems() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

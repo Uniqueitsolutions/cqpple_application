@@ -84,8 +84,8 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
                               children: [
                                 Center(
                                   child: Container(
-                                    height: 130,
-                                    margin: const EdgeInsets.only(top: 20),
+                                    margin: const EdgeInsets.only(
+                                        top: 20, bottom: 50),
                                     width:
                                         MediaQuery.of(context).size.width - 50,
                                     decoration: const BoxDecoration(
@@ -101,7 +101,7 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
                                           margin: const EdgeInsets.only(
                                               top: 20, left: 30),
                                           child: Text(
-                                            snapshot.data!["Name"].toString(),
+                                            "#${snapshot.data!["ComplainNumber"].toString()}",
                                             textAlign: TextAlign.center,
                                             style: GoogleFonts.poppins(
                                                 fontSize: 24,
@@ -111,54 +111,12 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
                                                     29, 29, 29, 1)),
                                           ),
                                         ),
-                                        Container(
-                                          margin: const EdgeInsets.only(
-                                              top: 8, left: 30),
-                                          child: Row(
-                                            children: [
-                                              Flexible(
-                                                flex: 2,
-                                                child: Container(
-                                                  margin: const EdgeInsets.only(
-                                                      right: 5),
-                                                  child: Text(
-                                                    "Address :",
-                                                    textAlign: TextAlign.end,
-                                                    style: GoogleFonts.poppins(
-                                                        fontStyle:
-                                                            FontStyle.normal,
-                                                        fontSize: 12,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: const Color
-                                                            .fromRGBO(
-                                                            29, 29, 29, 1)),
-                                                  ),
-                                                ),
-                                              ),
-                                              Flexible(
-                                                flex: 3,
-                                                child: Container(
-                                                  margin: const EdgeInsets.only(
-                                                      left: 5),
-                                                  child: Text(
-                                                    snapshot.data!["Address"],
-                                                    textAlign: TextAlign.start,
-                                                    style: GoogleFonts.poppins(
-                                                        fontStyle:
-                                                            FontStyle.normal,
-                                                        fontSize: 12,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color: const Color
-                                                            .fromRGBO(
-                                                            181, 181, 181, 1)),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
+                                        getTitleDetailsView(
+                                            "Name", snapshot.data!["Name"]),
+                                        getTitleDetailsView("Address",
+                                            "${snapshot.data!["Address"]}, ${snapshot.data!["cityname"]}, ${snapshot.data!["statename"]}"),
+                                        getTitleDetailsView("Pincode",
+                                            snapshot.data!["Pincode"]),
                                         Container(
                                           margin: const EdgeInsets.only(
                                               top: 8, left: 30),
@@ -207,6 +165,9 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
                                               )
                                             ],
                                           ),
+                                        ),
+                                        const SizedBox(
+                                          height: 20,
                                         ),
                                       ],
                                     ),
@@ -527,36 +488,6 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
               ],
             ),
             drawer: CustomDrawer(),
-            floatingActionButton: widget.listOfStatus[3]["date"] != "" ||
-                    widget.listOfStatus[4]["date"] != ""
-                ? Container(
-                    height: 40,
-                    width: 40,
-                    decoration: const BoxDecoration(
-                      color: Color.fromRGBO(24, 83, 201, 1),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(50),
-                      ),
-                    ),
-                    child: TextButton(
-                      child: const Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                      ),
-                      onPressed: () async {
-                        SharedPreferences pref =
-                            await SharedPreferences.getInstance();
-                        await pref.setString("ServiceID", "null");
-                        widget.isLoading = false;
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) {
-                            return const HomeScreenPage();
-                          },
-                        ));
-                      },
-                    ),
-                  )
-                : Container(),
           ),
         ));
   }
@@ -615,6 +546,40 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
     );
   }
 
+  Widget getTitleDetailsView(String title, String details) {
+    return Container(
+      margin: const EdgeInsets.only(top: 8, left: 30),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: const EdgeInsets.only(right: 5),
+            child: Text(
+              "$title :",
+              textAlign: TextAlign.end,
+              style: GoogleFonts.poppins(
+                  fontStyle: FontStyle.normal,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: const Color.fromRGBO(29, 29, 29, 1)),
+            ),
+          ),
+          Flexible(
+            child: Text(
+              details,
+              textAlign: TextAlign.start,
+              style: GoogleFonts.poppins(
+                  fontStyle: FontStyle.normal,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: const Color.fromRGBO(181, 181, 181, 1)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Future<Map> getServiceStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     widget.apikey = prefs.getString("apikey")!;
@@ -624,7 +589,7 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
     map["apikey"] = widget.apikey;
     map["ServiceID"] = widget.ServiceID;
     var response = await http.post(Uri.parse(apiURL), body: jsonEncode(map));
-    print("ServiceID =${widget.ServiceID}");
+    print(response.body);
     var responseData = await jsonDecode(response.body)["data"][0];
     List listStatusResponse = responseData["status_history"];
     for (int i = 0; i < listStatusResponse.length; i++) {
