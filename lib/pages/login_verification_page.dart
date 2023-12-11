@@ -10,6 +10,7 @@ import 'package:bath_service_project/pages/plumber_notregistered_page.dart';
 import 'package:bath_service_project/pages/plumber_service_token_page.dart';
 import 'package:bath_service_project/pages/service_contactdetails_page.dart';
 import 'package:bath_service_project/pages/service_status_page.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -480,8 +481,9 @@ class _LoginVerificationPageState extends State<LoginVerificationPage> {
     map["UserOtp"] = userOTP;
     map["ApplicationUserID"] =
         widget.mobileNumberResponse["data"]["ApplicationUserID"];
-    map["FcmToken"] = "2546";
-    print(userOTP);
+    String? fcmToken = await FirebaseMessaging.instance.getToken();
+    map["FcmToken"] = fcmToken ?? "";
+    print(map);
     var response = await http.post(Uri.parse(apiURL), body: jsonEncode(map));
     print(response.statusCode);
     print("=======requestForOTPVerification=======");

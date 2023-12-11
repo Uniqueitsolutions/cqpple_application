@@ -1,11 +1,12 @@
 import 'dart:io';
-
+import 'package:firebase_core/firebase_core.dart';
 import 'package:bath_service_project/Utils/web_service.dart';
 import 'package:bath_service_project/pages/homescreen_page.dart';
 import 'package:bath_service_project/pages/login_page.dart';
 import 'package:bath_service_project/pages/plumber_notregistered_page.dart';
 import 'package:bath_service_project/pages/plumber_service_token_page.dart';
 import 'package:bath_service_project/pages/service_status_page.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:page_transition/page_transition.dart';
@@ -76,6 +77,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    Firebase.initializeApp();
     if (Platform.isIOS) {
       WebServices.getDeleteAccountFlag().then((response) {
         SharedPreferences.getInstance().then((pref) {
