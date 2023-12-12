@@ -77,7 +77,6 @@ class _PlumberServiceDetailsPageState extends State<PlumberServiceDetailsPage> {
                             ),
                             Center(
                               child: Container(
-                                height: 120,
                                 margin: const EdgeInsets.only(top: 23),
                                 width: MediaQuery.of(context).size.width - 50,
                                 decoration: const BoxDecoration(
@@ -105,6 +104,8 @@ class _PlumberServiceDetailsPageState extends State<PlumberServiceDetailsPage> {
                                       margin: const EdgeInsets.only(
                                           top: 8, left: 30),
                                       child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Flexible(
                                             child: Container(
@@ -143,7 +144,7 @@ class _PlumberServiceDetailsPageState extends State<PlumberServiceDetailsPage> {
                                     ),
                                     Container(
                                       margin: const EdgeInsets.only(
-                                          top: 8, left: 30),
+                                          top: 8, left: 30, bottom: 20),
                                       child: Row(
                                         children: [
                                           Flexible(

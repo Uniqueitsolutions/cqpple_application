@@ -59,6 +59,8 @@ class ServiceListCell extends StatelessWidget {
             buildTitleValue('Contact: ', plumberService.contactNumber ?? ''),
             const SizedBox(height: 4.0),
             buildTitleValue('Address: ', fullAddress),
+            const SizedBox(height: 4.0),
+            buildTitleValue('Pincode: ', plumberService.pincode ?? ""),
             const SizedBox(height: 8.0),
             buildTitleValue('Created: ', plumberService.created ?? ''),
             const SizedBox(height: 8.0),
