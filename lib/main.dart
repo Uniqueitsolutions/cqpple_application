@@ -1,3 +1,4 @@
+import 'package:bath_service_project/Utils/preference.dart';
 import 'package:bath_service_project/custom/internet_checking.dart';
 import 'package:bath_service_project/pages/dealer_login_page.dart';
 
@@ -22,6 +23,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await PreferencesManager.initPreferences();
   // FirebaseMessaging.onBackgroundMessage(backgroundHandler);
   runApp(const MyApp());
 }

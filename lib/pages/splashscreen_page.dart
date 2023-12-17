@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:bath_service_project/Utils/preference.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:bath_service_project/Utils/web_service.dart';
 import 'package:bath_service_project/pages/homescreen_page.dart';
@@ -7,6 +8,7 @@ import 'package:bath_service_project/pages/plumber_notregistered_page.dart';
 import 'package:bath_service_project/pages/plumber_service_token_page.dart';
 import 'package:bath_service_project/pages/service_status_page.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:page_transition/page_transition.dart';
@@ -21,7 +23,7 @@ import 'dealer_login_page.dart';
 class SplashScreen extends StatefulWidget {
   SplashScreen({super.key});
 
-  String? serviceID, role, mobileNumberResponse;
+  String? serviceID, mobileNumberResponse;
   bool isPlumberApproved = false;
 
   @override
@@ -53,16 +55,19 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Widget getNextScreen() {
-    if (widget.serviceID == null || widget.serviceID == "null") {
-      if (widget.role == "Plumber") {
+    if (widget.serviceID == null ||
+        widget.serviceID == "" ||
+        widget.serviceID == "null") {
+      var role = PreferencesManager.role;
+      if (role == UserRole.plumber) {
         if (widget.isPlumberApproved) {
           return PlumberServiceTokenPage();
         } else {
           return const PlumberNotRegisteredPage();
         }
-      } else if (widget.role == "Dealer") {
+      } else if (role == UserRole.dealer) {
         return const DealerLoginPage();
-      } else if (widget.role == "End-User") {
+      } else if (role == UserRole.endUser) {
         return const HomeScreenPage();
       } else {
         return LoginPage();
@@ -77,47 +82,38 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Firebase.initializeApp();
-    if (Platform.isIOS) {
-      WebServices.getDeleteAccountFlag().then((response) {
-        SharedPreferences.getInstance().then((pref) {
-          pref.setBool("allowDeleteAccount", response.status);
-        });
-      });
-    } else {
-      SharedPreferences.getInstance().then((pref) {
-        pref.setBool("allowDeleteAccount", false);
-      });
-    }
   }
 
   Future<int> setServiceID() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final serviceID = prefs.getString("ServiceID");
-    final role = prefs.getString("Role");
-    if (role == "Plumber") {
+    final serviceID = PreferencesManager.serviceId;
+    final role = PreferencesManager.role;
+    if (role == UserRole.plumber) {
       await plumberApproveStatus();
     }
     setState(() {
       widget.serviceID = serviceID;
-      widget.role = role;
-      print("ServiceID splash :${serviceID ?? ""}");
+      if (kDebugMode) {
+        print("ServiceID splash :$serviceID");
+      }
       flag = false;
     });
     return 0;
   }
 
   Future<void> plumberApproveStatus() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final apiKey = prefs.getString("apikey");
-    final applicationUserID = prefs.getString("ApplicationUserID");
+    final apiKey = PreferencesManager.apiKey;
+    final applicationUserID = PreferencesManager.applicationUserID;
     var apiURL = "https://cqpplefitting.com/ad_cqpple/Api/IsServiceManApprove";
     Map map = {};
-    map["apikey"] = apiKey ?? "";
-    map["ApplicationUserID"] = applicationUserID ?? "";
-    print(map);
+    map["apikey"] = apiKey;
+    map["ApplicationUserID"] = applicationUserID;
+    if (kDebugMode) {
+      print(map);
+    }
     var response = await http.post(Uri.parse(apiURL), body: jsonEncode(map));
-    print(response.statusCode);
+    if (kDebugMode) {
+      print(response.statusCode);
+    }
     final json = jsonDecode(response.body);
     widget.isPlumberApproved = json["IsPlumberApproved"].toString() == "true";
   }

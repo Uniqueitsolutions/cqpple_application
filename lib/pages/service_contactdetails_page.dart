@@ -1,8 +1,6 @@
 import 'dart:convert';
-import 'dart:math';
-
+import 'package:bath_service_project/Utils/preference.dart';
 import 'package:bath_service_project/custom/custom_drawer.dart';
-import 'package:bath_service_project/custom/custom_loader.dart';
 import 'package:bath_service_project/custom/internet_checking.dart';
 import 'package:bath_service_project/pages/service_request_page.dart';
 import 'package:dropdown_textfield/dropdown_textfield.dart';
@@ -21,22 +19,17 @@ import '../custom/custom_submit_button.dart';
 import '../custom/customappbar.dart';
 
 class ServiceContactDetails extends StatefulWidget {
-  String mobile_number = "";
-
-  String apikey = "";
-  ServiceContactDetails(String mobile_number, {super.key}) {
-    this.mobile_number = mobile_number;
-  }
-
-  bool isLoading = false;
-  bool flagForStateLoader = true;
-
+  final String mobileNumber;
+  const ServiceContactDetails(this.mobileNumber, {super.key});
   @override
   State<ServiceContactDetails> createState() => _ServiceContactDetailsState();
 }
 
 class _ServiceContactDetailsState extends State<ServiceContactDetails> {
   final _formKey = GlobalKey<FormState>();
+  final apikey = PreferencesManager.apiKey;
+  bool isLoading = false;
+  bool flagForStateLoader = true;
   String dropdownvalueForState = 'Select State';
   bool flagForStateDropDown = true;
 
@@ -56,11 +49,14 @@ class _ServiceContactDetailsState extends State<ServiceContactDetails> {
   bool isGetCities = false;
   bool cityValidator = false;
   bool stateValidator = false;
+  UserRole? userRole = PreferencesManager.role;
+
   @override
   void initState() {
-    // TODO: implement initState
-    phoneNumberController.text = widget.mobile_number;
-    whatsappNumberController.text = widget.mobile_number;
+    if (userRole == UserRole.plumber) {
+      phoneNumberController.text = widget.mobileNumber;
+      whatsappNumberController.text = widget.mobileNumber;
+    }
     super.initState();
   }
 
@@ -279,11 +275,7 @@ class _ServiceContactDetailsState extends State<ServiceContactDetails> {
                                         child: FutureBuilder(
                                           builder: (context, snapshot) {
                                             if (snapshot.hasData) {
-                                              widget.isLoading = false;
-                                              List<String> stateNameList =
-                                                  snapshot.data!.map((e) {
-                                                return e["name"].toString();
-                                              }).toList();
+                                              isLoading = false;
 
                                               if (flagForStateDropDown) {
                                                 selectedStateID = snapshot
@@ -360,8 +352,7 @@ class _ServiceContactDetailsState extends State<ServiceContactDetails> {
                                                       left: 20),
                                                   height: 20,
                                                   width: 20,
-                                                  child: widget
-                                                          .flagForStateLoader
+                                                  child: flagForStateLoader
                                                       ? const CircularProgressIndicator()
                                                       : Container(),
                                                 ),
@@ -392,7 +383,7 @@ class _ServiceContactDetailsState extends State<ServiceContactDetails> {
                                         ),
                                         child: FutureBuilder(
                                           builder: (context, snapshot2) {
-                                            widget.isLoading = false;
+                                            isLoading = false;
                                             if (snapshot2.hasData &&
                                                 isGetCities) {
                                               if (flagForCityDropDown) {
@@ -453,7 +444,6 @@ class _ServiceContactDetailsState extends State<ServiceContactDetails> {
                                                         selectedCityID =
                                                             newValue.value!
                                                                 .toString();
-
                                                         flagForCityDropDown =
                                                             false;
                                                       });
@@ -468,8 +458,7 @@ class _ServiceContactDetailsState extends State<ServiceContactDetails> {
                                                       left: 20),
                                                   height: 20,
                                                   width: 20,
-                                                  child: widget
-                                                          .flagForStateLoader
+                                                  child: flagForStateLoader
                                                       ? const CircularProgressIndicator()
                                                       : Container(),
                                                 ),
@@ -484,33 +473,31 @@ class _ServiceContactDetailsState extends State<ServiceContactDetails> {
                                   ),
                                 ],
                               ),
-                              Container(
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: stateValidator
-                                          ? Text(
-                                              "* Select State",
-                                              style: GoogleFonts.poppins(
-                                                color: Colors.red,
-                                                fontSize: 12,
-                                              ),
-                                            )
-                                          : Container(),
-                                    ),
-                                    Expanded(
-                                      child: cityValidator
-                                          ? Text(
-                                              "* Select City",
-                                              style: GoogleFonts.poppins(
-                                                color: Colors.redAccent,
-                                                fontSize: 12,
-                                              ),
-                                            )
-                                          : Container(),
-                                    ),
-                                  ],
-                                ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: stateValidator
+                                        ? Text(
+                                            "* Select State",
+                                            style: GoogleFonts.poppins(
+                                              color: Colors.red,
+                                              fontSize: 12,
+                                            ),
+                                          )
+                                        : Container(),
+                                  ),
+                                  Expanded(
+                                    child: cityValidator
+                                        ? Text(
+                                            "* Select City",
+                                            style: GoogleFonts.poppins(
+                                              color: Colors.redAccent,
+                                              fontSize: 12,
+                                            ),
+                                          )
+                                        : Container(),
+                                  ),
+                                ],
                               ),
                               const Text(
                                 "* This information will help up to reach at your address",
@@ -551,6 +538,12 @@ class _ServiceContactDetailsState extends State<ServiceContactDetails> {
                                       // height: 45,
                                       child: TextFormField(
                                         controller: phoneNumberController,
+                                        onEditingComplete: () {
+                                          FocusScope.of(context)
+                                              .requestFocus(FocusNode());
+                                          whatsappNumberController.text =
+                                              phoneNumberController.text;
+                                        },
                                         validator: (value) {
                                           RegExp regex = RegExp(
                                               "^(?:(?:\\+|0{0,2})91(\\s*[\\-]\\s*)?|[0]?)?[789]\\d{9}\$");
@@ -691,10 +684,7 @@ class _ServiceContactDetailsState extends State<ServiceContactDetails> {
 
   Future<List<Map<String, String>>> getStates() async {
     // widget.isLoading = true;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    widget.apikey = prefs.getString("apikey")!;
-    String apiURL =
-        "https://cqpplefitting.com/ad_cqpple/Api/State/${widget.apikey}";
+    String apiURL = "https://cqpplefitting.com/ad_cqpple/Api/State/$apikey";
     var res = await http.get(Uri.parse(apiURL));
     List stateObjects = jsonDecode(res.body)["data"];
     List<Map<String, String>> stateList = [];
@@ -710,10 +700,9 @@ class _ServiceContactDetailsState extends State<ServiceContactDetails> {
 
   Future<List<Map<String, String>>> getCities() async {
     // widget.isLoading = true;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    widget.apikey = prefs.getString("apikey")!;
+
     String apiURL =
-        "https://cqpplefitting.com/ad_cqpple/Api/City/${widget.apikey}/$selectedStateID";
+        "https://cqpplefitting.com/ad_cqpple/Api/City/$apikey/$selectedStateID";
     var res = await http.get(Uri.parse(apiURL));
     List cityObjects = jsonDecode(res.body)["data"];
     List<Map<String, String>> cityList = [];
@@ -724,7 +713,7 @@ class _ServiceContactDetailsState extends State<ServiceContactDetails> {
       cityList.add(map);
     }
     flagForCityDropDown = true;
-    widget.isLoading = false;
+    isLoading = false;
     isGetCities = true;
     return cityList;
   }

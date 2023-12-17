@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:bath_service_project/Utils/preference.dart';
 import 'package:bath_service_project/Utils/web_service.dart';
 import 'package:bath_service_project/custom/custom_textstyle.dart';
 import 'package:bath_service_project/drawer_pages/help_page.dart';
@@ -217,8 +218,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
             ),
             TextButton(
               onPressed: () {
+                Navigator.of(context).pop();
                 _logout(); // Call your logout function
-                Navigator.of(context).pop(); // Close the dialog
+                // Close the dialog
               },
               child: const Text(
                 'Logout',
@@ -260,31 +262,19 @@ class _CustomDrawerState extends State<CustomDrawer> {
     );
   }
 
-  Future<void> clearPreferences() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.remove("ServiceID");
-    await prefs.remove("Role");
-    await prefs.remove("apikey");
-  }
-
   @override
   void initState() {
     super.initState();
     if (widget.hasLogout) {
-      SharedPreferences.getInstance().then((pref) {
-        var status = pref.getBool("allowDeleteAccount");
-        if (kDebugMode) {
-          print("status: $status");
-        }
-        setState(() {
-          widget.showDeleteButton = status ?? true;
-        });
+      setState(() {
+        widget.showDeleteButton = PreferencesManager.allowDeleteAccount;
       });
     }
   }
 
   _logout() {
-    clearPreferences().then((value) {
+    PreferencesManager.clearPreferences();
+    Future.delayed(const Duration(milliseconds: 500), () {
       Navigator.of(context).push(MaterialPageRoute(
         builder: (context) {
           return LoginPage();

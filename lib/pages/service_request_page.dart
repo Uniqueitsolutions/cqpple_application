@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:bath_service_project/Utils/preference.dart';
 import 'package:bath_service_project/custom/custom_drawer.dart';
 import 'package:bath_service_project/custom/custom_loader.dart';
 import 'package:bath_service_project/custom/internet_checking.dart';
@@ -44,11 +45,6 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
   int videoSize = 0;
 
   ImagePicker imagePicker = ImagePicker();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -224,12 +220,12 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
                       ),
                       videoFile == null
                           ? Container()
-                          : videoSize >= 15000000
+                          : videoSize >= 20000000
                               ? Container(
                                   margin:
                                       const EdgeInsets.only(top: 10, left: 20),
                                   child: Text(
-                                    "Upload video upto 15 MB",
+                                    "Upload video upto 20 MB",
                                     style: GoogleFonts.poppins(
                                         color: Colors.red,
                                         fontWeight: FontWeight.bold),
@@ -279,21 +275,27 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
                               videoFile != null &&
                               imageFile != null &&
                               imageSize < 10000000 &&
-                              videoSize < 15000000) {
+                              videoSize < 20000000) {
                             await addRequest();
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                     backgroundColor: Colors.green,
                                     content:
                                         Text("Service Added Succesfully")));
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return ServiceStatusPage(
-                                      ServiceID: widget.ServiceID);
-                                },
-                              ),
-                            );
+                            if (PreferencesManager.role == UserRole.dealer) {
+                              Navigator.of(context).popUntil((route) {
+                                return route.isFirst;
+                              });
+                            } else {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return ServiceStatusPage(
+                                        ServiceID: widget.ServiceID);
+                                  },
+                                ),
+                              );
+                            }
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
