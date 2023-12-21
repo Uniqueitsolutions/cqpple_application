@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:bath_service_project/Utils/preference.dart';
 import 'package:bath_service_project/custom/custom_drawer.dart';
 import 'package:bath_service_project/custom/custom_loader.dart';
 import 'package:bath_service_project/custom/custom_textstyle.dart';
@@ -491,29 +492,26 @@ class _LoginVerificationPageState extends State<LoginVerificationPage> {
     print("==========================================");
 
     var json = jsonDecode(response.body);
+    print(json);
     if (jsonDecode(response.body)["status"]) {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString("apikey", json["data"]["apikey"]);
-      await prefs.setString("ServiceID", json["data"]["ServiceID"] ?? "null");
-      await prefs.setString("Role", json["data"]["Role"]);
-      widget.ServiceID = prefs.getString("ServiceID") == "null"
-          ? null
-          : prefs.getString("ServiceID");
+      PreferencesManager.saveAPIKey(json["data"]["apikey"]);
+      PreferencesManager.saveServiceId(json["data"]["ServiceID"] ?? "");
+      PreferencesManager.saveRole(json["data"]["Role"]);
+      widget.ServiceID = PreferencesManager.getServiceId();
     }
 
     return json;
   }
 
   Future<dynamic> plumberApproveStatus() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    widget.apiKey2 = prefs.getString("apikey")!;
+    widget.apiKey2 = PreferencesManager.getAPIKey();
     var apiURL = "https://cqpplefitting.com/ad_cqpple/Api/IsServiceManApprove";
     Map map = {};
 
     map["apikey"] = widget.apiKey2;
     map["ApplicationUserID"] =
         widget.mobileNumberResponse["data"]["ApplicationUserID"];
-    prefs.setString("ApplicationUserID", map["ApplicationUserID"]);
+    PreferencesManager.saveApplicationUserID(map["ApplicationUserID"]);
     print(map);
     var response = await http.post(Uri.parse(apiURL), body: jsonEncode(map));
     print(response.statusCode);

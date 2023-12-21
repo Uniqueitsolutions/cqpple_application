@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:bath_service_project/Utils/preference.dart';
 import 'package:bath_service_project/custom/custom_drawer.dart';
 import 'package:bath_service_project/models/api_base_array_response.dart';
 import 'package:bath_service_project/models/plumber_service.dart';
@@ -184,8 +185,7 @@ class _PlumberServiceTokenPageState extends State<PlumberServiceTokenPage> {
   }
 
   Future<void> fetchPendingServices() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    widget.apiKey = pref.getString("apikey")!;
+    widget.apiKey = PreferencesManager.getAPIKey();
     const apiURL =
         "https://cqpplefitting.com/ad_cqpple/Api/ServiceByPlumberApiToken";
     var requestBody = "apikey=${Uri.encodeComponent(widget.apiKey)}";

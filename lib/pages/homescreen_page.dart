@@ -1,3 +1,4 @@
+import 'package:bath_service_project/Utils/preference.dart';
 import 'package:bath_service_project/custom/internet_checking.dart';
 import 'package:bath_service_project/pages/service_contactdetails_page.dart';
 import 'package:flutter/material.dart';
@@ -90,15 +91,12 @@ class _HomeScreenPageState extends State<HomeScreenPage> {
                                   title: "ADD",
                                   margin_top: 50,
                                   onTap: () async {
-                                    final SharedPreferences prefs =
-                                        await SharedPreferences.getInstance();
-
                                     Navigator.of(context)
                                         .push(MaterialPageRoute(
                                       builder: (context) {
-                                        return ServiceContactDetails(prefs
-                                            .getString("Mobile_Number")
-                                            .toString());
+                                        return ServiceContactDetails(
+                                            PreferencesManager
+                                                .getMobileNumber());
                                       },
                                     ));
                                   },

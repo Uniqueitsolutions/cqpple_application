@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:bath_service_project/Utils/preference.dart';
 import 'package:bath_service_project/custom/custom_drawer.dart';
 import 'package:bath_service_project/custom/custom_loader.dart';
 import 'package:bath_service_project/custom/custom_textstyle.dart';
@@ -126,9 +127,7 @@ class _LoginPageState extends State<LoginPage> {
                           margin_top: 45,
                           onTap: () async {
                             if (_formKey.currentState!.validate()) {
-                              final SharedPreferences prefs =
-                                  await SharedPreferences.getInstance();
-                              await prefs.setString('Mobile_Number',
+                              PreferencesManager.saveAPIKey(
                                   mobile_number.text.toString());
                               await requestForOTP().then(
                                 (response) {

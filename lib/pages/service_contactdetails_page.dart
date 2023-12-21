@@ -27,7 +27,7 @@ class ServiceContactDetails extends StatefulWidget {
 
 class _ServiceContactDetailsState extends State<ServiceContactDetails> {
   final _formKey = GlobalKey<FormState>();
-  final apikey = PreferencesManager.apiKey;
+  final apikey = PreferencesManager.getAPIKey();
   bool isLoading = false;
   bool flagForStateLoader = true;
   String dropdownvalueForState = 'Select State';
@@ -49,7 +49,7 @@ class _ServiceContactDetailsState extends State<ServiceContactDetails> {
   bool isGetCities = false;
   bool cityValidator = false;
   bool stateValidator = false;
-  UserRole? userRole = PreferencesManager.role;
+  UserRole? userRole = PreferencesManager.getRole();
 
   @override
   void initState() {

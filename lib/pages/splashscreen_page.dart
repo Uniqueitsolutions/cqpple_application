@@ -58,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if (widget.serviceID == null ||
         widget.serviceID == "" ||
         widget.serviceID == "null") {
-      var role = PreferencesManager.role;
+      var role = PreferencesManager.getRole();
       if (role == UserRole.plumber) {
         if (widget.isPlumberApproved) {
           return PlumberServiceTokenPage();
@@ -85,8 +85,8 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<int> setServiceID() async {
-    final serviceID = PreferencesManager.serviceId;
-    final role = PreferencesManager.role;
+    final serviceID = PreferencesManager.getServiceId();
+    final role = PreferencesManager.getRole();
     if (role == UserRole.plumber) {
       await plumberApproveStatus();
     }
@@ -101,8 +101,8 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> plumberApproveStatus() async {
-    final apiKey = PreferencesManager.apiKey;
-    final applicationUserID = PreferencesManager.applicationUserID;
+    final apiKey = PreferencesManager.getAPIKey();
+    final applicationUserID = PreferencesManager.getApplicationUserID();
     var apiURL = "https://cqpplefitting.com/ad_cqpple/Api/IsServiceManApprove";
     Map map = {};
     map["apikey"] = apiKey;

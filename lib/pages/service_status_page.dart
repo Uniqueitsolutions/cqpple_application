@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:bath_service_project/Utils/preference.dart';
 import 'package:bath_service_project/custom/custom_drawer.dart';
 import 'package:bath_service_project/custom/custom_loader.dart';
 import 'package:bath_service_project/custom/internet_checking.dart';
@@ -63,186 +64,33 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
                   title1: "",
                   title2: "Service Status",
                 ),
-                Container(
-                  margin: const EdgeInsets.only(top: 160),
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(20),
-                      topLeft: Radius.circular(20),
+                SingleChildScrollView(
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 160),
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(20),
+                        topLeft: Radius.circular(20),
+                      ),
+                      color: Colors.white,
                     ),
-                    color: Colors.white,
-                  ),
-                  height: MediaQuery.of(context).size.height - 188,
-                  child: FutureBuilder(
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        isServiceGet = false;
-                        return SingleChildScrollView(
-                          child: Container(
-                            margin: const EdgeInsets.only(left: 30, right: 30),
-                            child: Column(
-                              children: [
-                                Center(
-                                  child: Container(
-                                    margin: const EdgeInsets.only(
-                                        top: 20, bottom: 50),
-                                    width:
-                                        MediaQuery.of(context).size.width - 50,
-                                    decoration: const BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(20)),
-                                        color: Color.fromRGBO(
-                                            230, 230, 230, 0.25)),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          margin: const EdgeInsets.only(
-                                              top: 20, left: 30),
-                                          child: Text(
-                                            "#${snapshot.data!["ComplainNumber"].toString()}",
-                                            textAlign: TextAlign.center,
-                                            style: GoogleFonts.poppins(
-                                                fontSize: 24,
-                                                fontWeight: FontWeight.w600,
-                                                fontStyle: FontStyle.normal,
-                                                color: const Color.fromRGBO(
-                                                    29, 29, 29, 1)),
-                                          ),
-                                        ),
-                                        getTitleDetailsView(
-                                            "Name", snapshot.data!["Name"]),
-                                        getTitleDetailsView("Address",
-                                            "${snapshot.data!["Address"]}, ${snapshot.data!["cityname"]}, ${snapshot.data!["statename"]}"),
-                                        getTitleDetailsView("Pincode",
-                                            snapshot.data!["Pincode"]),
-                                        Container(
-                                          margin: const EdgeInsets.only(
-                                              top: 8, left: 30),
-                                          child: Row(
-                                            children: [
-                                              Flexible(
-                                                flex: 2,
-                                                child: Container(
-                                                  margin: const EdgeInsets.only(
-                                                      right: 5),
-                                                  child: Text(
-                                                    "Mobile No. :",
-                                                    textAlign: TextAlign.end,
-                                                    style: GoogleFonts.poppins(
-                                                        fontStyle:
-                                                            FontStyle.normal,
-                                                        fontSize: 12,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: const Color
-                                                            .fromRGBO(
-                                                            29, 29, 29, 1)),
-                                                  ),
-                                                ),
-                                              ),
-                                              Flexible(
-                                                flex: 3,
-                                                child: Container(
-                                                  margin: const EdgeInsets.only(
-                                                      left: 5),
-                                                  child: Text(
-                                                    snapshot.data![
-                                                        "WhatsappNumber"],
-                                                    textAlign: TextAlign.start,
-                                                    style: GoogleFonts.poppins(
-                                                        fontStyle:
-                                                            FontStyle.normal,
-                                                        fontSize: 12,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color: const Color
-                                                            .fromRGBO(
-                                                            181, 181, 181, 1)),
-                                                  ),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 20,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 20),
-                                  child: Row(
-                                    children: [
-                                      Flexible(
-                                        flex: 2,
-                                        child: Container(
-                                          margin:
-                                              const EdgeInsets.only(left: 25),
-                                          child: Image.network(
-                                              "https://cqpplefitting.com/ad_cqpple/Images/Problem/" +
-                                                  snapshot
-                                                      .data!["ProblemImage"]),
-                                        ),
-                                      ),
-                                      Flexible(
-                                        flex: 3,
-                                        child: Container(
-                                          child: Center(
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  "Problem",
-                                                  style: GoogleFonts.poppins(
-                                                      fontStyle:
-                                                          FontStyle.normal,
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      color:
-                                                          const Color.fromRGBO(
-                                                              131,
-                                                              131,
-                                                              131,
-                                                              1)),
-                                                ),
-                                                Container(
-                                                  margin: const EdgeInsets.only(
-                                                      left: 40),
-                                                  child: Text(
-                                                    snapshot.data!["Problem"],
-                                                    style: GoogleFonts.poppins(
-                                                        fontStyle:
-                                                            FontStyle.normal,
-                                                        fontSize: 24,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: const Color
-                                                            .fromRGBO(
-                                                            29, 29, 29, 1)),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 20),
-                                  decoration: const BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                  ),
-                                  child: Center(
+                    height: MediaQuery.of(context).size.height - 188,
+                    child: FutureBuilder(
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          isServiceGet = false;
+                          return SingleChildScrollView(
+                            child: Container(
+                              margin:
+                                  const EdgeInsets.only(left: 30, right: 30),
+                              child: Column(
+                                children: [
+                                  Center(
                                     child: Container(
+                                      margin: const EdgeInsets.only(
+                                          top: 20, bottom: 50),
+                                      width: MediaQuery.of(context).size.width -
+                                          50,
                                       decoration: const BoxDecoration(
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(20)),
@@ -252,231 +100,409 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          CustomSteps(
-                                              widget.listOfStatus[0]["name"],
-                                              widget.listOfStatus[0]["date"],
-                                              false),
-                                          CustomSteps(
-                                              widget.listOfStatus[1]["name"],
-                                              widget.listOfStatus[1]["date"],
-                                              false),
-                                          CustomSteps(
-                                              widget.listOfStatus[2]["name"],
-                                              widget.listOfStatus[2]["date"],
-                                              false),
-                                          CustomSteps(
-                                              widget.listOfStatus[3]["name"],
-                                              widget.listOfStatus[3]["date"],
-                                              false),
                                           Container(
-                                              margin: const EdgeInsets.only(
-                                                  bottom: 13),
-                                              child: CustomSteps(
-                                                  widget.listOfStatus[4]
-                                                      ["name"],
-                                                  widget.listOfStatus[4]
-                                                      ["date"],
-                                                  false)),
+                                            margin: const EdgeInsets.only(
+                                                top: 20, left: 30),
+                                            child: Text(
+                                              "#${snapshot.data!["ComplainNumber"].toString()}",
+                                              textAlign: TextAlign.center,
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 24,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontStyle: FontStyle.normal,
+                                                  color: const Color.fromRGBO(
+                                                      29, 29, 29, 1)),
+                                            ),
+                                          ),
+                                          getTitleDetailsView(
+                                              "Name", snapshot.data!["Name"]),
+                                          getTitleDetailsView("Address",
+                                              "${snapshot.data!["Address"]}, ${snapshot.data!["cityname"]}, ${snapshot.data!["statename"]}"),
+                                          getTitleDetailsView("Pincode",
+                                              snapshot.data!["Pincode"]),
+                                          Container(
+                                            margin: const EdgeInsets.only(
+                                                top: 8, left: 30),
+                                            child: Row(
+                                              children: [
+                                                Flexible(
+                                                  flex: 2,
+                                                  child: Container(
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            right: 5),
+                                                    child: Text(
+                                                      "Mobile No. :",
+                                                      textAlign: TextAlign.end,
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                              fontStyle:
+                                                                  FontStyle
+                                                                      .normal,
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color: const Color
+                                                                  .fromRGBO(29,
+                                                                  29, 29, 1)),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Flexible(
+                                                  flex: 3,
+                                                  child: Container(
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            left: 5),
+                                                    child: Text(
+                                                      snapshot.data![
+                                                          "WhatsappNumber"],
+                                                      textAlign:
+                                                          TextAlign.start,
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                              fontStyle:
+                                                                  FontStyle
+                                                                      .normal,
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              color: const Color
+                                                                  .fromRGBO(181,
+                                                                  181, 181, 1)),
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
                                         ],
                                       ),
                                     ),
                                   ),
-                                ),
-                                widget.listOfStatus[3]["date"] != "" ||
-                                        widget.listOfStatus[4]["date"] != ""
-                                    ? Center(
-                                        child: Container(
-                                          margin:
-                                              const EdgeInsets.only(top: 15),
-                                          child: Text("Rate Our Service",
-                                              style: GoogleFonts.poppins(
-                                                  fontStyle: FontStyle.normal,
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: const Color.fromRGBO(
-                                                      29, 29, 29, 1))),
-                                        ),
-                                      )
-                                    : Container(),
-                                widget.listOfStatus[3]["date"] != "" ||
-                                        widget.listOfStatus[4]["date"] != ""
-                                    ? Center(
-                                        child: SizedBox(
-                                          width: 140,
-                                          child: Row(
-                                            children: [
-                                              InkWell(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      starRating = 1;
-                                                      starIcon1 = const Icon(
-                                                          Icons.star,
-                                                          color: Colors.yellow,
-                                                          size: 28);
-                                                      starIcon2 = const Icon(
-                                                          Icons
-                                                              .star_border_outlined,
-                                                          size: 28);
-                                                      starIcon3 = const Icon(
-                                                          Icons
-                                                              .star_border_outlined,
-                                                          size: 28);
-                                                      starIcon4 = const Icon(
-                                                          Icons
-                                                              .star_border_outlined,
-                                                          size: 28);
-                                                      starIcon5 = const Icon(
-                                                          Icons
-                                                              .star_border_outlined,
-                                                          size: 28);
-                                                    });
-                                                  },
-                                                  child: starIcon1),
-                                              InkWell(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      starRating = 2;
-                                                      starIcon1 = const Icon(
-                                                          Icons.star,
-                                                          color: Colors.yellow,
-                                                          size: 28);
-                                                      starIcon2 = const Icon(
-                                                          Icons.star,
-                                                          color: Colors.yellow,
-                                                          size: 28);
-                                                      starIcon3 = const Icon(
-                                                          Icons
-                                                              .star_border_outlined,
-                                                          size: 28);
-                                                      starIcon4 = const Icon(
-                                                          Icons
-                                                              .star_border_outlined,
-                                                          size: 28);
-                                                      starIcon5 = const Icon(
-                                                          Icons
-                                                              .star_border_outlined,
-                                                          size: 28);
-                                                    });
-                                                  },
-                                                  child: starIcon2),
-                                              InkWell(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      starRating = 3;
-                                                      starIcon1 = const Icon(
-                                                          Icons.star,
-                                                          color: Colors.yellow,
-                                                          size: 28);
-                                                      starIcon2 = const Icon(
-                                                          Icons.star,
-                                                          color: Colors.yellow,
-                                                          size: 28);
-                                                      starIcon3 = const Icon(
-                                                          Icons.star,
-                                                          color: Colors.yellow,
-                                                          size: 28);
-                                                      starIcon4 = const Icon(
-                                                          Icons
-                                                              .star_border_outlined,
-                                                          size: 28);
-                                                      starIcon5 = const Icon(
-                                                          Icons
-                                                              .star_border_outlined,
-                                                          size: 28);
-                                                    });
-                                                  },
-                                                  child: starIcon3),
-                                              InkWell(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      starRating = 4;
-                                                      starIcon1 = const Icon(
-                                                          Icons.star,
-                                                          color: Colors.yellow,
-                                                          size: 28);
-                                                      starIcon2 = const Icon(
-                                                          Icons.star,
-                                                          color: Colors.yellow,
-                                                          size: 28);
-                                                      starIcon3 = const Icon(
-                                                          Icons.star,
-                                                          color: Colors.yellow,
-                                                          size: 28);
-                                                      starIcon4 = const Icon(
-                                                          Icons.star,
-                                                          color: Colors.yellow,
-                                                          size: 28);
-                                                      starIcon5 = const Icon(
-                                                          Icons
-                                                              .star_border_outlined,
-                                                          size: 28);
-                                                    });
-                                                  },
-                                                  child: starIcon4),
-                                              InkWell(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      starRating = 5;
-                                                      starIcon1 = const Icon(
-                                                          Icons.star,
-                                                          color: Colors.yellow,
-                                                          size: 28);
-                                                      starIcon2 = const Icon(
-                                                          Icons.star,
-                                                          color: Colors.yellow,
-                                                          size: 28);
-                                                      starIcon3 = const Icon(
-                                                          Icons.star,
-                                                          color: Colors.yellow,
-                                                          size: 28);
-                                                      starIcon4 = const Icon(
-                                                          Icons.star,
-                                                          color: Colors.yellow,
-                                                          size: 28);
-                                                      starIcon5 = const Icon(
-                                                          Icons.star,
-                                                          color: Colors.yellow,
-                                                          size: 28);
-                                                    });
-                                                  },
-                                                  child: starIcon5),
-                                            ],
+                                  Container(
+                                    margin: const EdgeInsets.only(top: 20),
+                                    child: Row(
+                                      children: [
+                                        Flexible(
+                                          flex: 2,
+                                          child: Container(
+                                            margin:
+                                                const EdgeInsets.only(left: 25),
+                                            child: Image.network(
+                                                "https://cqpplefitting.com/ad_cqpple/Images/Problem/" +
+                                                    snapshot
+                                                        .data!["ProblemImage"]),
                                           ),
                                         ),
-                                      )
-                                    : Container(),
-                                widget.listOfStatus[3]["date"] != "" ||
-                                        widget.listOfStatus[4]["date"] != ""
-                                    ? CustomSubmitBotton(
-                                        title: "Submit",
-                                        margin_top: 20,
-                                        margin_bottom: 20,
-                                        onTap: () async {
-                                          await postStarRating();
-                                          SharedPreferences pref =
-                                              await SharedPreferences
-                                                  .getInstance();
-                                          await pref.setString(
-                                              "ServiceID", "null");
-                                          widget.isLoading = false;
-                                          Navigator.of(context)
-                                              .push(MaterialPageRoute(
-                                            builder: (context) {
-                                              return const HomeScreenPage();
-                                            },
-                                          ));
-                                        },
-                                      )
-                                    : Container(),
-                              ],
+                                        Flexible(
+                                          flex: 3,
+                                          child: Container(
+                                            child: Center(
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    "Problem",
+                                                    style: GoogleFonts.poppins(
+                                                        fontStyle:
+                                                            FontStyle.normal,
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: const Color
+                                                            .fromRGBO(
+                                                            131, 131, 131, 1)),
+                                                  ),
+                                                  Container(
+                                                    margin:
+                                                        const EdgeInsets.only(
+                                                            left: 40),
+                                                    child: Text(
+                                                      snapshot.data!["Problem"],
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                              fontStyle:
+                                                                  FontStyle
+                                                                      .normal,
+                                                              fontSize: 24,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color: const Color
+                                                                  .fromRGBO(29,
+                                                                  29, 29, 1)),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(top: 20),
+                                    decoration: const BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(20)),
+                                    ),
+                                    child: Center(
+                                      child: Container(
+                                        decoration: const BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(20)),
+                                            color: Color.fromRGBO(
+                                                230, 230, 230, 0.25)),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            CustomSteps(
+                                                widget.listOfStatus[0]["name"],
+                                                widget.listOfStatus[0]["date"],
+                                                false),
+                                            CustomSteps(
+                                                widget.listOfStatus[1]["name"],
+                                                widget.listOfStatus[1]["date"],
+                                                false),
+                                            CustomSteps(
+                                                widget.listOfStatus[2]["name"],
+                                                widget.listOfStatus[2]["date"],
+                                                false),
+                                            CustomSteps(
+                                                widget.listOfStatus[3]["name"],
+                                                widget.listOfStatus[3]["date"],
+                                                false),
+                                            Container(
+                                                margin: const EdgeInsets.only(
+                                                    bottom: 13),
+                                                child: CustomSteps(
+                                                    widget.listOfStatus[4]
+                                                        ["name"],
+                                                    widget.listOfStatus[4]
+                                                        ["date"],
+                                                    false)),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  widget.listOfStatus[3]["date"] != "" ||
+                                          widget.listOfStatus[4]["date"] != ""
+                                      ? Center(
+                                          child: Container(
+                                            margin:
+                                                const EdgeInsets.only(top: 15),
+                                            child: Text("Rate Our Service",
+                                                style: GoogleFonts.poppins(
+                                                    fontStyle: FontStyle.normal,
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: const Color.fromRGBO(
+                                                        29, 29, 29, 1))),
+                                          ),
+                                        )
+                                      : Container(),
+                                  widget.listOfStatus[3]["date"] != "" ||
+                                          widget.listOfStatus[4]["date"] != ""
+                                      ? Center(
+                                          child: SizedBox(
+                                            width: 140,
+                                            child: Row(
+                                              children: [
+                                                InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        starRating = 1;
+                                                        starIcon1 = const Icon(
+                                                            Icons.star,
+                                                            color:
+                                                                Colors.yellow,
+                                                            size: 28);
+                                                        starIcon2 = const Icon(
+                                                            Icons
+                                                                .star_border_outlined,
+                                                            size: 28);
+                                                        starIcon3 = const Icon(
+                                                            Icons
+                                                                .star_border_outlined,
+                                                            size: 28);
+                                                        starIcon4 = const Icon(
+                                                            Icons
+                                                                .star_border_outlined,
+                                                            size: 28);
+                                                        starIcon5 = const Icon(
+                                                            Icons
+                                                                .star_border_outlined,
+                                                            size: 28);
+                                                      });
+                                                    },
+                                                    child: starIcon1),
+                                                InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        starRating = 2;
+                                                        starIcon1 = const Icon(
+                                                            Icons.star,
+                                                            color:
+                                                                Colors.yellow,
+                                                            size: 28);
+                                                        starIcon2 = const Icon(
+                                                            Icons.star,
+                                                            color:
+                                                                Colors.yellow,
+                                                            size: 28);
+                                                        starIcon3 = const Icon(
+                                                            Icons
+                                                                .star_border_outlined,
+                                                            size: 28);
+                                                        starIcon4 = const Icon(
+                                                            Icons
+                                                                .star_border_outlined,
+                                                            size: 28);
+                                                        starIcon5 = const Icon(
+                                                            Icons
+                                                                .star_border_outlined,
+                                                            size: 28);
+                                                      });
+                                                    },
+                                                    child: starIcon2),
+                                                InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        starRating = 3;
+                                                        starIcon1 = const Icon(
+                                                            Icons.star,
+                                                            color:
+                                                                Colors.yellow,
+                                                            size: 28);
+                                                        starIcon2 = const Icon(
+                                                            Icons.star,
+                                                            color:
+                                                                Colors.yellow,
+                                                            size: 28);
+                                                        starIcon3 = const Icon(
+                                                            Icons.star,
+                                                            color:
+                                                                Colors.yellow,
+                                                            size: 28);
+                                                        starIcon4 = const Icon(
+                                                            Icons
+                                                                .star_border_outlined,
+                                                            size: 28);
+                                                        starIcon5 = const Icon(
+                                                            Icons
+                                                                .star_border_outlined,
+                                                            size: 28);
+                                                      });
+                                                    },
+                                                    child: starIcon3),
+                                                InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        starRating = 4;
+                                                        starIcon1 = const Icon(
+                                                            Icons.star,
+                                                            color:
+                                                                Colors.yellow,
+                                                            size: 28);
+                                                        starIcon2 = const Icon(
+                                                            Icons.star,
+                                                            color:
+                                                                Colors.yellow,
+                                                            size: 28);
+                                                        starIcon3 = const Icon(
+                                                            Icons.star,
+                                                            color:
+                                                                Colors.yellow,
+                                                            size: 28);
+                                                        starIcon4 = const Icon(
+                                                            Icons.star,
+                                                            color:
+                                                                Colors.yellow,
+                                                            size: 28);
+                                                        starIcon5 = const Icon(
+                                                            Icons
+                                                                .star_border_outlined,
+                                                            size: 28);
+                                                      });
+                                                    },
+                                                    child: starIcon4),
+                                                InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        starRating = 5;
+                                                        starIcon1 = const Icon(
+                                                            Icons.star,
+                                                            color:
+                                                                Colors.yellow,
+                                                            size: 28);
+                                                        starIcon2 = const Icon(
+                                                            Icons.star,
+                                                            color:
+                                                                Colors.yellow,
+                                                            size: 28);
+                                                        starIcon3 = const Icon(
+                                                            Icons.star,
+                                                            color:
+                                                                Colors.yellow,
+                                                            size: 28);
+                                                        starIcon4 = const Icon(
+                                                            Icons.star,
+                                                            color:
+                                                                Colors.yellow,
+                                                            size: 28);
+                                                        starIcon5 = const Icon(
+                                                            Icons.star,
+                                                            color:
+                                                                Colors.yellow,
+                                                            size: 28);
+                                                      });
+                                                    },
+                                                    child: starIcon5),
+                                              ],
+                                            ),
+                                          ),
+                                        )
+                                      : Container(),
+                                  widget.listOfStatus[3]["date"] != "" ||
+                                          widget.listOfStatus[4]["date"] != ""
+                                      ? CustomSubmitBotton(
+                                          title: "Submit",
+                                          margin_top: 20,
+                                          margin_bottom: 20,
+                                          onTap: () async {
+                                            await postStarRating();
+                                            PreferencesManager.saveServiceId(
+                                                null);
+                                            widget.isLoading = false;
+                                            Navigator.of(context)
+                                                .push(MaterialPageRoute(
+                                              builder: (context) {
+                                                return const HomeScreenPage();
+                                              },
+                                            ));
+                                          },
+                                        )
+                                      : Container(),
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      } else {
-                        return CustomLoader();
-                      }
-                    },
-                    future: isServiceGet ? getServiceStatus() : null,
+                          );
+                        } else {
+                          return CustomLoader();
+                        }
+                      },
+                      future: isServiceGet ? getServiceStatus() : null,
+                    ),
                   ),
                 ),
                 widget.isLoading ? CustomLoader() : Container(),
@@ -581,8 +607,7 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
   }
 
   Future<Map> getServiceStatus() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    widget.apikey = prefs.getString("apikey")!;
+    widget.apikey = PreferencesManager.getAPIKey();
     var apiURL =
         "https://cqpplefitting.com/ad_cqpple/Api/ServiceStatusByServiceID";
     Map map = {};
@@ -608,17 +633,16 @@ class _ServiceStatusPageState extends State<ServiceStatusPage> {
         isLogoutAvailable = true;
       });
     }
-    SharedPreferences prefs2 = await SharedPreferences.getInstance();
-    await prefs2.setString("ServiceID", widget.ServiceID!);
-    prefs2.setBool("isLogoutAvailable", isLogoutAvailable);
 
+    PreferencesManager.saveServiceId(widget.ServiceID);
+    PreferencesManager.saveLogoutAvailable(isLogoutAvailable);
     return responseData;
   }
 
   Future<void> postStarRating() async {
     widget.isLoading = true;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    widget.apikey = prefs.getString("apikey")!;
+
+    widget.apikey = PreferencesManager.getAPIKey();
     var apiURL = "https://cqpplefitting.com/ad_cqpple/Api/AddRating";
     Map map = {};
     map["apikey"] = widget.apikey;

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bath_service_project/Utils/preference.dart';
 import 'package:bath_service_project/pages/login_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,13 +35,9 @@ class _LogoutPageState extends State<LogoutPage> {
                   fontWeight: FontWeight.bold, color: Colors.red),
             ),
             onPressed: () async {
-              SharedPreferences prefs = await SharedPreferences.getInstance();
-              isLogoutAvailable = prefs.getBool("isLogoutAvailable") ?? true;
+              isLogoutAvailable = PreferencesManager.getLogoutAvailable();
               if (isLogoutAvailable ?? true) {
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                prefs.remove("ServiceID");
-                prefs.remove("Role");
-                prefs.remove("apikey");
+                PreferencesManager.clearPreferences();
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) {
                     return LoginPage();

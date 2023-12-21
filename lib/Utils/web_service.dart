@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:bath_service_project/Utils/preference.dart';
 import 'package:bath_service_project/models/base_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,8 +16,7 @@ class WebServices {
   }
 
   static Future<BaseModel> deleteAccount() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final apikey = prefs.getString("apikey") ?? "";
+    final apikey = PreferencesManager.getAPIKey();
     Map map = {"apikey": apikey};
     var response = await http.post(Uri.parse(_deleteAccount), body: map);
     final json = jsonDecode(response.body);

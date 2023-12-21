@@ -267,7 +267,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
     super.initState();
     if (widget.hasLogout) {
       setState(() {
-        widget.showDeleteButton = PreferencesManager.allowDeleteAccount;
+        widget.showDeleteButton = PreferencesManager.getAllowDeleteAccount();
       });
     }
   }

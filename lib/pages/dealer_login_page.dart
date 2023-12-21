@@ -1,3 +1,4 @@
+import 'package:bath_service_project/Utils/preference.dart';
 import 'package:bath_service_project/custom/custom_drawer.dart';
 import 'package:bath_service_project/custom/custom_textstyle.dart';
 import 'package:bath_service_project/custom/internet_checking.dart';
@@ -145,14 +146,9 @@ class _DealerLoginPageState extends State<DealerLoginPage> {
   }
 
   _navigateToAddServiceRequest(BuildContext context) {
-    SharedPreferences.getInstance().then((pref) {
-      var mobile = pref.getString("Mobile_Number");
-      print(mobile);
-      if (mobile != null && mobile.isNotEmpty) {
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          return ServiceContactDetails(mobile);
-        }));
-      }
-    });
+    var mobile = PreferencesManager.getMobileNumber();
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      return ServiceContactDetails(mobile);
+    }));
   }
 }

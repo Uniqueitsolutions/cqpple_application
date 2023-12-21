@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:bath_service_project/Utils/preference.dart';
 import 'package:bath_service_project/custom/custom_drawer.dart';
 import 'package:bath_service_project/custom/custom_loader.dart';
 import 'package:bath_service_project/custom/internet_checking.dart';
@@ -716,8 +717,8 @@ class _ServiceContactDetailsState extends State<ServiceContactDetails1> {
 
   Future<List<Map<String, String>>> getStates() async {
     // widget.isLoading = true;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    widget.apikey = prefs.getString("apikey")!;
+
+    widget.apikey = PreferencesManager.getAPIKey();
     String apiURL =
         "https://cqpplefitting.com/ad_cqpple/Api/State/${widget.apikey}";
     var res = await http.get(Uri.parse(apiURL));
@@ -735,8 +736,8 @@ class _ServiceContactDetailsState extends State<ServiceContactDetails1> {
 
   Future<List<Map<String, String>>> getCities() async {
     // widget.isLoading = true;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    widget.apikey = prefs.getString("apikey")!;
+
+    widget.apikey = PreferencesManager.getAPIKey();
     String apiURL =
         "https://cqpplefitting.com/ad_cqpple/Api/City/${widget.apikey}/$selectedStateID";
     var res = await http.get(Uri.parse(apiURL));

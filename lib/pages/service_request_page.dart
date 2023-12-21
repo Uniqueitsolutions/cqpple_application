@@ -282,7 +282,8 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
                                     backgroundColor: Colors.green,
                                     content:
                                         Text("Service Added Succesfully")));
-                            if (PreferencesManager.role == UserRole.dealer) {
+                            if (PreferencesManager.getRole() ==
+                                UserRole.dealer) {
                               Navigator.of(context).popUntil((route) {
                                 return route.isFirst;
                               });
@@ -445,8 +446,7 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
   }*/
 
   Future<List<Map<String, String>>> getProblems() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    widget.apikey = prefs.getString("apikey")!;
+    widget.apikey = PreferencesManager.getAPIKey();
     String apiURL =
         "https://cqpplefitting.com/ad_cqpple/Api/Problem/${widget.apikey}";
     var res = await http.get(Uri.parse(apiURL));
@@ -465,8 +465,8 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
     setState(() {
       widget.isLoading = true;
     });
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    widget.apikey = prefs.getString("apikey")!;
+
+    widget.apikey = PreferencesManager.getAPIKey();
 
     var apiURL = "https://cqpplefitting.com/ad_cqpple/Api/RequestForService";
     var request = http.MultipartRequest('POST', Uri.parse(apiURL));

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:bath_service_project/Utils/preference.dart';
 import 'package:bath_service_project/custom/custom_drawer.dart';
 import 'package:bath_service_project/custom/custom_loader.dart';
 import 'package:bath_service_project/custom/custom_textstyle.dart';
@@ -469,9 +470,8 @@ class _PlumberServiceDetailsPageState extends State<PlumberServiceDetailsPage> {
   }
 
   Future<Map> getStatusByComplainNumber() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    widget.apikey = prefs.getString("apikey") ??
-        "3c639795efc1af35c329eb60dd55fd60b0c7995a1f1fcab2";
+    widget.apikey = PreferencesManager.getAPIKey();
+    "3c639795efc1af35c329eb60dd55fd60b0c7995a1f1fcab2";
     var apiURL =
         "https://cqpplefitting.com/ad_cqpple/Api/ServiceByComplainNumber";
     Map map = {};
@@ -492,8 +492,8 @@ class _PlumberServiceDetailsPageState extends State<PlumberServiceDetailsPage> {
     setState(() {
       widget.isLoading = true;
     });
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    widget.apikey = prefs.getString("apikey")!;
+
+    widget.apikey = PreferencesManager.getAPIKey();
     var apiURL = "https://cqpplefitting.com/ad_cqpple/Api/CompeletedByPlumber";
     var request = http.MultipartRequest('POST', Uri.parse(apiURL));
     request.fields["apikey"] = widget.apikey;

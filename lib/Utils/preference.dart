@@ -5,85 +5,136 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferencesManager {
   // Define your preferences variables
-  static UserRole? role;
-  static bool allowDeleteAccount = false;
-  static SharedPreferences? prefs;
-  static String serviceId = "";
-  static String apiKey = "";
-  static String applicationUserID = "";
+  static UserRole? _role;
+  static bool _allowDeleteAccount = false;
+  static SharedPreferences? _prefs;
+  static String _serviceId = "";
+  static String _apiKey = "";
+  static String _applicationUserID = "";
+  static bool _isLogoutAvailable = true;
+  static String _mobileNumber = "";
 
   // Define a method for initializing the SharedPreferences instance
   static Future<void> initPreferences() async {
-    prefs = await SharedPreferences.getInstance();
+    _prefs = await SharedPreferences.getInstance();
     setSavedValues();
   }
 
   static setSavedValues() {
-    var roleStr = prefs!.getString("Role");
+    var roleStr = _prefs!.getString("Role");
     setRoleValue(roleStr);
-    setAllowUsers(prefs!);
-    serviceId = prefs!.getString("ServiceID") ?? "";
-    apiKey = prefs!.getString("apikey") ?? "";
-    applicationUserID = prefs!.getString("ApplicationUserID") ?? "";
+    setAllowUsers(_prefs!);
+    _serviceId = _prefs!.getString("ServiceID") ?? "";
+    _apiKey = _prefs!.getString("apikey") ?? "";
+    _applicationUserID = _prefs!.getString("ApplicationUserID") ?? "";
+    _isLogoutAvailable = _prefs!.getBool("isLogoutAvailable") ?? true;
+    _mobileNumber = _prefs!.getString("Mobile_Number") ?? "";
   }
 
   static setRoleValue(String? roleStr) {
     if (roleStr != null) {
       if (roleStr == "Plumber") {
-        role = UserRole.plumber;
+        _role = UserRole.plumber;
       } else if (roleStr == "Dealer") {
-        role = UserRole.dealer;
+        _role = UserRole.dealer;
       } else if (roleStr == "End-User") {
-        role = UserRole.endUser;
+        _role = UserRole.endUser;
       } else {
-        role = null;
+        _role = null;
       }
     } else {
-      role = null;
+      _role = null;
     }
+  }
+
+  static UserRole? getRole() {
+    return _role;
   }
 
   static saveRole(String? role) {
     if (role != null) {
-      prefs?.setString("Role", role);
+      _prefs?.setString("Role", role);
     } else {
-      prefs?.remove("Role");
+      _prefs?.remove("Role");
     }
+    setRoleValue(role);
   }
 
   static saveServiceId(String? id) {
-    if (id != null) {
-      prefs?.setString("ServiceID", id);
+    if (id != null && id != "null") {
+      _prefs?.setString("ServiceID", id);
     } else {
-      prefs?.remove("ServiceID");
+      _prefs?.remove("ServiceID");
     }
+    PreferencesManager._serviceId = id ?? "";
+  }
+
+  static String getServiceId() {
+    return _serviceId;
   }
 
   static saveApplicationUserID(String? id) {
     if (id != null) {
-      prefs?.setString("ApplicationUserID", id);
+      _prefs?.setString("ApplicationUserID", id);
     } else {
-      prefs?.remove("ApplicationUserID");
+      _prefs?.remove("ApplicationUserID");
     }
+    PreferencesManager._applicationUserID = id ?? "";
   }
 
+  static String getApplicationUserID() {
+    return _applicationUserID;
+  }
   //ApplicationUserID
 
   static saveAPIKey(String? apiKey) {
     if (apiKey != null) {
-      prefs?.setString("apikey", apiKey);
+      _prefs?.setString("apikey", apiKey);
     } else {
-      prefs?.remove("apiKey");
+      _prefs?.remove("apiKey");
     }
+    PreferencesManager._apiKey = apiKey ?? "";
+  }
+
+  static String getAPIKey() {
+    return _apiKey;
   }
 
   static setAllowUsers(SharedPreferences pref) async {
     if (Platform.isIOS) {
       var response = await WebServices.getDeleteAccountFlag();
       pref.setBool("allowDeleteAccount", response.status);
+      PreferencesManager._allowDeleteAccount = response.status;
     } else {
       pref.setBool("allowDeleteAccount", false);
+      PreferencesManager._allowDeleteAccount = false;
     }
+  }
+
+  static bool getAllowDeleteAccount() {
+    return _allowDeleteAccount;
+  }
+
+  static saveLogoutAvailable(bool isAllowed) {
+    _prefs?.setBool("isLogoutAvailable", isAllowed);
+    PreferencesManager._isLogoutAvailable = isAllowed;
+  }
+
+  static bool getLogoutAvailable() {
+    return _isLogoutAvailable;
+  }
+
+  static saveMobileNumber(String? mobile) {
+    if (mobile != null) {
+      _prefs?.setString("Mobile_Number", mobile);
+    } else {
+      _prefs?.remove("Mobile_Number");
+    }
+    PreferencesManager._mobileNumber = mobile ?? "";
+  }
+
+  static String getMobileNumber() {
+    return _mobileNumber;
   }
 
   static clearPreferences() {
@@ -91,10 +142,8 @@ class PreferencesManager {
     saveAPIKey(null);
     saveServiceId(null);
     saveApplicationUserID(null);
-    role = null;
-    apiKey = "";
-    serviceId = "";
-    applicationUserID = "";
+    saveMobileNumber(null);
+    saveLogoutAvailable(true);
   }
 }
 

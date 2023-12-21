@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:bath_service_project/Utils/preference.dart';
 import 'package:bath_service_project/custom/custom_drawer.dart';
 import 'package:bath_service_project/custom/custom_loader.dart';
 import 'package:bath_service_project/custom/internet_checking.dart';
@@ -57,198 +58,30 @@ class _DealerServiceStatusPageState extends State<DealerServiceStatusPage> {
               title1: "",
               title2: "Service Status",
             ),
-            Container(
-              margin: const EdgeInsets.only(top: 160),
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(20),
-                  topLeft: Radius.circular(20),
+            SingleChildScrollView(
+              child: Container(
+                margin: const EdgeInsets.only(top: 160),
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(20),
+                    topLeft: Radius.circular(20),
+                  ),
+                  color: Colors.white,
                 ),
-                color: Colors.white,
-              ),
-              height: MediaQuery.of(context).size.height - 188,
-              child: FutureBuilder(
-                builder: (context, snapshot) {
-                  if (snapshot.hasData && widget.isServiceFound) {
-                    return SingleChildScrollView(
-                      child: Container(
-                        margin: const EdgeInsets.only(left: 30, right: 30),
-                        child: Column(
-                          children: [
-                            Center(
-                              child: Container(
-                                height: 130,
-                                margin: const EdgeInsets.only(top: 20),
-                                width: MediaQuery.of(context).size.width - 50,
-                                decoration: const BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    color: Color.fromRGBO(230, 230, 230, 0.25)),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      margin: const EdgeInsets.only(
-                                          top: 20, left: 30),
-                                      child: Text(
-                                        snapshot.data!["Name"].toString(),
-                                        textAlign: TextAlign.center,
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 24,
-                                            fontWeight: FontWeight.w600,
-                                            fontStyle: FontStyle.normal,
-                                            color: const Color.fromRGBO(
-                                                29, 29, 29, 1)),
-                                      ),
-                                    ),
-                                    Container(
-                                      margin: const EdgeInsets.only(
-                                          top: 8, left: 30),
-                                      child: Row(
-                                        children: [
-                                          Flexible(
-                                            flex: 2,
-                                            child: Container(
-                                              margin: const EdgeInsets.only(
-                                                  right: 5),
-                                              child: Text(
-                                                "Address :",
-                                                textAlign: TextAlign.end,
-                                                style: GoogleFonts.poppins(
-                                                    fontStyle: FontStyle.normal,
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: const Color.fromRGBO(
-                                                        29, 29, 29, 1)),
-                                              ),
-                                            ),
-                                          ),
-                                          Flexible(
-                                            flex: 3,
-                                            child: Container(
-                                              margin: const EdgeInsets.only(
-                                                  left: 5),
-                                              child: Text(
-                                                snapshot.data!["Address"],
-                                                textAlign: TextAlign.start,
-                                                style: GoogleFonts.poppins(
-                                                    fontStyle: FontStyle.normal,
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: const Color.fromRGBO(
-                                                        181, 181, 181, 1)),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      margin: const EdgeInsets.only(
-                                          top: 8, left: 30),
-                                      child: Row(
-                                        children: [
-                                          Flexible(
-                                            flex: 2,
-                                            child: Container(
-                                              margin: const EdgeInsets.only(
-                                                  right: 5),
-                                              child: Text(
-                                                "Mobile No. :",
-                                                textAlign: TextAlign.end,
-                                                style: GoogleFonts.poppins(
-                                                    fontStyle: FontStyle.normal,
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: const Color.fromRGBO(
-                                                        29, 29, 29, 1)),
-                                              ),
-                                            ),
-                                          ),
-                                          Flexible(
-                                            flex: 3,
-                                            child: Container(
-                                              margin: const EdgeInsets.only(
-                                                  left: 5),
-                                              child: Text(
-                                                snapshot
-                                                    .data!["WhatsappNumber"],
-                                                textAlign: TextAlign.start,
-                                                style: GoogleFonts.poppins(
-                                                    fontStyle: FontStyle.normal,
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: const Color.fromRGBO(
-                                                        181, 181, 181, 1)),
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(top: 20),
-                              child: Row(
-                                children: [
-                                  Flexible(
-                                    flex: 2,
-                                    child: Container(
-                                      margin: const EdgeInsets.only(left: 25),
-                                      child: Image.network(
-                                          "https://cqpplefitting.com/ad_cqpple/Images/Problem/" +
-                                              snapshot.data!["ProblemImage"]),
-                                    ),
-                                  ),
-                                  Flexible(
-                                    flex: 3,
-                                    child: Container(
-                                      child: Center(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              "Problem",
-                                              style: GoogleFonts.poppins(
-                                                  fontStyle: FontStyle.normal,
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: const Color.fromRGBO(
-                                                      131, 131, 131, 1)),
-                                            ),
-                                            Container(
-                                              margin: const EdgeInsets.only(
-                                                  left: 40),
-                                              child: Text(
-                                                snapshot.data!["Problem"],
-                                                style: GoogleFonts.poppins(
-                                                    fontStyle: FontStyle.normal,
-                                                    fontSize: 24,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: const Color.fromRGBO(
-                                                        29, 29, 29, 1)),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(top: 20),
-                              decoration: const BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
-                              ),
-                              child: Center(
+                height: MediaQuery.of(context).size.height - 188,
+                child: FutureBuilder(
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData && widget.isServiceFound) {
+                      return SingleChildScrollView(
+                        child: Container(
+                          margin: const EdgeInsets.only(left: 30, right: 30),
+                          child: Column(
+                            children: [
+                              Center(
                                 child: Container(
+                                  height: 130,
+                                  margin: const EdgeInsets.only(top: 20),
+                                  width: MediaQuery.of(context).size.width - 50,
                                   decoration: const BoxDecoration(
                                       borderRadius:
                                           BorderRadius.all(Radius.circular(20)),
@@ -258,80 +91,273 @@ class _DealerServiceStatusPageState extends State<DealerServiceStatusPage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      CustomSteps(
-                                          widget.listOfStatus[0]["name"],
-                                          widget.listOfStatus[0]["date"],
-                                          false),
-                                      CustomSteps(
-                                          widget.listOfStatus[1]["name"],
-                                          widget.listOfStatus[1]["date"],
-                                          false),
-                                      CustomSteps(
-                                          widget.listOfStatus[2]["name"],
-                                          widget.listOfStatus[2]["date"],
-                                          false),
-                                      CustomSteps(
-                                          widget.listOfStatus[3]["name"],
-                                          widget.listOfStatus[3]["date"],
-                                          false),
                                       Container(
-                                          margin:
-                                              const EdgeInsets.only(bottom: 13),
-                                          child: CustomSteps(
-                                              widget.listOfStatus[4]["name"],
-                                              widget.listOfStatus[4]["date"],
-                                              false)),
+                                        margin: const EdgeInsets.only(
+                                            top: 20, left: 30),
+                                        child: Text(
+                                          snapshot.data!["Name"].toString(),
+                                          textAlign: TextAlign.center,
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.w600,
+                                              fontStyle: FontStyle.normal,
+                                              color: const Color.fromRGBO(
+                                                  29, 29, 29, 1)),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.only(
+                                            top: 8, left: 30),
+                                        child: Row(
+                                          children: [
+                                            Flexible(
+                                              flex: 2,
+                                              child: Container(
+                                                margin: const EdgeInsets.only(
+                                                    right: 5),
+                                                child: Text(
+                                                  "Address :",
+                                                  textAlign: TextAlign.end,
+                                                  style: GoogleFonts.poppins(
+                                                      fontStyle:
+                                                          FontStyle.normal,
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color:
+                                                          const Color.fromRGBO(
+                                                              29, 29, 29, 1)),
+                                                ),
+                                              ),
+                                            ),
+                                            Flexible(
+                                              flex: 3,
+                                              child: Container(
+                                                margin: const EdgeInsets.only(
+                                                    left: 5),
+                                                child: Text(
+                                                  snapshot.data!["Address"],
+                                                  textAlign: TextAlign.start,
+                                                  style: GoogleFonts.poppins(
+                                                      fontStyle:
+                                                          FontStyle.normal,
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color:
+                                                          const Color.fromRGBO(
+                                                              181,
+                                                              181,
+                                                              181,
+                                                              1)),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.only(
+                                            top: 8, left: 30),
+                                        child: Row(
+                                          children: [
+                                            Flexible(
+                                              flex: 2,
+                                              child: Container(
+                                                margin: const EdgeInsets.only(
+                                                    right: 5),
+                                                child: Text(
+                                                  "Mobile No. :",
+                                                  textAlign: TextAlign.end,
+                                                  style: GoogleFonts.poppins(
+                                                      fontStyle:
+                                                          FontStyle.normal,
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color:
+                                                          const Color.fromRGBO(
+                                                              29, 29, 29, 1)),
+                                                ),
+                                              ),
+                                            ),
+                                            Flexible(
+                                              flex: 3,
+                                              child: Container(
+                                                margin: const EdgeInsets.only(
+                                                    left: 5),
+                                                child: Text(
+                                                  snapshot
+                                                      .data!["WhatsappNumber"],
+                                                  textAlign: TextAlign.start,
+                                                  style: GoogleFonts.poppins(
+                                                      fontStyle:
+                                                          FontStyle.normal,
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color:
+                                                          const Color.fromRGBO(
+                                                              181,
+                                                              181,
+                                                              181,
+                                                              1)),
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
                               ),
+                              Container(
+                                margin: const EdgeInsets.only(top: 20),
+                                child: Row(
+                                  children: [
+                                    Flexible(
+                                      flex: 2,
+                                      child: Container(
+                                        margin: const EdgeInsets.only(left: 25),
+                                        child: Image.network(
+                                            "https://cqpplefitting.com/ad_cqpple/Images/Problem/" +
+                                                snapshot.data!["ProblemImage"]),
+                                      ),
+                                    ),
+                                    Flexible(
+                                      flex: 3,
+                                      child: Container(
+                                        child: Center(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                "Problem",
+                                                style: GoogleFonts.poppins(
+                                                    fontStyle: FontStyle.normal,
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: const Color.fromRGBO(
+                                                        131, 131, 131, 1)),
+                                              ),
+                                              Container(
+                                                margin: const EdgeInsets.only(
+                                                    left: 40),
+                                                child: Text(
+                                                  snapshot.data!["Problem"],
+                                                  style: GoogleFonts.poppins(
+                                                      fontStyle:
+                                                          FontStyle.normal,
+                                                      fontSize: 24,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color:
+                                                          const Color.fromRGBO(
+                                                              29, 29, 29, 1)),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                margin: const EdgeInsets.only(top: 20),
+                                decoration: const BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                ),
+                                child: Center(
+                                  child: Container(
+                                    decoration: const BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20)),
+                                        color: Color.fromRGBO(
+                                            230, 230, 230, 0.25)),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        CustomSteps(
+                                            widget.listOfStatus[0]["name"],
+                                            widget.listOfStatus[0]["date"],
+                                            false),
+                                        CustomSteps(
+                                            widget.listOfStatus[1]["name"],
+                                            widget.listOfStatus[1]["date"],
+                                            false),
+                                        CustomSteps(
+                                            widget.listOfStatus[2]["name"],
+                                            widget.listOfStatus[2]["date"],
+                                            false),
+                                        CustomSteps(
+                                            widget.listOfStatus[3]["name"],
+                                            widget.listOfStatus[3]["date"],
+                                            false),
+                                        Container(
+                                            margin: const EdgeInsets.only(
+                                                bottom: 13),
+                                            child: CustomSteps(
+                                                widget.listOfStatus[4]["name"],
+                                                widget.listOfStatus[4]["date"],
+                                                false)),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    } else if (snapshot.hasError) {
+                      widget.isServiceFound = false;
+
+                      return Container(
+                        margin: const EdgeInsets.only(top: 40, left: 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                const Expanded(
+                                    child: Icon(Icons.dangerous_outlined,
+                                        size: 30,
+                                        color: Color.fromRGBO(227, 59, 36, 1))),
+                                Expanded(
+                                  flex: 5,
+                                  child: Text(
+                                    "Service Not Found",
+                                    style: GoogleFonts.poppins(
+                                        color: const Color.fromRGBO(
+                                            227, 59, 36, 1),
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                )
+                              ],
+                            ),
+                            CustomSubmitBotton(
+                              title: "Exit",
+                              margin_top: 50,
+                              onTap: () {
+                                Navigator.of(context).pop();
+                              },
                             ),
                           ],
                         ),
-                      ),
-                    );
-                  } else if (snapshot.hasError) {
-                    widget.isServiceFound = false;
-
-                    return Container(
-                      margin: const EdgeInsets.only(top: 40, left: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              const Expanded(
-                                  child: Icon(Icons.dangerous_outlined,
-                                      size: 30,
-                                      color: Color.fromRGBO(227, 59, 36, 1))),
-                              Expanded(
-                                flex: 5,
-                                child: Text(
-                                  "Service Not Found",
-                                  style: GoogleFonts.poppins(
-                                      color:
-                                          const Color.fromRGBO(227, 59, 36, 1),
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              )
-                            ],
-                          ),
-                          CustomSubmitBotton(
-                            title: "Exit",
-                            margin_top: 50,
-                            onTap: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        ],
-                      ),
-                    );
-                  } else {
-                    return CustomLoader();
-                  }
-                },
-                future: getServiceStatus(),
+                      );
+                    } else {
+                      return CustomLoader();
+                    }
+                  },
+                  future: getServiceStatus(),
+                ),
               ),
             ),
             Builder(builder: (context) {
@@ -422,8 +448,7 @@ class _DealerServiceStatusPageState extends State<DealerServiceStatusPage> {
   }
 
   Future<Map> getServiceStatus() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    widget.apikey = prefs.getString("apikey")!;
+    widget.apikey = PreferencesManager.getAPIKey();
     var apiURL =
         "https://cqpplefitting.com/ad_cqpple/Api/ServiceStatusByComplainNumber";
     Map map = {};
