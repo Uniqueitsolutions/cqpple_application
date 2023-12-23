@@ -55,27 +55,27 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Widget getNextScreen() {
-    if (widget.serviceID == null ||
-        widget.serviceID == "" ||
-        widget.serviceID == "null") {
-      var role = PreferencesManager.getRole();
-      if (role == UserRole.plumber) {
-        if (widget.isPlumberApproved) {
-          return PlumberServiceTokenPage();
-        } else {
-          return const PlumberNotRegisteredPage();
-        }
-      } else if (role == UserRole.dealer) {
-        return const DealerLoginPage();
-      } else if (role == UserRole.endUser) {
-        return const HomeScreenPage();
+    var role = PreferencesManager.getRole();
+    if (role == UserRole.plumber) {
+      if (widget.isPlumberApproved) {
+        return PlumberServiceTokenPage();
       } else {
-        return LoginPage();
+        return const PlumberNotRegisteredPage();
+      }
+    } else if (role == UserRole.dealer) {
+      return const DealerLoginPage();
+    } else if (role == UserRole.endUser) {
+      if (widget.serviceID != null &&
+          widget.serviceID != "" &&
+          widget.serviceID != "null") {
+        return ServiceStatusPage(
+          ServiceID: widget.serviceID,
+        );
+      } else {
+        return const HomeScreenPage();
       }
     } else {
-      return ServiceStatusPage(
-        ServiceID: widget.serviceID,
-      );
+      return LoginPage();
     }
   }
 
