@@ -4,6 +4,7 @@ import 'package:bath_service_project/Utils/preference.dart';
 import 'package:bath_service_project/custom/custom_drawer.dart';
 import 'package:bath_service_project/custom/custom_loader.dart';
 import 'package:bath_service_project/custom/internet_checking.dart';
+import 'package:bath_service_project/pages/dealer_login_page.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:http/http.dart' as http;
@@ -284,9 +285,10 @@ class _ServiceRequestFormPageState extends State<ServiceRequestFormPage> {
                                         Text("Service Added Succesfully")));
                             if (PreferencesManager.getRole() ==
                                 UserRole.dealer) {
-                              Navigator.of(context).popUntil((route) {
-                                return route.isFirst;
-                              });
+                              Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(builder: ((context) {
+                                return const DealerLoginPage();
+                              })), (route) => false);
                             } else {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
