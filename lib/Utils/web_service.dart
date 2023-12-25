@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:bath_service_project/Utils/preference.dart';
 import 'package:bath_service_project/models/base_model.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 class WebServices {
   static const _baseURL = "https://cqpplefitting.com/ad_cqpple/Api/";
@@ -20,7 +20,9 @@ class WebServices {
     Map map = {"apikey": apikey};
     var response = await http.post(Uri.parse(_deleteAccount), body: map);
     final json = jsonDecode(response.body);
-    print(json);
+    if (kDebugMode) {
+      print(json);
+    }
     return BaseModel.fromJson(json);
   }
 }

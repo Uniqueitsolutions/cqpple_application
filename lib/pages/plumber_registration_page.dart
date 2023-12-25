@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:math';
+import 'package:bath_service_project/Utils/helper.dart';
 import 'package:bath_service_project/custom/custom_drawer.dart';
 import 'package:bath_service_project/custom/custom_loader.dart';
 import 'package:bath_service_project/custom/internet_checking.dart';
@@ -542,8 +543,8 @@ class _PlumberRegistrationPageState extends State<PlumberRegistrationPage> {
                                       child: TextFormField(
                                         controller: contactNumberController,
                                         validator: (value) {
-                                          RegExp regex = RegExp(
-                                              "^(?:(?:\\+|0{0,2})91(\\s*[\\-]\\s*)?|[0]?)?[789]\\d{9}\$");
+                                          RegExp regex =
+                                              Helper.mobileNumberRegExp();
                                           bool match =
                                               regex.hasMatch(value.toString());
                                           if (value == null || value == "") {
@@ -585,8 +586,8 @@ class _PlumberRegistrationPageState extends State<PlumberRegistrationPage> {
                                       child: TextFormField(
                                         controller: whatsappNumberController,
                                         validator: (value) {
-                                          RegExp regex = RegExp(
-                                              "^(?:(?:\\+|0{0,2})91(\\s*[\\-]\\s*)?|[0]?)?[789]\\d{9}\$");
+                                          RegExp regex =
+                                              Helper.mobileNumberRegExp();
                                           bool match =
                                               regex.hasMatch(value.toString());
                                           if (value == null || value == "") {

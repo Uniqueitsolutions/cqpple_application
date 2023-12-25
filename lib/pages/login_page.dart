@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:bath_service_project/Utils/helper.dart';
 import 'package:bath_service_project/Utils/preference.dart';
 import 'package:bath_service_project/custom/custom_drawer.dart';
 import 'package:bath_service_project/custom/custom_loader.dart';
@@ -88,8 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                             child: TextFormField(
                               controller: mobile_number,
                               validator: (value) {
-                                RegExp regex = RegExp(
-                                    "^(?:(?:\\+|0{0,2})91(\\s*[\\-]\\s*)?|[0]?)?[789]\\d{9}\$");
+                                RegExp regex = Helper.mobileNumberRegExp();
                                 bool match = regex.hasMatch(value.toString());
                                 if (value == null || value == "") {
                                   return "* Please Enter Mobile Number";

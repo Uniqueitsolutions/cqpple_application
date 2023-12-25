@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:bath_service_project/Utils/helper.dart';
 import 'package:bath_service_project/Utils/preference.dart';
 import 'package:bath_service_project/custom/custom_drawer.dart';
 import 'package:bath_service_project/custom/custom_loader.dart';
 import 'package:bath_service_project/custom/internet_checking.dart';
+import 'package:bath_service_project/drawer_pages/help_page.dart';
 import 'package:bath_service_project/models/pincode_info.dart';
 import 'package:bath_service_project/pages/service_request_page.dart';
 import 'package:dropdown_textfield/dropdown_textfield.dart';
@@ -578,8 +580,8 @@ class _ServiceContactDetailsState extends State<ServiceContactDetails1> {
                                       child: TextFormField(
                                         controller: phoneNumberController,
                                         validator: (value) {
-                                          RegExp regex = RegExp(
-                                              "^(?:(?:\\+|0{0,2})91(\\s*[\\-]\\s*)?|[0]?)?[789]\\d{9}\$");
+                                          RegExp regex =
+                                              Helper.mobileNumberRegExp();
                                           bool match =
                                               regex.hasMatch(value.toString());
                                           if (value == null || value == "") {
@@ -621,8 +623,8 @@ class _ServiceContactDetailsState extends State<ServiceContactDetails1> {
                                       child: TextFormField(
                                         controller: whatsappNumberController,
                                         validator: (value) {
-                                          RegExp regex = RegExp(
-                                              "^(?:(?:\\+|0{0,2})91(\\s*[\\-]\\s*)?|[0]?)?[789]\\d{9}\$");
+                                          RegExp regex =
+                                              Helper.mobileNumberRegExp();
                                           bool match =
                                               regex.hasMatch(value.toString());
                                           if (value == null || value == "") {
